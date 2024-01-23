@@ -1,18 +1,11 @@
 
 import './App.css';
-import TodoInput from './Components/TodoInput/TodoInput';
-import TodoList from './Components/TodoList/TodoList';
+import TodosStateContextProvider from "./Components/TodosStateContextProvider/TodosStateContextProvider.tsx";
 
-function App() {
+const  App =() =>{
 
   return (
-    <>
-      <h1>Список дел</h1>
-        <div className='app-wrapper'>
-          <TodoInput/>
-          <TodoList/>
-      </div>
-    </>
+       <TodosStateContextProvider/>  
   )
 }
 

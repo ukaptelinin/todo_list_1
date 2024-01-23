@@ -1,25 +1,30 @@
 import { useState } from 'react';
 
 function useTodoListState() {
-    const [value, setValue] = useState('');
-    const [itemsList, setItemsList] = useState<string[]>(['Погулять с собакой','Съездить в маркет', 'Сыграть в шахматы'])
+    const [inputValueCopy,setInputValueCopy] = useState<string>('');
+    const [inputValue, setInputValue] = useState<string>('');
+    const [itemsList, setItemsList] = useState<string[]>(['Погулять с собакой Погулять с собакой Погулять с собакой Погулять с собакой','Съездить в маркет', 'Сыграть в шахматы'])
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
-      }
+    
 
-      const handleKeyPress =(event: React.KeyboardEvent<HTMLDivElement>) => {
-        if(event.key === "Enter") 
-        {
-           alert(value)
-        }
+      const handleSubMit =(event: React.FormEvent<HTMLFormElement>) => {
+          
+            event.preventDefault();
+            setInputValueCopy(inputValue);
+            setInputValue('');   
      }  
 
+     const handleOnChange = (event:React.FormEvent<HTMLFormElement>) => {
+          setInputValue(event.currentTarget.value);
+     }
+
      return {
-        value,
-        handleChange,
-        handleKeyPress,
-        itemsList
+        handleSubMit,
+        handleOnChange,
+        inputValue,
+        inputValueCopy,
+        itemsList,
+        
      }
 }
 
