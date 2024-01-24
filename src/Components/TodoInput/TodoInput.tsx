@@ -1,25 +1,20 @@
 import style from './TodoInput.module.css';
-import { useState,useContext } from 'react';
+import { useContext,useRef } from 'react';
 import {MainContext} from '../../context';
 
 
 
 const TodoInput = () => {
 
-    /*const {
-    handleOnChange
-    } = useTodoListState();*/
     const {itemsList,setItemsList} = useContext(MainContext);
-    const [inputValue, setInputValue] = useState<string>('');
+    const textRef = useRef();
 
-    const handleOnChange = (event:React.FormEvent<HTMLFormElement>) => {
-        setInputValue(event.currentTarget.value);
-   }
 
     const handleSubMit = (event:React.FormEvent<HTMLFormElement>) => {
+       event.preventDefault();
        let itemsListCopy:string[] = itemsList.slice();
-       itemsListCopy.unshift(inputValue);
-       setInputValue('');
+       itemsListCopy.unshift(textRef.current.value);
+       textRef.current.value = '';
        setItemsList(itemsListCopy);
     }
 
@@ -27,7 +22,7 @@ const TodoInput = () => {
     <div>
         <form onSubmit={handleSubMit}>
             <input name = 'text'
-            onChange={handleOnChange} 
+            ref = {textRef}
             className={style.todoinput}  
             placeholder='Что надо сделать?'>
             </input>

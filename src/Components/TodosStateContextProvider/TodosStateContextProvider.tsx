@@ -7,13 +7,11 @@ import {MainContext} from '../../context';
 import style from "../TodosStateContextProvider/TodoStateContextProvider.module.css";
 
 
-/*const handleSubMit =(value:string) => {
-  setItemsList(itemsList.concat(value));
-}*/
+
 
 const TodoStateContextProvider = () => {
 
-  const [itemsList, setItemsList] = useState<string[]>(['Погулять с собакой Погулять с собакой Погулять с собакой Погулять с собакой','Съездить в маркет', 'Сыграть в шахматы']);
+  const [itemsList, setItemsList] = useState<string[]>([]);
   
   return(
   <MainContext.Provider value={{itemsList, setItemsList}}>
