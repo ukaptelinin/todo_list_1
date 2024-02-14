@@ -1,23 +1,24 @@
-import style from './TodoInput.module.css';
-import { useContext,useRef } from 'react';
-import {MainContext} from '../../context';
+import style from "./TodoInput.module.css";
+import { useContext,useRef, FC, FormEvent } from "react";
+import {TodosStateContext} from "../../context";
 
+const TodoInput: FC = () => {
 
-
-const TodoInput = () => {
-
-    const {itemsList,setItemsList} = useContext(MainContext);
-    const textRef = useRef();
-
-
-    const handleSubMit = (event:React.FormEvent<HTMLFormElement>) => {
+    const {addTodo} = useContext(TodosStateContext);
+    const textRef = useRef<HTMLInputElement>(null);
+    
+    const handleSubMit = (event:FormEvent) => {
+      
        event.preventDefault();
-       let itemsListCopy:string[] = itemsList.slice();
-       itemsListCopy.unshift(textRef.current.value);
-       textRef.current.value = '';
-       setItemsList(itemsListCopy);
-    }
-
+       if(textRef.current){
+       addTodo({
+        id:Math.random(),
+        text: textRef.current.value,
+        isDone:false
+       });
+       textRef.current.value ='';
+          }
+     }
    return (
     <div>
         <form onSubmit={handleSubMit}>

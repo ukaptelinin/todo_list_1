@@ -1,13 +1,15 @@
 import style from "./TodoFooter.module.css";
 import { useContext } from 'react';
-import {MainContext} from '../../context';
+import {TodosStateContext} from '../../context';
 
 const TodoFooter = () => {
-  const {itemsList} = useContext(MainContext);
+  const {itemsList} = useContext(TodosStateContext);
   if(itemsList.length > 0){
-    return <div className={style.Footer}>
+    return (
+      <footer className={style.footer}>
              <p>Подвал</p>
-           </div>
+      </footer>
+    )
   }
 }
 

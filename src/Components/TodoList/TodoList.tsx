@@ -1,5 +1,5 @@
-import style from '../TodoList/TodoList.module.css';
-import ListItem from './ListItem/ListItem';
+import style from "../TodoList/TodoList.module.css";
+import ListItem from "./ListItem/ListItem";
 
 const TodoList = () => {
     

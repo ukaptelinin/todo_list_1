@@ -1,9 +1,8 @@
 
-import './App.css';
-import TodosStateContextProvider from "./Components/TodosStateContextProvider/TodosStateContextProvider.tsx";
+import "./App.css";
+import TodosStateContextProvider from "./context";
 
 const  App =() =>{
-
   return (
        <TodosStateContextProvider/>  
   )

@@ -4,7 +4,7 @@
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    width: 500px;
+    max-width: 500px;
     height: auto;
     border: 3px solid black ;
   }

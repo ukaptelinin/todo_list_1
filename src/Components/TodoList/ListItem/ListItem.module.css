@@ -4,7 +4,13 @@
     text-align: left;
 }
 
-.listItem p {
+.list_item{
+    
     border: 2px solid green;
     margin: 0;
+    list-style-type: none;
+    display: flex;
+}
+.item_text {
+    width: 80%;
 }
