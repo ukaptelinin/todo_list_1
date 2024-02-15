@@ -7,7 +7,9 @@ import style from "../src/Components/TodosStateContextProvider/TodoStateContextP
 
 export const TodosStateContext = createContext<ITodosStateContext>({
   itemsList:[],
-  addTodo:(newItem:TodoItem): void => {}
+  addTodo:(newItem:TodoItem): void => {},
+  toggleDone:(currentItem:TodoItem): void => {}
+
 });
 interface TodoItem {
     id:number,
@@ -17,7 +19,7 @@ interface TodoItem {
 interface ITodosStateContext {
   itemsList:TodoItem[],
   addTodo:(newItem:TodoItem)=>void;
-
+  toggleDone:(currentItem:TodoItem) =>void;
 };
 const TodoStateContextProvider = () => {
 
@@ -29,6 +31,18 @@ const TodoStateContextProvider = () => {
       });
     };
 
+    const toggleDone =(currentItem:TodoItem): void => {
+      let currentList = [...itemsList];
+      for(let i = 0;i < currentList.length;i++) {
+         if(currentList[i].id === currentItem.id){
+              currentList[i].isDone = currentItem.isDone;
+              currentList[i].text = currentItem.text;
+           }
+      } 
+      setItemsList(currentList);
+
+    };
+
    /* const deleteTodo =(currentItem: string): void =>{
       
        let index = itemsList.indexOf(currentItem);
@@ -37,7 +51,7 @@ const TodoStateContextProvider = () => {
     
     return(
     
-    <TodosStateContext.Provider value={{itemsList, addTodo}}>
+    <TodosStateContext.Provider value={{itemsList, addTodo,toggleDone}}>
       <div className={style.app_wrapper}>
         <TodoHeader/>
         <TodoInput/>
