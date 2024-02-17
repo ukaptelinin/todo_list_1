@@ -8,8 +8,8 @@ import style from "../src/Components/TodosStateContextProvider/TodoStateContextP
 export const TodosStateContext = createContext<ITodosStateContext>({
   itemsList:[],
   addTodo:(newItem:TodoItem): void => {},
-  toggleDone:(currentItem:TodoItem): void => {}
-
+  toggleDone:(itemId:number): void => {},
+  deleteTodo:(itemId:number):void => {}
 });
 interface TodoItem {
     id:number,
@@ -19,7 +19,8 @@ interface TodoItem {
 interface ITodosStateContext {
   itemsList:TodoItem[],
   addTodo:(newItem:TodoItem)=>void;
-  toggleDone:(currentItem:TodoItem) =>void;
+  toggleDone:(itemId:number) =>void;
+  deleteTodo:(itemId:number) =>void;
 };
 const TodoStateContextProvider = () => {
 
@@ -31,27 +32,31 @@ const TodoStateContextProvider = () => {
       });
     };
 
-    const toggleDone =(currentItem:TodoItem): void => {
-      let currentList = [...itemsList];
-      for(let i = 0;i < currentList.length;i++) {
-         if(currentList[i].id === currentItem.id){
-              currentList[i].isDone = currentItem.isDone;
-              currentList[i].text = currentItem.text;
-           }
-      } 
-      setItemsList(currentList);
-
+    const toggleDone =(itemId:number): void => {
+      
+      setItemsList((currentList) =>{
+       return currentList.map((listItem) =>{
+       if(listItem.id === itemId) {
+        return {...listItem,isDone:!listItem.isDone}
+       }
+       return listItem;
+       });
+      });
     };
 
-   /* const deleteTodo =(currentItem: string): void =>{
-      
-       let index = itemsList.indexOf(currentItem);
-       setItemsList((currentList) => currentList.splice(index, 1));
-      };*/
+    const deleteTodo = (itemId:number): void => {
+      setItemsList((currentList) =>{
+        return currentList.filter((listItem) =>{
+           return listItem.id != itemId;
+        });
+      });
+    };
+
+  
     
     return(
     
-    <TodosStateContext.Provider value={{itemsList, addTodo,toggleDone}}>
+    <TodosStateContext.Provider value={{itemsList, addTodo,toggleDone,deleteTodo}}>
       <div className={style.app_wrapper}>
         <TodoHeader/>
         <TodoInput/>

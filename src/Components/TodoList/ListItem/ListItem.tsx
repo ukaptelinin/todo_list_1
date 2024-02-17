@@ -1,7 +1,7 @@
 import style from "./ListItem.module.css";
 import {useContext} from "react";
 import {TodosStateContext} from "../../../context";
-import TodoButton from "../../TodoButton/TodoButton";
+import TodoDeleteButton from "../../TodoDeleteButton/TodoDeleteButton";
 import TodoDoneToggle from "../../TodoDoneToggle/TodoDoneToggle";
 
 
@@ -18,9 +18,9 @@ const todoElements  = itemsList.map((item) =>{
     doneStyle = style.item_text + ' ' + style.item_text_is_done;
   }
   return (<li key = {id} className={style.list_item}>
-    <TodoDoneToggle id = {id} text = {text} isDone = {isDone}/>
+    <TodoDoneToggle id = {id} isDone = {isDone}/>
     <p className={doneStyle}>{text}</p>
-    <TodoButton symbol ={"X"}/></li>)});
+    <TodoDeleteButton id = {id} symbol ={"X"}/></li>)});
 
 if(itemsList.length > 0){
   
