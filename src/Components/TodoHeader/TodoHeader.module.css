@@ -2,9 +2,9 @@
     width: 100%;
     height: 80px;
     font-size: 20px;
-    text-align: center;
   }
 
-  .todo_header {
-     padding: auto;
+  .header_title {
+   padding: auto;
   }
+  

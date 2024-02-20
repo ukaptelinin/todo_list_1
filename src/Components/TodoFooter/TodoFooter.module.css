@@ -2,4 +2,20 @@
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
+    display: flex;
+    font-size: 30px;
+    justify-content: space-between;
+}
+
+.item_number {
+    font-size: 20px;
+    padding-left: 10px;
+    padding-top: auto;
+    padding-bottom: auto;
+}
+ 
+   .buttons_block {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
 }
