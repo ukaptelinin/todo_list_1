@@ -1,20 +1,15 @@
-.list_items {
+.list_item {
+    width: 100%;
     padding: 0px;
-    margin: 0px;
-    text-align: left;
-}
-
-.list_item{
-    border: 2px solid green;
-    margin: 0;
-    list-style-type: none;
     display: flex;
+    border-bottom: 2px solid rgb(183, 179, 179);
 }
 
 .item_text {
     width: 80%;
+    text-align: left;
 }
 
-.item_text_is_done{
+.item_text_is_done {
     text-decoration: line-through;
 }

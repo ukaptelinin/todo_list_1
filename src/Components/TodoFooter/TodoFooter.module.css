@@ -7,14 +7,14 @@
     justify-content: space-between;
 }
 
-.item_number {
+.item-number {
     font-size: 20px;
     padding-left: 10px;
     padding-top: auto;
     padding-bottom: auto;
 }
  
-   .buttons_block {
+.buttons-block {
     width: 40%;
     display: flex;
     justify-content: space-between;

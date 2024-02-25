@@ -1,21 +1,21 @@
-import style from "./TodoDoneToggle.module.css";
-import { useContext, FC, useRef } from "react";
-import { TodosStateContext } from "../../context";
+import { useContext, FC } from 'react';
+import style from './TodoDoneToggle.module.css';
+import { TodosStateContext } from '../TodosStateContextProvider/context';
 
-const TodoDoneToggle:FC<{id: number, isDone: boolean}> = ({id, isDone}) => {
+const TodoDoneToggle:FC<{ id: number, isDone: boolean }> = ({ id, isDone }) => {
     const { toggleDone } = useContext(TodosStateContext);
-    const checkRef = useRef<HTMLInputElement>(null);
-    const handleToggleDone = () => {
+    const handleToggleDone = (): void => {
         toggleDone(id);
-        }
+    };
 
-    return (<input 
-                className= {style.checked} 
-                onChange={handleToggleDone}
-                ref = {checkRef}
-                type="checkbox" 
-                checked={isDone}
-             />)
-}
+    return (
+        <input
+            className={style.checked}
+            onChange={handleToggleDone}
+            type="checkbox"
+            checked={isDone}
+        />
+    );
+};
 
 export default TodoDoneToggle;

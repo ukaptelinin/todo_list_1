@@ -1,16 +1,16 @@
-import style from "./ButtonClearTodoList.module.css";
-import { useContext, FC } from "react";
-import { TodosStateContext } from "../../context";
-
+import { useContext, FC } from 'react';
+import style from './ButtonClearTodoList.module.css';
+import { TodosStateContext } from '../TodosStateContextProvider/context';
 
 const ButtonClearTodoList: FC = () => {
-    const{ todoClearAll } = useContext(TodosStateContext);
-    const handleOnClick = () => {
+    const { todoClearAll } = useContext(TodosStateContext);
+    const handleOnClick = (): void => {
         todoClearAll();
     };
-      
-    return ( 
-        <button 
+
+    return (
+        <button
+            type="button"
             className={style.clear_button}
             onClick={handleOnClick}
         >

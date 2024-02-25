@@ -1,8 +1,12 @@
-.todo_button {
-    width: 10%;
+.todo-button {
     border-radius: 50%;
     width: 30px;
     height: 30px;
     cursor: pointer;
-    margin: auto 10px auto 10px;
-    }
+    margin: auto 10px;
+    font-weight: 900;
+ }
+
+ .todo-button:hover {
+    color: crimson;
+ }
