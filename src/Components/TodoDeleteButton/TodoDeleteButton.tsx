@@ -1,5 +1,5 @@
 import { useContext, FC } from 'react';
-import style from './TodoDelateButton.module.css';
+import style from './TodoDeleteButton.module.css';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
 const TodoButton:FC<{ id:number, symbol:string }> = ({ id, symbol }) => {
@@ -11,7 +11,7 @@ const TodoButton:FC<{ id:number, symbol:string }> = ({ id, symbol }) => {
     return (
         <button
             type="button"
-            className={style['todo-button']}
+            className={style['todo-delete-button']}
             onClick={handleOnClick}
         >
             {symbol}

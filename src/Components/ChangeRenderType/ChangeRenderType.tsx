@@ -1,11 +1,11 @@
 import { useContext, FC } from 'react';
-import style from './ButtonRenderType.module.css';
+import style from './ChangeRenderType.module.css';
 import { TodosStateContext, TodoRenderType } from '../TodosStateContextProvider/context';
 
-const ButtonRenderType: FC<{ typeRender: TodoRenderType, title: string }> = ({ typeRender, title }) => {
+const ChangeRenderType: FC<{ renderType: TodoRenderType, title: string }> = ({ renderType, title }) => {
     const { toggleRenderType } = useContext(TodosStateContext);
     const handleOnClick = (): void => {
-        toggleRenderType(typeRender);
+        toggleRenderType(renderType);
     };
 
     return (
@@ -19,4 +19,4 @@ const ButtonRenderType: FC<{ typeRender: TodoRenderType, title: string }> = ({ t
     );
 };
 
-export default ButtonRenderType;
+export default ChangeRenderType;

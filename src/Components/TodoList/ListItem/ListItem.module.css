@@ -1,15 +1,17 @@
-.list_item {
+.list-item {
     width: 100%;
-    padding: 0px;
+    padding: 10px;
     display: flex;
+    align-items: center;
+    gap: 10px;
     border-bottom: 2px solid rgb(183, 179, 179);
 }
 
-.item_text {
+.item-text {
     width: 80%;
     text-align: left;
 }
 
-.item_text_is_done {
+.item-text-is-done {
     text-decoration: line-through;
 }

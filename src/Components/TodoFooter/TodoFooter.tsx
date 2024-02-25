@@ -1,7 +1,7 @@
 import { useContext, FC } from 'react';
 import style from './TodoFooter.module.css';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
-import ButtonRenderType from '../ButtonRenderType/ButtonRenderType';
+import ChangeRenderType from '../ChangeRenderType/ChangeRenderType';
 import ButtonClearTodoList from '../ButtonClearTodoList/ButtonClearTodoList';
 
 const TodoFooter: FC = () => {
@@ -12,10 +12,10 @@ const TodoFooter: FC = () => {
                 <div className={style['item-number']}>
                     1 item
                 </div>
-                <div className={style.buttons_block}>
-                    <ButtonRenderType typeRender="ALL" title="ALL" />
-                    <ButtonRenderType typeRender="ACTIVE" title="Active" />
-                    <ButtonRenderType typeRender="COMPLETED" title="Completed" />
+                <div className={style['buttons-block']}>
+                    <ChangeRenderType renderType="ALL" title="ALL" />
+                    <ChangeRenderType renderType="ACTIVE" title="Active" />
+                    <ChangeRenderType renderType="COMPLETED" title="Completed" />
                 </div>
                 <div className={style['reset-button']}>
                     <ButtonClearTodoList />

@@ -6,25 +6,25 @@ import { TodosStateContext } from '../TodosStateContextProvider/context';
 
 const TodoInput: FC = () => {
     const { addTodo } = useContext(TodosStateContext);
-    const textRef = useRef<HTMLInputElement>(null);
-    const handleSubMit = (event: FormEvent): void => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
-        if (textRef.current) {
+        if (inputRef.current) {
             addTodo({
                 id: Math.random(),
-                text: textRef.current.value,
+                text: inputRef.current.value,
                 isDone: false,
             });
-            textRef.current.value = '';
+            inputRef.current.value = '';
         }
     };
 
     return (
         <div>
-            <form onSubmit={handleSubMit}>
+            <form onSubmit={handleSubmit}>
                 <input
                     name="text"
-                    ref={textRef}
+                    ref={inputRef}
                     className={style.todoinput}
                     placeholder="Что надо сделать?"
                 />

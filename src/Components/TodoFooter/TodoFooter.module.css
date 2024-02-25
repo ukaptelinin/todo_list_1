@@ -5,17 +5,15 @@
     display: flex;
     font-size: 30px;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 
 .item-number {
     font-size: 20px;
-    padding-left: 10px;
-    padding-top: auto;
-    padding-bottom: auto;
 }
  
 .buttons-block {
-    width: 40%;
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
 }

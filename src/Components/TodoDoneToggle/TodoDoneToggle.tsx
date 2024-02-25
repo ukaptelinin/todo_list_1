@@ -10,7 +10,7 @@ const TodoDoneToggle:FC<{ id: number, isDone: boolean }> = ({ id, isDone }) => {
 
     return (
         <input
-            className={style.checked}
+            className={style['todo-status-toggle']}
             onChange={handleToggleDone}
             type="checkbox"
             checked={isDone}
