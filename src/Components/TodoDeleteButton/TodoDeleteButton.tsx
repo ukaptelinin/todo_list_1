@@ -2,7 +2,7 @@ import { useContext, FC } from 'react';
 import style from './TodoDeleteButton.module.css';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
-const TodoButton:FC<{ id:number, symbol:string }> = ({ id, symbol }) => {
+const TodoDeleteButton: FC<{ id:number, symbol:string }> = ({ id, symbol }) => {
     const { deleteTodo } = useContext(TodosStateContext);
     const handleOnClick = (): void => {
         deleteTodo(id);
@@ -19,4 +19,4 @@ const TodoButton:FC<{ id:number, symbol:string }> = ({ id, symbol }) => {
     );
 };
 
-export default TodoButton;
+export default TodoDeleteButton;
