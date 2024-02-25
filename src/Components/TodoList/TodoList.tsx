@@ -15,7 +15,6 @@ const TodoList: FC = () => {
                     />
                 ))}
             </ul>
-
         );
     }
     return null;

@@ -11,7 +11,7 @@ const ButtonRenderType: FC<{ typeRender: TodoRenderType, title: string }> = ({ t
     return (
         <button
             type="button"
-            className={style.type_button}
+            className={style['type-button']}
             onClick={handleOnClick}
         >
             {title}

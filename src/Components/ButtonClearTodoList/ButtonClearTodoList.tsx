@@ -11,7 +11,7 @@ const ButtonClearTodoList: FC = () => {
     return (
         <button
             type="button"
-            className={style.clear_button}
+            className={style['clear-button']}
             onClick={handleOnClick}
         >
             Clear completed
