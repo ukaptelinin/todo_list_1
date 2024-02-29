@@ -5,8 +5,8 @@ import style from './TodoList.module.css';
 import ListItem from './ListItem/ListItem';
 
 const TodoList: FC = () => {
-    const { itemsList, todoTypeRender } = useContext(TodosStateContext);
-    const itemsToRender = useItemsToRender(todoTypeRender, itemsList);
+    const { itemsList } = useContext(TodosStateContext);
+    const itemsToRender = useItemsToRender();
 
     if (itemsList.length) {
         return (

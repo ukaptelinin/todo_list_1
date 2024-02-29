@@ -1,13 +1,15 @@
-import { TodoItem, TodoRenderType } from '../TodosStateContextProvider/context';
+import { useContext } from 'react';
+import { TodosStateContext, TodoItem } from '../TodosStateContextProvider/context';
 
-const useItemsToRender = (type: TodoRenderType, list: TodoItem[]): TodoItem[] => {
-    switch (type) {
+const useItemsToRender = (): TodoItem[] => {
+    const { itemsList, todoTypeRender } = useContext(TodosStateContext);
+    switch (todoTypeRender) {
     case 'ACTIVE':
-        return list.filter((item) => !item.isDone);
+        return itemsList.filter((item) => !item.isDone);
     case 'COMPLETED':
-        return list.filter((item) => item.isDone);
+        return itemsList.filter((item) => item.isDone);
     default:
-        return list;
+        return itemsList;
     }
 };
 
