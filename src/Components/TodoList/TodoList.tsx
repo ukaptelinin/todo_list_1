@@ -6,7 +6,7 @@ import ListItem from './ListItem/ListItem';
 const TodoList: FC = () => {
     const { itemsList, todoTypeRender } = useContext(TodosStateContext);
 
-    const useItemsToRender = (type: TodoRenderType, list: TodoItem[]): TodoItem[]=> {
+    const useItemsToRender = (type: TodoRenderType, list: TodoItem[]): TodoItem[] => {
         switch (type) {
         case 'ACTIVE':
             return list.filter((item) => !item.isDone);
@@ -17,10 +17,12 @@ const TodoList: FC = () => {
         }
     };
 
+    const itemsToRender = useItemsToRender(todoTypeRender, itemsList);
+
     if (itemsList.length) {
         return (
             <ul className={style.list}>
-                {useItemsToRender(todoTypeRender, itemsList).map((item) => (
+                {itemsToRender.map((item) => (
                     <ListItem
                         key={item.id}
                         {...item}
