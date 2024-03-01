@@ -1,25 +1,19 @@
 import {
     useContext, useRef, FC, FormEvent,
 } from 'react';
-import style from './TodoInput.module.css';
+import style from './TodoReductItemInput.module.css';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
-const TodoInput: FC = () => {
-    const { addTodo } = useContext(TodosStateContext);
+const TodoReductItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
+    const { reductTodo } = useContext(TodosStateContext);
     const inputRef = useRef<HTMLInputElement>(null);
     const handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
+
         if (inputRef.current) {
-            addTodo({
-                id: Math.random(),
-                text: inputRef.current.value,
-                isDone: false,
-                isReduct: false,
-            });
-            inputRef.current.value = '';
+            reductTodo(id, inputRef.current.value);
         }
     };
-
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -27,11 +21,11 @@ const TodoInput: FC = () => {
                     name="text"
                     ref={inputRef}
                     className={style.todoinput}
-                    placeholder="Что надо сделать?"
+                    value={text}
                 />
             </form>
         </div>
     );
 };
 
-export default TodoInput;
+export default TodoReductItemInput;

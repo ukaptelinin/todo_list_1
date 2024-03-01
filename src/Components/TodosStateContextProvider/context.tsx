@@ -9,6 +9,8 @@ export const TodosStateContext = createContext<ITodosStateContext>({
     addTodo: (newItem: TodoItem): void => {},
     toggleDone: (itemId: number): void => {},
     deleteTodo: (itemId: number): void => {},
+    setReductFlag: (itemId: number): void => {},
+    reductTodo: (itemId: number, text: string): void => {},
     toggleRenderType: (type: TodoRenderType): void => {},
     todoClearAll: (): void => {},
 });
@@ -18,6 +20,7 @@ export interface TodoItem {
     id:number,
     text:string,
     isDone:boolean,
+    isReduct:boolean,
 }
 
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
@@ -28,6 +31,8 @@ interface ITodosStateContext {
     addTodo:(newItem: TodoItem) => void;
     toggleDone:(itemId: number) => void;
     deleteTodo:(itemId: number) => void;
+    setReductFlag:(itemId: number) => void;
+    reductTodo:(itemId: number, text: string) => void;
     toggleRenderType:(type: TodoRenderType) => void;
     todoClearAll: () => void;
 }
@@ -57,8 +62,21 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         setTodoRenderType(type);
     };
 
+    const reductTodo = (itemId: number, text: string): void => {
+        console.log(itemId, text);
+    };
+
     const todoClearAll = (): void => {
         setItemsList([]);
+    };
+
+    const setReductFlag = (itemId: number): void => {
+        setItemsList((currentList) => currentList.map((listItem) => {
+            if (listItem.id !== itemId) {
+                return { ...listItem, isReduct: false };
+            }
+            return { ...listItem, isReduct: true };
+        }));
     };
 
     return (
@@ -68,6 +86,8 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
             addTodo,
             toggleDone,
             deleteTodo,
+            setReductFlag,
+            reductTodo,
             toggleRenderType,
             todoClearAll,
         }}
