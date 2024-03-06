@@ -1,36 +1,45 @@
-import { useContext, FC } from 'react';
+import {
+    useState, useContext, FC,
+} from 'react';
 import classNames from 'classnames';
 import style from './ListItem.module.css';
 import TodoDeleteButton from '../../TodoDeleteButton/TodoDeleteButton';
 import TodoDoneToggle from '../../TodoDoneToggle/TodoDoneToggle';
-import TodoReductItemInput from '../../TodoReductItemInput/TodoReductItemInput';
-import { TodosStateContext, TodoItem } from '../../TodosStateContextProvider/context';
+import TodoEditItemInput from '../../TodoEditItemInput/TodoEditItemInput';
+import { TodoItem, TodosStateContext } from '../../TodosStateContextProvider/context';
 
 const ListItem: FC<TodoItem> = ({
-    id, text, isDone, isReduct,
+    id, text, isDone,
 }) => {
-    const { setReductFlag } = useContext(TodosStateContext);
+    const { todoRenderType, toggleRenderType } = useContext(TodosStateContext);
+    const [currentIdTodoListItem, setCurrentIdTodoListItem] = useState<number>(0);
     const handleOnDoubleClick = (): void => {
-        setReductFlag(id);
+        if (todoRenderType !== 'EDIT-ITEM') {
+            setCurrentIdTodoListItem(id);
+            toggleRenderType('EDIT-ITEM');
+        }
     };
 
-    if (isReduct) {
-        return (
-            <li className={style['list-item']}>
-                <TodoReductItemInput id={id} text={text} />
-            </li>
-        );
-    }
     return (
         <li className={style['list-item']}>
-            <TodoDoneToggle id={id} isDone={isDone} />
-            <p
-                className={classNames(style['item-text'], { [style['item-text-is-done']]: isDone })}
-                onDoubleClick={handleOnDoubleClick}
-            >
-                {text}
-            </p>
-            <TodoDeleteButton id={id} symbol="╳" />
+            {todoRenderType === 'EDIT-ITEM' && currentIdTodoListItem === id
+                ? (
+                    <TodoEditItemInput
+                        id={id}
+                        text={text}
+                    />
+                ) : (
+                    <>
+                        <TodoDoneToggle id={id} isDone={isDone} />
+                        <p
+                            className={classNames(style['item-text'], { [style['item-text-is-done']]: isDone })}
+                            onDoubleClick={handleOnDoubleClick}
+                        >
+                            {text}
+                        </p>
+                        <TodoDeleteButton id={id} symbol="╳" />
+                    </>
+                )}
         </li>
     );
 };

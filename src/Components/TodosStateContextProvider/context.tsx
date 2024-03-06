@@ -4,13 +4,12 @@ import {
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const TodosStateContext = createContext<ITodosStateContext>({
-    todoTypeRender: 'ALL',
+    todoRenderType: 'ALL',
     itemsList: [],
     addTodo: (newItem: TodoItem): void => {},
     toggleDone: (itemId: number): void => {},
     deleteTodo: (itemId: number): void => {},
-    setReductFlag: (itemId: number): void => {},
-    reductTodo: (itemId: number, text: string): void => {},
+    editTodo: (itemId: number, text: string): void => {},
     toggleRenderType: (type: TodoRenderType): void => {},
     todoClearCompleted: (): void => {},
 });
@@ -20,19 +19,17 @@ export interface TodoItem {
     id:number,
     text:string,
     isDone:boolean,
-    isReduct:boolean,
 }
 
-export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
+export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED' | 'EDIT-ITEM';
 
 interface ITodosStateContext {
-    todoTypeRender: TodoRenderType,
     itemsList: TodoItem[],
+    todoRenderType: TodoRenderType,
     addTodo:(newItem: TodoItem) => void;
     toggleDone:(itemId: number) => void;
     deleteTodo:(itemId: number) => void;
-    setReductFlag:(itemId: number) => void;
-    reductTodo:(itemId: number, text: string) => void;
+    editTodo:(itemId: number, text: string) => void;
     toggleRenderType:(type: TodoRenderType) => void;
     todoClearCompleted: () => void;
 }
@@ -62,10 +59,10 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         setTodoRenderType(type);
     };
 
-    const reductTodo = (itemId: number, text: string): void => {
+    const editTodo = (itemId: number, text: string): void => {
         setItemsList((currentList) => currentList.map((listItem) => {
             if (listItem.id === itemId) {
-                return { ...listItem, text, isReduct: false };
+                return { ...listItem, text };
             }
             return listItem;
         }));
@@ -75,24 +72,14 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         setItemsList((currentList) => currentList.filter((listItem) => !listItem.isDone));
     };
 
-    const setReductFlag = (itemId: number): void => {
-        setItemsList((currentList) => currentList.map((listItem) => {
-            if (listItem.id !== itemId) {
-                return { ...listItem, isReduct: false };
-            }
-            return { ...listItem, isReduct: true };
-        }));
-    };
-
     return (
         <TodosStateContext.Provider value={{
             itemsList,
-            todoTypeRender: todoRenderType,
+            todoRenderType,
             addTodo,
             toggleDone,
             deleteTodo,
-            setReductFlag,
-            reductTodo,
+            editTodo,
             toggleRenderType,
             todoClearCompleted,
         }}

@@ -14,7 +14,6 @@ const TodoInput: FC = () => {
                 id: Math.random(),
                 text: inputRef.current.value,
                 isDone: false,
-                isReduct: false,
             });
             inputRef.current.value = '';
         }
@@ -26,7 +25,7 @@ const TodoInput: FC = () => {
                 <input
                     name="text"
                     ref={inputRef}
-                    className={style.todoinput}
+                    className={style['todo-input']}
                     placeholder="Что надо сделать?"
                 />
             </form>
