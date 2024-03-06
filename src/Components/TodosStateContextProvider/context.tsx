@@ -6,6 +6,8 @@ import {
 export const TodosStateContext = createContext<ITodosStateContext>({
     todoRenderType: 'ALL',
     itemsList: [],
+    currentIdTodoListItem: null,
+    changeCurrentIdTodoListItem: (itemId: number | null): void => {},
     addTodo: (newItem: TodoItem): void => {},
     toggleDone: (itemId: number): void => {},
     deleteTodo: (itemId: number): void => {},
@@ -21,11 +23,13 @@ export interface TodoItem {
     isDone:boolean,
 }
 
-export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED' | 'EDIT-ITEM';
+export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 
 interface ITodosStateContext {
     itemsList: TodoItem[],
     todoRenderType: TodoRenderType,
+    currentIdTodoListItem: number | null,
+    changeCurrentIdTodoListItem:(itemId: number | null) => void;
     addTodo:(newItem: TodoItem) => void;
     toggleDone:(itemId: number) => void;
     deleteTodo:(itemId: number) => void;
@@ -36,6 +40,7 @@ interface ITodosStateContext {
 
 const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [todoRenderType, setTodoRenderType] = useState<TodoRenderType>('ALL');
+    const [currentIdTodoListItem, setCurrentIdTodoListItem] = useState<number | null>(null);
     const [itemsList, setItemsList] = useState<TodoItem[]>([]);
 
     const addTodo = (newItem: TodoItem): void => {
@@ -59,6 +64,10 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         setTodoRenderType(type);
     };
 
+    const changeCurrentIdTodoListItem = (itemId: number | null): void => {
+        setCurrentIdTodoListItem(itemId);
+    };
+
     const editTodo = (itemId: number, text: string): void => {
         setItemsList((currentList) => currentList.map((listItem) => {
             if (listItem.id === itemId) {
@@ -76,6 +85,8 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         <TodosStateContext.Provider value={{
             itemsList,
             todoRenderType,
+            currentIdTodoListItem,
+            changeCurrentIdTodoListItem,
             addTodo,
             toggleDone,
             deleteTodo,

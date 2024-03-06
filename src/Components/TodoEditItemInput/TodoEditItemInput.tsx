@@ -5,7 +5,7 @@ import style from './TodoEditItemInput.module.css';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
 const TodoEditItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
-    const { toggleRenderType, editTodo } = useContext(TodosStateContext);
+    const { changeCurrentIdTodoListItem, editTodo } = useContext(TodosStateContext);
     const inputRef = useRef<HTMLInputElement>(null);
     const [editValue, setEditValue] = useState<string>(text);
     const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -16,7 +16,7 @@ const TodoEditItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
 
         if (inputRef.current) {
             editTodo(id, editValue);
-            toggleRenderType('ALL');
+            changeCurrentIdTodoListItem(null);
         }
     };
     return (

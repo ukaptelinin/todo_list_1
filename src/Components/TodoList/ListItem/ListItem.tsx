@@ -1,5 +1,5 @@
 import {
-    useState, useContext, FC,
+    useContext, FC,
 } from 'react';
 import classNames from 'classnames';
 import style from './ListItem.module.css';
@@ -11,18 +11,20 @@ import { TodoItem, TodosStateContext } from '../../TodosStateContextProvider/con
 const ListItem: FC<TodoItem> = ({
     id, text, isDone,
 }) => {
-    const { todoRenderType, toggleRenderType } = useContext(TodosStateContext);
-    const [currentIdTodoListItem, setCurrentIdTodoListItem] = useState<number>(0);
+    const {
+        currentIdTodoListItem,
+        changeCurrentIdTodoListItem,
+    } = useContext(TodosStateContext);
+
     const handleOnDoubleClick = (): void => {
-        if (todoRenderType !== 'EDIT-ITEM') {
-            setCurrentIdTodoListItem(id);
-            toggleRenderType('EDIT-ITEM');
+        if (id !== currentIdTodoListItem) {
+            changeCurrentIdTodoListItem(id);
         }
     };
 
     return (
         <li className={style['list-item']}>
-            {todoRenderType === 'EDIT-ITEM' && currentIdTodoListItem === id
+            { currentIdTodoListItem === id
                 ? (
                     <TodoEditItemInput
                         id={id}
