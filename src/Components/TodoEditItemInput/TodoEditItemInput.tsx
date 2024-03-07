@@ -1,32 +1,24 @@
 import {
-    useContext, useState, useRef, FC, FormEvent, ChangeEvent,
+    useContext, FC, FormEvent,
 } from 'react';
 import style from './TodoEditItemInput.module.css';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
 const TodoEditItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
     const { changeCurrentIdTodoListItem, editTodo } = useContext(TodosStateContext);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [editValue, setEditValue] = useState<string>(text);
-    const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        setEditValue(event.target.value);
-    };
-    const handleSubmit = (event: FormEvent): void => {
-        event.preventDefault();
 
-        if (inputRef.current) {
-            editTodo(id, editValue);
-            changeCurrentIdTodoListItem(null);
-        }
+    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+        const formData: FormData = new FormData(event.currentTarget);
+        event.preventDefault();
+        editTodo(id, formData.get('text') as string);
+        changeCurrentIdTodoListItem(null);
     };
     return (
         <form onSubmit={handleSubmit}>
             <input
                 name="text"
-                ref={inputRef}
-                className={style.todoinput}
-                value={editValue}
-                onChange={handleOnChange}
+                className={style['todo-input']}
+                defaultValue={text}
             />
         </form>
     );
