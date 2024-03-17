@@ -5,6 +5,7 @@ import TodoHeader from './Components/TodoHeader/TodoHeader';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoList from './Components/TodoList/TodoList';
 import TodoFooter from './Components/TodoFooter/TodoFooter';
+import TodoPagination from './Components/TodoPagination/TodoPagination';
 
 const App: FC = () => (
     <TodosStateContextProvider>
@@ -15,6 +16,7 @@ const App: FC = () => (
             <TodoInput />
             <TodoList />
             <TodoFooter />
+            <TodoPagination />
         </div>
     </TodosStateContextProvider>
 );

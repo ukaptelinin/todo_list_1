@@ -2,14 +2,21 @@ import { useContext } from 'react';
 import { TodosStateContext, TodoItem } from '../TodosStateContextProvider/context';
 
 const useItemsToRender = (): TodoItem[] => {
-    const { itemsList, todoRenderType } = useContext(TodosStateContext);
+    const AMOUNT = 5;
+    const {
+        itemsList, todoRenderType, todoRenderPageNumber,
+    } = useContext(TodosStateContext);
+    const preparedPage = (currentPage: number, currentTodoListItem:TodoItem[]):TodoItem[] => currentTodoListItem
+        .slice(currentPage * AMOUNT,
+            currentPage * AMOUNT + AMOUNT);
+
     switch (todoRenderType) {
     case 'ACTIVE':
-        return itemsList.filter((item) => !item.isDone);
+        return preparedPage(todoRenderPageNumber, itemsList.filter((item) => !item.isDone));
     case 'COMPLETED':
-        return itemsList.filter((item) => item.isDone);
+        return preparedPage(todoRenderPageNumber, itemsList.filter((item) => item.isDone));
     default:
-        return itemsList;
+        return preparedPage(todoRenderPageNumber, itemsList);
     }
 };
 

@@ -1,0 +1,10 @@
+.direct-buttom {
+    font-size: 30px;
+    color: white;
+    background-color: brown;
+    padding: 1px 10px;
+}
+
+.direct-buttom:hover {
+    color: gold;
+}

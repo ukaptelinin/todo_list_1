@@ -6,11 +6,13 @@ import {
 export const TodosStateContext = createContext<ITodosStateContext>({
     todoRenderType: 'ALL',
     itemsList: [],
+    todoRenderPageNumber: 0,
     currentIdTodoListItem: null,
     changeCurrentIdTodoListItem: (itemId: number | null): void => {},
     addTodo: (newItem: TodoItem): void => {},
     toggleDone: (itemId: number): void => {},
     deleteTodo: (itemId: number): void => {},
+    setTodoCurrentPage: (currentPageNumber: number): void => {},
     editTodo: (itemId: number, text: string): void => {},
     toggleRenderType: (type: TodoRenderType): void => {},
     todoClearCompleted: (): void => {},
@@ -22,17 +24,23 @@ export interface TodoItem {
     text:string,
     isDone:boolean,
 }
-
+export interface PagiNationButton {
+    btnNumber:number,
+}
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
+
+export type DirectButtonType = 'LEFT' | 'RIGTH';
 
 interface ITodosStateContext {
     itemsList: TodoItem[],
     todoRenderType: TodoRenderType,
+    todoRenderPageNumber: number,
     currentIdTodoListItem: number | null,
     changeCurrentIdTodoListItem:(itemId: number | null) => void;
     addTodo:(newItem: TodoItem) => void;
     toggleDone:(itemId: number) => void;
     deleteTodo:(itemId: number) => void;
+    setTodoCurrentPage:(currentPageNumber: number) => void;
     editTodo:(itemId: number, text: string) => void;
     toggleRenderType:(type: TodoRenderType) => void;
     todoClearCompleted: () => void;
@@ -42,9 +50,10 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
     const [todoRenderType, setTodoRenderType] = useState<TodoRenderType>('ALL');
     const [currentIdTodoListItem, setCurrentIdTodoListItem] = useState<number | null>(null);
     const [itemsList, setItemsList] = useState<TodoItem[]>([]);
+    const [todoRenderPageNumber, setTodoRenderPageNumber] = useState<number>(0);
 
     const addTodo = (newItem: TodoItem): void => {
-        setItemsList((currentList) => [newItem, ...currentList]);
+        setItemsList((currentList) => [...currentList, newItem]);
     };
 
     const toggleDone = (itemId: number): void => {
@@ -58,6 +67,10 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
 
     const deleteTodo = (itemId: number): void => {
         setItemsList((currentList) => currentList.filter((listItem) => listItem.id !== itemId));
+    };
+
+    const setTodoCurrentPage = (currentPageNumber: number): void => {
+        setTodoRenderPageNumber(currentPageNumber);
     };
 
     const toggleRenderType = (type: TodoRenderType): void => {
@@ -85,6 +98,7 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         <TodosStateContext.Provider value={{
             itemsList,
             todoRenderType,
+            todoRenderPageNumber,
             currentIdTodoListItem,
             changeCurrentIdTodoListItem,
             addTodo,
@@ -92,6 +106,7 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
             deleteTodo,
             editTodo,
             toggleRenderType,
+            setTodoCurrentPage,
             todoClearCompleted,
         }}
         >

@@ -1,0 +1,20 @@
+.number-item {
+   margin: auto 5px; 
+}
+
+.number-button {
+    font-size: 30px;
+    min-width: 35px;
+    color: white;
+    background-color: brown; 
+    padding: auto;
+}
+
+.number-button:hover {
+color: gold;
+}
+
+.current-number-button {
+    color: rgb(41, 182, 33);
+    background-color: rgb(218, 73, 73);
+}
