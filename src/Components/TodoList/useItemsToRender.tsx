@@ -1,23 +1,29 @@
 import { useContext } from 'react';
-import { TodosStateContext, TodoItem } from '../TodosStateContextProvider/context';
+import {
+    TodosStateContext, TodoItem, AMOUNT,
+} from '../TodosStateContextProvider/context';
+
+const preparePage = (currentPage: number, currentTodoListItem:TodoItem[]): TodoItem[] => currentTodoListItem
+    .slice(currentPage * AMOUNT, currentPage * AMOUNT + AMOUNT);
 
 const useItemsToRender = (): TodoItem[] => {
-    const AMOUNT = 5;
     const {
         itemsList, todoRenderType, todoRenderPageNumber,
     } = useContext(TodosStateContext);
-    const preparedPage = (currentPage: number, currentTodoListItem:TodoItem[]):TodoItem[] => currentTodoListItem
-        .slice(currentPage * AMOUNT,
-            currentPage * AMOUNT + AMOUNT);
+
+    let itemsGroup: TodoItem[] = [];
 
     switch (todoRenderType) {
     case 'ACTIVE':
-        return preparedPage(todoRenderPageNumber, itemsList.filter((item) => !item.isDone));
+        itemsGroup = itemsList.filter((item) => !item.isDone);
+        break;
     case 'COMPLETED':
-        return preparedPage(todoRenderPageNumber, itemsList.filter((item) => item.isDone));
+        itemsGroup = itemsList.filter((item) => item.isDone);
+        break;
     default:
-        return preparedPage(todoRenderPageNumber, itemsList);
+        itemsGroup = itemsList;
     }
+    return preparePage(todoRenderPageNumber, itemsGroup);
 };
 
 export default useItemsToRender;

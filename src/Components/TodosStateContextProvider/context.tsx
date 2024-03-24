@@ -17,8 +17,9 @@ export const TodosStateContext = createContext<ITodosStateContext>({
     toggleRenderType: (type: TodoRenderType): void => {},
     todoClearCompleted: (): void => {},
 });
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
+/* eslint-enable @typescript-eslint/no-unused-vars */
+export const AMOUNT = 5;
 export interface TodoItem {
     id:number,
     text:string,
@@ -28,8 +29,6 @@ export interface PagiNationButton {
     btnNumber:number,
 }
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
-
-export type DirectButtonType = 'LEFT' | 'RIGTH';
 
 interface ITodosStateContext {
     itemsList: TodoItem[],

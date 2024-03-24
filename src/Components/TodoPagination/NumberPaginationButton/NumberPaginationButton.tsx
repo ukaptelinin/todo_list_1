@@ -15,7 +15,6 @@ const NumberPaginationButton : FC<{ numberButton: number }> = ({ numberButton })
             <button
                 className={classNames(style['number-button'],
                     { [style['current-number-button']]: todoRenderPageNumber === numberButton - 1 })}
-                //   className={style['number-button']}
                 type="button"
                 onClick={handleOnClick}
             >

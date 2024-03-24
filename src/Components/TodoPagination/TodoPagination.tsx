@@ -23,7 +23,7 @@ const TodoPagination: FC = () => {
                 <ul className={style['buttons-list']}>
                     {createButtonList()}
                 </ul>
-                <DirectPaginationButton direction="RIGTH" />
+                <DirectPaginationButton direction="RIGHT" />
             </div>
         );
     }

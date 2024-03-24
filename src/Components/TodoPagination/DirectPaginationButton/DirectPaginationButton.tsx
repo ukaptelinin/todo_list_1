@@ -1,9 +1,9 @@
 import { useContext, FC } from 'react';
 import style from './DirectPaginationButton.module.css';
-import { TodosStateContext, DirectButtonType } from '../../TodosStateContextProvider/context';
+import { TodosStateContext, AMOUNT } from '../../TodosStateContextProvider/context';
 
-const DirectPaginationButton : FC<{ direction: DirectButtonType }> = ({ direction }) => {
-    const { setTodoCurrentPage, todoRenderPageNumber } = useContext(TodosStateContext);
+const DirectPaginationButton : FC<{ direction: 'LEFT' | 'RIGHT' }> = ({ direction }) => {
+    const { setTodoCurrentPage, todoRenderPageNumber, itemsList } = useContext(TodosStateContext);
 
     const handleOnClick = (): void => {
         setTodoCurrentPage(direction === 'LEFT' ? todoRenderPageNumber - 1 : todoRenderPageNumber + 1);
@@ -14,7 +14,8 @@ const DirectPaginationButton : FC<{ direction: DirectButtonType }> = ({ directio
             type="button"
             className={style['direct-buttom']}
             onClick={handleOnClick}
-            disabled={todoRenderPageNumber === 0 && direction === 'LEFT'}
+            disabled={(direction === 'LEFT' && todoRenderPageNumber === 0)
+             || (direction === 'RIGHT' && todoRenderPageNumber === Math.ceil(itemsList.length / AMOUNT))}
         >
             {direction === 'LEFT' ? '‹' : '›'}
         </button>
