@@ -1,5 +1,5 @@
 import {
-    FC, ReactNode, createContext, useState,
+    FC, ReactNode, createContext, useState, useEffect,
 } from 'react';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -45,11 +45,18 @@ interface ITodosStateContext {
     todoClearCompleted: () => void;
 }
 
+const getItemsFromStorage = ():TodoItem[] => (
+    JSON.parse(localStorage.getItem('todolist') as string || '[]')
+);
 const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [todoRenderType, setTodoRenderType] = useState<TodoRenderType>('ALL');
     const [currentIdTodoListItem, setCurrentIdTodoListItem] = useState<number | null>(null);
-    const [itemsList, setItemsList] = useState<TodoItem[]>([]);
+    const [itemsList, setItemsList] = useState<TodoItem[]>(getItemsFromStorage);
     const [todoRenderPageNumber, setTodoRenderPageNumber] = useState<number>(0);
+
+    useEffect(():void => {
+        localStorage.setItem('todolist', JSON.stringify(itemsList));
+    }, [itemsList]);
 
     const addTodo = (newItem: TodoItem): void => {
         setItemsList((currentList) => [...currentList, newItem]);
