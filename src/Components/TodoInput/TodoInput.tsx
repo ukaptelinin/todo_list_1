@@ -7,15 +7,16 @@ import { TodosStateContext, AMOUNT } from '../TodosStateContextProvider/context'
 const TodoInput: FC = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const {
-        itemsList, addTodo, toggleRenderType, setTodoCurrentPage, todoRenderPageNumber,
+        addTodo, toggleRenderType, setTodoCurrentPage, itemsList, todoRenderPageNumber,
     } = useContext(TodosStateContext);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         const formData: FormData = new FormData(event.currentTarget);
-        let pageNumber = itemsList.length > AMOUNT ? Math.ceil(itemsList.length / AMOUNT - 1) : 0;
-        if (itemsList.length % AMOUNT === 0 && itemsList.length >= AMOUNT) {
-            pageNumber = todoRenderPageNumber + 1;
-        }
+
+        const calculatePageNumber = (currentPageNumber: number): number => (itemsList.length % AMOUNT > 0
+            ? Math.floor(itemsList.length / AMOUNT)
+            : currentPageNumber + 1);
+
         event.preventDefault();
         toggleRenderType('ALL');
 
@@ -27,7 +28,9 @@ const TodoInput: FC = () => {
             });
             inputRef.current.value = '';
         }
-        setTodoCurrentPage(pageNumber);
+        if (itemsList.length > 0) {
+            setTodoCurrentPage(calculatePageNumber(todoRenderPageNumber));
+        }
     };
 
     return (
