@@ -13,8 +13,9 @@ const TodoInput: FC = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         const formData: FormData = new FormData(event.currentTarget);
 
-        const calculatePageNumber = (currentPageNumber: number): number => (itemsList.length % AMOUNT > 0
-            ? Math.floor(itemsList.length / AMOUNT)
+        const calculatePageNumber = (currentPageNumber: number,
+            itemsCount: number): number => (itemsList.length % itemsCount > 0
+            ? Math.floor(itemsList.length / itemsCount)
             : currentPageNumber + 1);
 
         event.preventDefault();
@@ -29,7 +30,7 @@ const TodoInput: FC = () => {
             inputRef.current.value = '';
         }
         if (itemsList.length > 0) {
-            setTodoCurrentPage(calculatePageNumber(todoRenderPageNumber));
+            setTodoCurrentPage(calculatePageNumber(todoRenderPageNumber, AMOUNT));
         }
     };
 

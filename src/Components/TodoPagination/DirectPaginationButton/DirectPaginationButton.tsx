@@ -15,7 +15,7 @@ const DirectPaginationButton : FC<{ direction: 'LEFT' | 'RIGHT' }> = ({ directio
             className={style['direct-buttom']}
             onClick={handleOnClick}
             disabled={(direction === 'LEFT' && todoRenderPageNumber === 0)
-             || (direction === 'RIGHT' && todoRenderPageNumber === Math.ceil(itemsList.length / AMOUNT))}
+             || (direction === 'RIGHT' && todoRenderPageNumber === Math.floor(itemsList.length / AMOUNT))}
         >
             {direction === 'LEFT' ? '‹' : '›'}
         </button>
