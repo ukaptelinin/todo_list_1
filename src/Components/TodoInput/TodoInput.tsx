@@ -2,11 +2,11 @@ import {
     FC, FormEvent, useRef, useContext,
 } from 'react';
 import style from './TodoInput.module.css';
-import { TodosStateContext, AMOUNT, TodoItem } from '../TodosStateContextProvider/context';
+import { TodosStateContext, AMOUNT } from '../TodosStateContextProvider/context';
 
 const calculatePageNumber = (currentPageNumber: number,
-    itemsCount: number, currentList: TodoItem[]): number => (currentList.length % itemsCount > 0
-    ? Math.floor(currentList.length / itemsCount)
+    itemsCount: number): number => (itemsCount % AMOUNT > 0
+    ? Math.floor(itemsCount / AMOUNT)
     : currentPageNumber + 1);
 
 const TodoInput: FC = () => {
@@ -29,7 +29,7 @@ const TodoInput: FC = () => {
             inputRef.current.value = '';
         }
         if (itemsList.length > 0) {
-            setTodoCurrentPage(calculatePageNumber(todoRenderPageNumber, AMOUNT, itemsList));
+            setTodoCurrentPage(calculatePageNumber(todoRenderPageNumber, itemsList.length));
         }
     };
 
