@@ -2,21 +2,20 @@ import {
     FC, FormEvent, useRef, useContext,
 } from 'react';
 import style from './TodoInput.module.css';
-import { TodosStateContext, AMOUNT } from '../TodosStateContextProvider/context';
+import { TodosStateContext, AMOUNT, TodoItem } from '../TodosStateContextProvider/context';
+
+const calculatePageNumber = (currentPageNumber: number,
+    itemsCount: number, currentList: TodoItem[]): number => (currentList.length % itemsCount > 0
+    ? Math.floor(currentList.length / itemsCount)
+    : currentPageNumber + 1);
 
 const TodoInput: FC = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const {
         addTodo, toggleRenderType, setTodoCurrentPage, itemsList, todoRenderPageNumber,
     } = useContext(TodosStateContext);
-
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         const formData: FormData = new FormData(event.currentTarget);
-
-        const calculatePageNumber = (currentPageNumber: number,
-            itemsCount: number): number => (itemsList.length % itemsCount > 0
-            ? Math.floor(itemsList.length / itemsCount)
-            : currentPageNumber + 1);
 
         event.preventDefault();
         toggleRenderType('ALL');
@@ -30,7 +29,7 @@ const TodoInput: FC = () => {
             inputRef.current.value = '';
         }
         if (itemsList.length > 0) {
-            setTodoCurrentPage(calculatePageNumber(todoRenderPageNumber, AMOUNT));
+            setTodoCurrentPage(calculatePageNumber(todoRenderPageNumber, AMOUNT, itemsList));
         }
     };
 
