@@ -1,24 +1,24 @@
-import { useContext, FC } from 'react';
+import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import style from './DirectPaginationButton.module.css';
-import { TodosStateContext, AMOUNT } from '../../TodosStateContextProvider/context';
+// import { AMOUNT, TodosStateContext } from '../../TodosStateContextProvider/context';
+import usePageNumber from '../../../Hooks/usePageNumber';
 
 const DirectPaginationButton : FC<{ direction: 'LEFT' | 'RIGHT' }> = ({ direction }) => {
-    const { setTodoCurrentPage, todoRenderPageNumber, itemsList } = useContext(TodosStateContext);
+    const [getPageNumber] = usePageNumber();
 
-    const handleOnClick = (): void => {
-        setTodoCurrentPage(direction === 'LEFT' ? todoRenderPageNumber - 1 : todoRenderPageNumber + 1);
-    };
-
+    const pathPageNumber = (): number => (direction === 'LEFT'
+        ? getPageNumber() - 1
+        : getPageNumber() + 1);
     return (
-        <button
-            type="button"
+        <Link
+            to={`/?page=${pathPageNumber()}`}
             className={style['direct-buttom']}
-            onClick={handleOnClick}
-            disabled={(direction === 'LEFT' && todoRenderPageNumber === 0)
-             || (direction === 'RIGHT' && todoRenderPageNumber === Math.floor(itemsList.length / AMOUNT))}
+            //     disabled={(direction === 'LEFT' && getPageNumber() === 1)
+            //          || (direction === 'RIGHT' && getPageNumber() === Math.ceil(itemsList.length / AMOUNT))}
         >
             {direction === 'LEFT' ? '‹' : '›'}
-        </button>
+        </Link>
     );
 };
 

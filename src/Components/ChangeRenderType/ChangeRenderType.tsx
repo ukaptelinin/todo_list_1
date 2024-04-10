@@ -1,12 +1,15 @@
 import { useContext, FC } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import style from './ChangeRenderType.module.css';
 import { TodosStateContext, TodoRenderType } from '../TodosStateContextProvider/context';
 
 const ChangeRenderType: FC<{ renderType: TodoRenderType, title: string }> = ({ renderType, title }) => {
-    const { toggleRenderType, setTodoCurrentPage } = useContext(TodosStateContext);
+    const [, setSearchParams] = useSearchParams({ page: '' });
+    const { toggleRenderType } = useContext(TodosStateContext);
+
     const handleOnClick = (): void => {
         toggleRenderType(renderType);
-        setTodoCurrentPage(0);
+        setSearchParams('1');
     };
 
     return (

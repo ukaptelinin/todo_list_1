@@ -6,13 +6,11 @@ import {
 export const TodosStateContext = createContext<ITodosStateContext>({
     todoRenderType: 'ALL',
     itemsList: [],
-    todoRenderPageNumber: 0,
     currentIdTodoListItem: null,
     changeCurrentIdTodoListItem: (itemId: number | null): void => {},
     addTodo: (newItem: TodoItem): void => {},
     toggleDone: (itemId: number): void => {},
     deleteTodo: (itemId: number): void => {},
-    setTodoCurrentPage: (currentPageNumber: number): void => {},
     editTodo: (itemId: number, text: string): void => {},
     toggleRenderType: (type: TodoRenderType): void => {},
     todoClearCompleted: (): void => {},
@@ -33,13 +31,11 @@ export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 interface ITodosStateContext {
     itemsList: TodoItem[],
     todoRenderType: TodoRenderType,
-    todoRenderPageNumber: number,
     currentIdTodoListItem: number | null,
     changeCurrentIdTodoListItem:(itemId: number | null) => void;
     addTodo:(newItem: TodoItem) => void;
     toggleDone:(itemId: number) => void;
     deleteTodo:(itemId: number) => void;
-    setTodoCurrentPage:(currentPageNumber: number) => void;
     editTodo:(itemId: number, text: string) => void;
     toggleRenderType:(type: TodoRenderType) => void;
     todoClearCompleted: () => void;
@@ -52,7 +48,6 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
     const [todoRenderType, setTodoRenderType] = useState<TodoRenderType>('ALL');
     const [currentIdTodoListItem, setCurrentIdTodoListItem] = useState<number | null>(null);
     const [itemsList, setItemsList] = useState<TodoItem[]>(getItemsFromStorage);
-    const [todoRenderPageNumber, setTodoRenderPageNumber] = useState<number>(0);
 
     useEffect(():void => {
         localStorage.setItem('todolist', JSON.stringify(itemsList));
@@ -75,9 +70,11 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         setItemsList((currentList) => currentList.filter((listItem) => listItem.id !== itemId));
     };
 
-    const setTodoCurrentPage = (currentPageNumber: number): void => {
-        setTodoRenderPageNumber(currentPageNumber);
-    };
+    /* const setTodoCurrentPage = (currentPageNumber: number): void => {
+        setSearchParams({ page: `${currentPageNumber}` });
+    }; */
+
+    //  const getTodoCurrentPage = (param: string) :string | null => searchParams.get(param);
 
     const toggleRenderType = (type: TodoRenderType): void => {
         setTodoRenderType(type);
@@ -104,7 +101,6 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         <TodosStateContext.Provider value={{
             itemsList,
             todoRenderType,
-            todoRenderPageNumber,
             currentIdTodoListItem,
             changeCurrentIdTodoListItem,
             addTodo,
@@ -112,7 +108,6 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
             deleteTodo,
             editTodo,
             toggleRenderType,
-            setTodoCurrentPage,
             todoClearCompleted,
         }}
         >

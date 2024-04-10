@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import usePageNumber from '../../Hooks/usePageNumber';
 import {
     TodosStateContext, TodoItem, AMOUNT,
 } from '../TodosStateContextProvider/context';
@@ -8,8 +9,9 @@ const preparePage = (currentPage: number, currentTodoListItem:TodoItem[]): TodoI
 
 const useItemsToRender = (): TodoItem[] => {
     const {
-        itemsList, todoRenderType, todoRenderPageNumber,
+        itemsList, todoRenderType,
     } = useContext(TodosStateContext);
+    const [getPageNumber] = usePageNumber();
 
     let itemsGroup: TodoItem[] = [];
 
@@ -23,7 +25,7 @@ const useItemsToRender = (): TodoItem[] => {
     default:
         itemsGroup = itemsList;
     }
-    return preparePage(todoRenderPageNumber, itemsGroup);
+    return preparePage(getPageNumber() - 1, itemsGroup);
 };
 
 export default useItemsToRender;

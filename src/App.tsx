@@ -1,4 +1,7 @@
 import type { FC } from 'react';
+import {
+    BrowserRouter,
+} from 'react-router-dom';
 import style from './App.module.css';
 import TodosStateContextProvider from './Components/TodosStateContextProvider/context';
 import TodoHeader from './Components/TodoHeader/TodoHeader';
@@ -9,15 +12,17 @@ import TodoPagination from './Components/TodoPagination/TodoPagination';
 
 const App: FC = () => (
     <TodosStateContextProvider>
-        <div
-            className={style['app-wrapper']}
-        >
-            <TodoHeader />
-            <TodoInput />
-            <TodoList />
-            <TodoFooter />
-            <TodoPagination />
-        </div>
+        <BrowserRouter>
+            <div
+                className={style['app-wrapper']}
+            >
+                <TodoHeader />
+                <TodoInput />
+                <TodoList />
+                <TodoFooter />
+                <TodoPagination />
+            </div>
+        </BrowserRouter>
     </TodosStateContextProvider>
 );
 

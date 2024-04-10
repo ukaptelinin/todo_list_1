@@ -1,25 +1,22 @@
-import { useContext, FC } from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import usePageNumber from '../../../Hooks/usePageNumber';
 import style from './NumberPaginationButton.module.css';
-import { TodosStateContext } from '../../TodosStateContextProvider/context';
 
 const NumberPaginationButton : FC<{ numberButton: number }> = ({ numberButton }) => {
-    const { setTodoCurrentPage, todoRenderPageNumber } = useContext(TodosStateContext);
-
-    const handleOnClick = (): void => {
-        setTodoCurrentPage(numberButton - 1);
-    };
+    const [getPageNumber] = usePageNumber();
 
     return (
         <li className={style['number-item']}>
-            <button
+            <Link
+                to={`/?page=${numberButton}`}
                 className={classNames(style['number-button'],
-                    { [style['current-number-button']]: todoRenderPageNumber === numberButton - 1 })}
-                type="button"
-                onClick={handleOnClick}
+                    { [style['current-number-button']]: getPageNumber() === numberButton })}
+
             >
                 {numberButton}
-            </button>
+            </Link>
         </li>
     );
 };
