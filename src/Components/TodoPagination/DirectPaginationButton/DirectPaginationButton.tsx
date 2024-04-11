@@ -7,7 +7,7 @@ import usePageNumber from '../../../Hooks/usePageNumber';
 const DirectPaginationButton : FC<{ direction: 'LEFT' | 'RIGHT' }> = ({ direction }) => {
     const [getPageNumber] = usePageNumber();
 
-    const pathPageNumber = (): number => (direction === 'LEFT'
+    const pathPageNumber = ():number => (direction === 'LEFT'
         ? getPageNumber() - 1
         : getPageNumber() + 1);
     return (
