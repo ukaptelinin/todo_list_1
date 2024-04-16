@@ -71,12 +71,6 @@ const TodoStateContextProvider: FC<{ children: ReactNode }> = ({ children }) => 
         setItemsList((currentList) => currentList.filter((listItem) => listItem.id !== itemId));
     };
 
-    /* const setTodoCurrentPage = (currentPageNumber: number): void => {
-        setSearchParams({ page: `${currentPageNumber}` });
-    }; */
-
-    //  const getTodoCurrentPage = (param: string) :string | null => searchParams.get(param);
-
     const toggleRenderType = (type: TodoRenderType): void => {
         setTodoRenderType(type);
     };
