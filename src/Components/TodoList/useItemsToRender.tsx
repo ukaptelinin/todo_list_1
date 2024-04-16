@@ -11,7 +11,7 @@ const useItemsToRender = (): TodoItem[] => {
     const {
         itemsList, todoRenderType,
     } = useContext(TodosStateContext);
-    const [getPageNumber] = usePageNumber();
+    const [pageNumber] = usePageNumber();
 
     let itemsGroup: TodoItem[] = [];
 
@@ -25,7 +25,7 @@ const useItemsToRender = (): TodoItem[] => {
     default:
         itemsGroup = itemsList;
     }
-    return preparePage(getPageNumber() - 1, itemsGroup);
+    return preparePage(pageNumber - 1, itemsGroup);
 };
 
 export default useItemsToRender;

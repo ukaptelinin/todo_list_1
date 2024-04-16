@@ -15,7 +15,7 @@ const TodoInput: FC = () => {
     const {
         addTodo, toggleRenderType, itemsList,
     } = useContext(TodosStateContext);
-    const [getPageNumber, setPageNumber] = usePageNumber();
+    const [pageNumber, setPageNumber] = usePageNumber();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         const formData: FormData = new FormData(event.currentTarget);
@@ -37,7 +37,7 @@ const TodoInput: FC = () => {
         }
 
         if (itemsList.length > 0) {
-            setPageNumber(calculatePageNumber(getPageNumber(), itemsList.length));
+            setPageNumber(calculatePageNumber(pageNumber, itemsList.length));
         }
     };
 

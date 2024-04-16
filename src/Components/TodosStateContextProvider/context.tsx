@@ -18,6 +18,7 @@ export const TodosStateContext = createContext<ITodosStateContext>({
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 export const AMOUNT = 5;
+export const PAGE: string = 'page';
 export interface TodoItem {
     id:number,
     text:string,

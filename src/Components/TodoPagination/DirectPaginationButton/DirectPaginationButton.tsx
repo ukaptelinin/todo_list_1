@@ -1,24 +1,25 @@
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { FC, useContext } from 'react';
 import style from './DirectPaginationButton.module.css';
-// import { AMOUNT, TodosStateContext } from '../../TodosStateContextProvider/context';
+import { TodosStateContext, AMOUNT } from '../../TodosStateContextProvider/context';
 import usePageNumber from '../../../Hooks/usePageNumber';
 
 const DirectPaginationButton : FC<{ direction: 'LEFT' | 'RIGHT' }> = ({ direction }) => {
-    const [getPageNumber] = usePageNumber();
+    const { itemsList } = useContext(TodosStateContext);
+    const [pageNumber, setPageNumber] = usePageNumber();
 
-    const pathPageNumber = ():number => (direction === 'LEFT'
-        ? getPageNumber() - 1
-        : getPageNumber() + 1);
+    const handleOnClick = (): void => {
+        setPageNumber(direction === 'LEFT' ? pageNumber - 1 : pageNumber + 1);
+    };
     return (
-        <Link
-            to={`/?page=${pathPageNumber()}`}
+        <button
+            type="button"
             className={style['direct-buttom']}
-            //     disabled={(direction === 'LEFT' && getPageNumber() === 1)
-            //          || (direction === 'RIGHT' && getPageNumber() === Math.ceil(itemsList.length / AMOUNT))}
+            onClick={handleOnClick}
+            disabled={(direction === 'LEFT' && pageNumber === 1)
+                      || (direction === 'RIGHT' && pageNumber === Math.ceil(itemsList.length / AMOUNT))}
         >
             {direction === 'LEFT' ? '‹' : '›'}
-        </Link>
+        </button>
     );
 };
 

@@ -3,16 +3,17 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import usePageNumber from '../../../Hooks/usePageNumber';
 import style from './NumberPaginationButton.module.css';
+import { PAGE } from '../../TodosStateContextProvider/context';
 
 const NumberPaginationButton : FC<{ numberButton: number }> = ({ numberButton }) => {
-    const [getPageNumber] = usePageNumber();
+    const [pageNumber] = usePageNumber();
 
     return (
         <li className={style['number-item']}>
             <Link
-                to={`/?page=${numberButton}`}
+                to={`/?${PAGE}=${numberButton}`}
                 className={classNames(style['number-button'],
-                    { [style['current-number-button']]: getPageNumber() === numberButton })}
+                    { [style['current-number-button']]: pageNumber === numberButton })}
 
             >
                 {numberButton}
