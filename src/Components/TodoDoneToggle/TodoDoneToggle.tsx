@@ -1,5 +1,5 @@
 import { useContext, FC } from 'react';
-import style from './TodoDoneToggle.module.css';
+import Checkbox from '@mui/material/Checkbox';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
 const TodoDoneToggle:FC<{ id: number, isDone: boolean }> = ({ id, isDone }) => {
@@ -9,10 +9,8 @@ const TodoDoneToggle:FC<{ id: number, isDone: boolean }> = ({ id, isDone }) => {
     };
 
     return (
-        <input
-            className={style['todo-status-toggle']}
+        <Checkbox
             onChange={handleToggleDone}
-            type="checkbox"
             checked={isDone}
         />
     );

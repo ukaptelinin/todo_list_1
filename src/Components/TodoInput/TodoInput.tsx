@@ -1,8 +1,8 @@
 import {
     FC, FormEvent, useRef, useContext,
 } from 'react';
+import { TextField } from '@mui/material';
 import usePageNumber from '../../Hooks/usePageNumber';
-import style from './TodoInput.module.css';
 import { TodosStateContext, AMOUNT } from '../TodosStateContextProvider/context';
 
 const calculatePageNumber = (currentPageNumber: number,
@@ -18,7 +18,7 @@ const TodoInput: FC = () => {
     const [pageNumber, setPageNumber] = usePageNumber();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-        const formData: FormData = new FormData(event.currentTarget);
+        //     const formData: FormData = new FormData(event.currentTarget);
 
         event.preventDefault();
         toggleRenderType('ALL');
@@ -30,7 +30,8 @@ const TodoInput: FC = () => {
         if (inputRef.current) {
             addTodo({
                 id: Math.random(),
-                text: formData.get('text') as string,
+                text: inputRef.current.value as string,
+                //           text: formData.get('text') as string,
                 isDone: false,
             });
             inputRef.current.value = '';
@@ -44,10 +45,10 @@ const TodoInput: FC = () => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input
-                    name="text"
-                    className={style['todo-input']}
-                    ref={inputRef}
+                <TextField
+                    fullWidth
+                    inputProps={{ style: { fontSize: 30 } }}
+                    inputRef={inputRef}
                     placeholder="Что надо сделать?"
                 />
             </form>

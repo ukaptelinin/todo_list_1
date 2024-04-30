@@ -1,21 +1,21 @@
 import { useContext, FC } from 'react';
-import style from './TodoDeleteButton.module.css';
+import { IconButton } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
-const TodoDeleteButton: FC<{ id:number, symbol:string }> = ({ id, symbol }) => {
+const TodoDeleteButton: FC<{ id:number }> = ({ id }) => {
     const { deleteTodo } = useContext(TodosStateContext);
     const handleOnClick = (): void => {
         deleteTodo(id);
     };
 
     return (
-        <button
-            type="button"
-            className={style['todo-delete-button']}
+
+        <IconButton
             onClick={handleOnClick}
         >
-            {symbol}
-        </button>
+            <Delete />
+        </IconButton>
     );
 };
 

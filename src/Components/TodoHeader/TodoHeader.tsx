@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import style from './TodoHeader.module.css';
+import { Typography } from '@mui/material';
 
 const TodoHeader: FC = () => (
-    <header className={style.header}>
-        <h1>Список дел</h1>
+    <header>
+        <Typography variant="h1" align="center" sx={{ mb: 3 }}>Список дел</Typography>
     </header>
 );
 

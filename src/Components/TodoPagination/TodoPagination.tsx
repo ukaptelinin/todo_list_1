@@ -1,33 +1,31 @@
-import { useContext, FC, JSX } from 'react';
+import * as React from 'react';
+import { useContext, FC } from 'react';
+import Stack from '@mui/material/Stack/Stack';
+import Pagination from '@mui/material/Pagination/Pagination';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
-import style from './TodoPagination.module.css';
-import DirectPaginationButton from './DirectPaginationButton/DirectPaginationButton';
-import NumberPaginationButton from './NumberPaginationButton/NumberPaginationButton';
+import usePageNumber from '../../Hooks/usePageNumber';
 
 const TodoPagination: FC = () => {
-    const AMOUNT: number = 5;
-
     const { itemsList } = useContext(TodosStateContext);
-    const createButtonList = ():JSX.Element[] => {
-        const numBerButtomList: JSX.Element[] = [];
-        for (let i: number = 1; i <= (Math.ceil(itemsList.length / AMOUNT)); i++) {
-            numBerButtomList.push(<NumberPaginationButton numberButton={i} />);
-        }
-        return numBerButtomList;
+    const [pageNumber, setPageNumber] = usePageNumber();
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number):void => {
+        setPageNumber(value);
     };
+    const AMOUNT: number = 5;
 
     if (itemsList.length > 0) {
         return (
-            <div className={style.pagination}>
-                <DirectPaginationButton direction="LEFT" />
-                <ul className={style['buttons-list']}>
-                    {createButtonList()}
-                </ul>
-                <DirectPaginationButton direction="RIGHT" />
-            </div>
+            <Stack spacing={2} alignItems="center">
+                <Pagination
+                    count={Math.ceil(itemsList.length / AMOUNT)}
+                    page={pageNumber}
+                    variant="outlined"
+                    shape="rounded"
+                    onChange={handleChange}
+                />
+            </Stack>
         );
     }
     return null;
 };
-
 export default TodoPagination;

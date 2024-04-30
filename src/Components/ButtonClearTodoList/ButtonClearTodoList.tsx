@@ -1,5 +1,5 @@
 import { useContext, FC } from 'react';
-import style from './ButtonClearTodoList.module.css';
+import { Button } from '@mui/material';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
 const ButtonClearTodoList: FC = () => {
@@ -9,13 +9,14 @@ const ButtonClearTodoList: FC = () => {
     };
 
     return (
-        <button
-            type="button"
-            className={style['clear-button']}
+        <Button
+            variant="contained"
+            color="secondary"
             onClick={handleOnClick}
+            sx={{ ml: 5 }}
         >
             Clear completed
-        </button>
+        </Button>
     );
 };
 
