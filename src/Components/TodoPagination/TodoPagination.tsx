@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack/Stack';
 import Pagination from '@mui/material/Pagination/Pagination';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 import usePageNumber from '../../Hooks/usePageNumber';
+import usePaginatioNcountPages from './usePaginatinoCountPages';
 
 const TodoPagination: FC = () => {
     const { itemsList } = useContext(TodosStateContext);
@@ -11,13 +12,13 @@ const TodoPagination: FC = () => {
     const handleChange = (event: React.ChangeEvent<unknown>, value: number):void => {
         setPageNumber(value);
     };
-    const AMOUNT: number = 5;
+    const count: number = usePaginatioNcountPages();
 
     if (itemsList.length > 0) {
         return (
             <Stack spacing={2} alignItems="center">
                 <Pagination
-                    count={Math.ceil(itemsList.length / AMOUNT)}
+                    count={count}
                     page={pageNumber}
                     variant="outlined"
                     shape="rounded"
