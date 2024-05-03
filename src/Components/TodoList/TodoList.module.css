@@ -1,9 +1,0 @@
-.list {
-    width: 100%;
-    list-style-type: none;
-    margin: 0;
-    font-size: 38px;
-    display: flex;
-    flex-direction: column;
-    border-bottom: 2px solid rgb(119, 116, 116);
-}

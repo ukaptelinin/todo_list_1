@@ -1,11 +1,11 @@
 import { useContext, FC } from 'react';
-import style from './ChangeRenderType.module.css';
+import { Button } from '@mui/material';
 import { TodosStateContext, TodoRenderType } from '../TodosStateContextProvider/context';
 import usePageNumber from '../../Hooks/usePageNumber';
 
 const ChangeRenderType: FC<{ renderType: TodoRenderType, title: string }> = ({ renderType, title }) => {
     const [,setPageNumber] = usePageNumber();
-    const { toggleRenderType } = useContext(TodosStateContext);
+    const { toggleRenderType, todoRenderType } = useContext(TodosStateContext);
 
     const handleOnClick = (): void => {
         toggleRenderType(renderType);
@@ -13,13 +13,12 @@ const ChangeRenderType: FC<{ renderType: TodoRenderType, title: string }> = ({ r
     };
 
     return (
-        <button
-            type="button"
-            className={style['type-button']}
+        <Button
+            variant={todoRenderType === title ? 'outlined' : 'contained'}
             onClick={handleOnClick}
         >
             {title}
-        </button>
+        </Button>
     );
 };
 
