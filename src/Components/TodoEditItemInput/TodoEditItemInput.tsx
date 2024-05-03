@@ -9,8 +9,6 @@ const TodoEditItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-        //       const formData: FormData = new FormData(event.currentTarget);
-
         event.preventDefault();
         if (inputRef.current !== null) {
             editTodo(id, inputRef.current.value as string);

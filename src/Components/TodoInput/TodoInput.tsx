@@ -31,7 +31,6 @@ const TodoInput: FC = () => {
             addTodo({
                 id: Math.random(),
                 text: inputRef.current.value as string,
-                //           text: formData.get('text') as string,
                 isDone: false,
             });
             inputRef.current.value = '';
