@@ -18,8 +18,6 @@ const TodoInput: FC = () => {
     const [pageNumber, setPageNumber] = usePageNumber();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-        //     const formData: FormData = new FormData(event.currentTarget);
-
         event.preventDefault();
         toggleRenderType('ALL');
 
