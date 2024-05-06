@@ -1,27 +1,35 @@
-import {
-    useContext, FC, FormEvent, useRef,
-} from 'react';
+import { useContext, FC } from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { TodosStateContext } from '../TodosStateContextProvider/context';
 
+interface ITodoInput {
+    inputText: string;
+}
+
 const TodoEditItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
     const { changeCurrentIdTodoListItem, editTodo } = useContext(TodosStateContext);
-    const inputRef = useRef<HTMLInputElement | null>(null);
+    const { control, handleSubmit } = useForm({
+        defaultValues: {
+            inputText: text,
+        },
+    });
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-        event.preventDefault();
-        if (inputRef.current !== null) {
-            editTodo(id, inputRef.current.value as string);
-        }
+    const onSubmit: SubmitHandler<ITodoInput> = (data) => {
+        editTodo(id, data.inputText);
         changeCurrentIdTodoListItem(null);
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <TextField
-                fullWidth
-                name="text"
-                inputRef={inputRef}
-                defaultValue={text}
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+                name="inputText"
+                control={control}
+                render={({ field }) => (
+                    <TextField
+                        fullWidth
+                        {...field}
+                    />
+                )}
             />
         </form>
     );
