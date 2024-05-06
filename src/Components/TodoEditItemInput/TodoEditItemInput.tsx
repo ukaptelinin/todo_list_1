@@ -28,6 +28,7 @@ const TodoEditItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
                     <TextField
                         fullWidth
                         {...field}
+                        inputProps={{ style: { fontSize: 30 } }}
                     />
                 )}
             />
