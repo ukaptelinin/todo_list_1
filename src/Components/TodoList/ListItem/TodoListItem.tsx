@@ -1,43 +1,33 @@
-import {
-    useContext, FC,
-} from 'react';
-import {
-    Grid, ListItem,
-} from '@mui/material';
-
+import { FC } from 'react';
+import { Grid, ListItem } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 import TodoEditItemInput from '../../TodoEditItemInput/TodoEditItemInput';
-import { TodoItem, TodosStateContext } from '../../TodosStateContextProvider/context';
 import TodoListItemElement from './TodoListItemElement/TodoListItemElement';
+import todoListStore, { TodoItem } from '../../../Stores/store';
 
 const TodoListItem: FC<TodoItem> = ({
     id, text, isDone,
-}) => {
-    const {
-        currentIdTodoListItem,
-    } = useContext(TodosStateContext);
-
-    return (
-        <Grid container direction="row">
-            <ListItem sx={{ borderBottom: '1px solid silver' }}>
-                { currentIdTodoListItem === id
-                    ? (
-                        <Grid item xs={12}>
-                            <TodoEditItemInput
-                                id={id}
-                                text={text}
-                            />
-                        </Grid>
-                    )
-                    : (
-                        <TodoListItemElement
+}) => (
+    <Grid container direction="row">
+        <ListItem sx={{ borderBottom: '1px solid silver' }}>
+            { todoListStore.currentIdTodoListItem === id
+                ? (
+                    <Grid item xs={12}>
+                        <TodoEditItemInput
                             id={id}
                             text={text}
-                            isDone={isDone}
                         />
-                    )}
-            </ListItem>
-        </Grid>
-    );
-};
+                    </Grid>
+                )
+                : (
+                    <TodoListItemElement
+                        id={id}
+                        text={text}
+                        isDone={isDone}
+                    />
+                )}
+        </ListItem>
+    </Grid>
+);
 
-export default TodoListItem;
+export default observer(TodoListItem);

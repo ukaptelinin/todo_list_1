@@ -1,11 +1,10 @@
-import { useContext, FC } from 'react';
+import { FC } from 'react';
 import { Button } from '@mui/material';
-import { TodosStateContext } from '../TodosStateContextProvider/context';
+import todoListStore from '../../Stores/store';
 
 const ButtonClearTodoList: FC = () => {
-    const { todoClearCompleted } = useContext(TodosStateContext);
     const handleOnClick = (): void => {
-        todoClearCompleted();
+        todoListStore.todoClearCompleted();
     };
 
     return (

@@ -1,14 +1,13 @@
-import { useContext, FC } from 'react';
+import { FC } from 'react';
 import { Grid } from '@mui/material';
-import { TodosStateContext } from '../TodosStateContextProvider/context';
+import { observer } from 'mobx-react';
+import todoListStore from '../../Stores/store';
 import ChangeRenderType from '../ChangeRenderType/ChangeRenderType';
 import ButtonClearTodoList from '../ButtonClearTodoList/ButtonClearTodoList';
 
 const TodoFooter: FC = () => {
-    const { itemsList } = useContext(TodosStateContext);
-    if (itemsList.length > 0) {
+    if (todoListStore.itemList.length > 0) {
         return (
-
             <footer>
                 <Grid
                     container
@@ -31,10 +30,9 @@ const TodoFooter: FC = () => {
                     </Grid>
                 </Grid>
             </footer>
-
         );
     }
     return null;
 };
 
-export default TodoFooter;
+export default observer(TodoFooter);

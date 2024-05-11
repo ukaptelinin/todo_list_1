@@ -1,14 +1,16 @@
-import { useContext, FC } from 'react';
+import { FC } from 'react';
 import List from '@mui/material/List';
+import { observer } from 'mobx-react-lite';
 import TodoListItem from './ListItem/TodoListItem';
-import { TodosStateContext, TodoItem } from '../TodosStateContextProvider/context';
+import itemListStore, { TodoItem } from '../../Stores/store';
 import useItemsToRender from './useItemsToRender';
 
 const TodoList: FC = () => {
-    const { itemsList } = useContext(TodosStateContext);
+   
+
     const itemsToRender = useItemsToRender();
 
-    if (itemsList.length) {
+    if (itemListStore.itemList.length) {
         return (
             <List>
                 {itemsToRender.map((item: TodoItem) => (
@@ -23,4 +25,4 @@ const TodoList: FC = () => {
     return null;
 };
 
-export default TodoList;
+export default observer(TodoList);

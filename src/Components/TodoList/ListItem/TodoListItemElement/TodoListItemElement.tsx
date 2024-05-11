@@ -1,20 +1,16 @@
 import { Grid, Typography } from '@mui/material';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
+import { observer } from 'mobx-react-lite';
 import TodoDeleteButton from '../../../TodoDeleteButton/TodoDeleteButton';
 import TodoDoneToggle from '../../../TodoDoneToggle/TodoDoneToggle';
-import { TodoItem, TodosStateContext } from '../../../TodosStateContextProvider/context';
+import todoListStore, { TodoItem } from '../../../../Stores/store';
 
 const TodoListItemElement: FC<TodoItem> = ({
     id, text, isDone,
 }) => {
-    const {
-        currentIdTodoListItem,
-        changeCurrentIdTodoListItem,
-    } = useContext(TodosStateContext);
-
     const handleOnDoubleClick = (): void => {
-        if (id !== currentIdTodoListItem) {
-            changeCurrentIdTodoListItem(id);
+        if (id !== todoListStore.currentIdTodoListItem) {
+            todoListStore.changeCurrentIdTodoListItem(id);
         }
     };
     return (
@@ -37,4 +33,4 @@ const TodoListItemElement: FC<TodoItem> = ({
         </>
     );
 };
-export default TodoListItemElement;
+export default observer(TodoListItemElement);

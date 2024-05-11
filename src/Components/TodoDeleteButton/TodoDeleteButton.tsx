@@ -1,12 +1,11 @@
-import { useContext, FC } from 'react';
+import { FC } from 'react';
 import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
-import { TodosStateContext } from '../TodosStateContextProvider/context';
+import todoListStore from '../../Stores/store';
 
 const TodoDeleteButton: FC<{ id:number }> = ({ id }) => {
-    const { deleteTodo } = useContext(TodosStateContext);
     const handleOnClick = (): void => {
-        deleteTodo(id);
+        todoListStore.deleteTodo(id);
     };
 
     return (

@@ -1,8 +1,8 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { TextField } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import usePageNumber from '../../Hooks/usePageNumber';
-import { TodosStateContext, AMOUNT } from '../TodosStateContextProvider/context';
+import todoListStore, { AMOUNT } from '../../Stores/store';
 
 const calculatePageNumber = (currentPageNumber: number,
     itemsCount: number): number => (itemsCount % AMOUNT > 0
@@ -14,9 +14,6 @@ interface ITodoInput {
 }
 
 const TodoInput: FC = () => {
-    const {
-        addTodo, toggleRenderType, itemsList,
-    } = useContext(TodosStateContext);
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             inputText: '',
@@ -25,13 +22,13 @@ const TodoInput: FC = () => {
     const [pageNumber, setPageNumber] = usePageNumber();
 
     const onSubmit: SubmitHandler<ITodoInput> = (data) => {
-        toggleRenderType('ALL');
+        todoListStore.toggleRenderType('ALL');
 
-        if (itemsList.length === 0) {
+        if (todoListStore.itemList.length === 0) {
             setPageNumber(1);
         }
 
-        addTodo({
+        todoListStore.addTodo({
             id: Math.random(),
             text: data.inputText,
             isDone: false,
@@ -40,8 +37,8 @@ const TodoInput: FC = () => {
             inputText: '',
         });
 
-        if (itemsList.length > 0) {
-            setPageNumber(calculatePageNumber(pageNumber, itemsList.length));
+        if (todoListStore.itemList.length > 0) {
+            setPageNumber(calculatePageNumber(pageNumber, todoListStore.itemList.length));
         }
     };
 

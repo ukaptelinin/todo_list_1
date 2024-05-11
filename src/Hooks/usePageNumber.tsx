@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
+import { PAGE } from '../Stores/store';
 
 type UsePageNumberReturn = [
     pageNumber: number,
@@ -8,10 +9,10 @@ type UsePageNumberReturn = [
 const usePageNumber = (): UsePageNumberReturn => {
     const [searchParams, setSearchParams] = useSearchParams({ page: '' });
 
-    const pageNumber:number = Number(searchParams.get('page'));
+    const pageNumber:number = Number(searchParams.get(PAGE));
     const setPageNumber = (currentPageNumber:number): void => {
         setSearchParams((params) => {
-            params.set('page', String(currentPageNumber));
+            params.set(PAGE, String(currentPageNumber));
             return params;
         });
     };

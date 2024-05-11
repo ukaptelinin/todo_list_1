@@ -1,11 +1,10 @@
-import { useContext, FC } from 'react';
+import { FC } from 'react';
 import Checkbox from '@mui/material/Checkbox';
-import { TodosStateContext } from '../TodosStateContextProvider/context';
+import todoListStore from '../../Stores/store';
 
 const TodoDoneToggle:FC<{ id: number, isDone: boolean }> = ({ id, isDone }) => {
-    const { toggleDone } = useContext(TodosStateContext);
     const handleToggleDone = (): void => {
-        toggleDone(id);
+        todoListStore.toggleDone(id);
     };
 
     return (

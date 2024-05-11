@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { useContext, FC } from 'react';
+import { FC } from 'react';
 import Stack from '@mui/material/Stack/Stack';
 import Pagination from '@mui/material/Pagination/Pagination';
-import { TodosStateContext } from '../TodosStateContextProvider/context';
+import todoListStore from '../../Stores/store';
 import usePageNumber from '../../Hooks/usePageNumber';
 import usePaginatioNcountPages from './usePaginatinoCountPages';
 
 const TodoPagination: FC = () => {
-    const { itemsList } = useContext(TodosStateContext);
     const [pageNumber, setPageNumber] = usePageNumber();
     const handleChange = (event: React.ChangeEvent<unknown>, value: number):void => {
         setPageNumber(value);
     };
     const count: number = usePaginatioNcountPages();
 
-    if (itemsList.length > 0) {
+    if (todoListStore.itemList.length > 0) {
         return (
             <Stack spacing={2} alignItems="center">
                 <Pagination
