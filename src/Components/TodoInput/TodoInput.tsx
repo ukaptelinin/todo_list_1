@@ -2,7 +2,8 @@ import { FC } from 'react';
 import { TextField } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import usePageNumber from '../../Hooks/usePageNumber';
-import todoListStore, { AMOUNT } from '../../Stores/store';
+import { AMOUNT } from '../../constants';
+import useTodoListStore from '../../Hooks/useTodoListStore';
 
 const calculatePageNumber = (currentPageNumber: number,
     itemsCount: number): number => (itemsCount % AMOUNT > 0
@@ -14,6 +15,7 @@ interface ITodoInput {
 }
 
 const TodoInput: FC = () => {
+    const todoListStore = useTodoListStore();
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             inputText: '',
@@ -23,10 +25,9 @@ const TodoInput: FC = () => {
 
     const onSubmit: SubmitHandler<ITodoInput> = (data) => {
         todoListStore.toggleRenderType('ALL');
-
-        if (todoListStore.itemList.length === 0) {
-            setPageNumber(1);
-        }
+        setPageNumber(todoListStore.itemList.length
+            ? calculatePageNumber(pageNumber, todoListStore.itemList.length)
+            : 1);
 
         todoListStore.addTodo({
             id: Math.random(),
@@ -36,10 +37,6 @@ const TodoInput: FC = () => {
         reset({
             inputText: '',
         });
-
-        if (todoListStore.itemList.length > 0) {
-            setPageNumber(calculatePageNumber(pageNumber, todoListStore.itemList.length));
-        }
     };
 
     return (

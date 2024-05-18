@@ -3,11 +3,13 @@ import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import TodoDeleteButton from '../../../TodoDeleteButton/TodoDeleteButton';
 import TodoDoneToggle from '../../../TodoDoneToggle/TodoDoneToggle';
-import todoListStore, { TodoItem } from '../../../../Stores/store';
+import { TodoItem } from '../../../../Stores/store';
+import useTodoListStore from '../../../../Hooks/useTodoListStore';
 
 const TodoListItemElement: FC<TodoItem> = ({
     id, text, isDone,
 }) => {
+    const todoListStore = useTodoListStore();
     const handleOnDoubleClick = (): void => {
         if (id !== todoListStore.currentIdTodoListItem) {
             todoListStore.changeCurrentIdTodoListItem(id);

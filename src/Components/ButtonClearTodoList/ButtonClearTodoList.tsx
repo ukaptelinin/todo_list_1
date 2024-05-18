@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { Button } from '@mui/material';
-import todoListStore from '../../Stores/store';
+import useTodoListStore from '../../Hooks/useTodoListStore';
 
 const ButtonClearTodoList: FC = () => {
+    const todoListStore = useTodoListStore();
     const handleOnClick = (): void => {
         todoListStore.todoClearCompleted();
     };

@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { Button } from '@mui/material';
-import todoListStore, { TodoRenderType } from '../../Stores/store';
+import { TodoRenderType } from '../../Stores/store';
 import usePageNumber from '../../Hooks/usePageNumber';
+import useTodoListStore from '../../Hooks/useTodoListStore';
 
 const ChangeRenderType: FC<{ renderType: TodoRenderType, title: string }> = ({ renderType, title }) => {
+    const todoListStore = useTodoListStore();
     const [,setPageNumber] = usePageNumber();
 
     const handleOnClick = (): void => {

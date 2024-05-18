@@ -1,6 +1,9 @@
-import todoListStore, { TodoItem, AMOUNT } from '../../Stores/store';
+import useTodoListStore from '../../Hooks/useTodoListStore';
+import { TodoItem } from '../../Stores/store';
+import { AMOUNT } from '../../constants';
 
 const usePaginatioNcountPages = (): number => {
+    const todoListStore = useTodoListStore();
     let countPages: number;
 
     let itemsGroup: TodoItem[] = [];

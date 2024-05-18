@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
-import todoListStore from '../../Stores/store';
+import useTodoListStore from '../../Hooks/useTodoListStore';
 
 const TodoDeleteButton: FC<{ id:number }> = ({ id }) => {
+    const todoListStore = useTodoListStore();
     const handleOnClick = (): void => {
         todoListStore.deleteTodo(id);
     };

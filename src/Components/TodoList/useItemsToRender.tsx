@@ -1,10 +1,13 @@
 import usePageNumber from '../../Hooks/usePageNumber';
-import todoListStore, { TodoItem, AMOUNT } from '../../Stores/store';
+import useTodoListStore from '../../Hooks/useTodoListStore';
+import { TodoItem } from '../../Stores/store';
+import { AMOUNT } from '../../constants';
 
 const preparePage = (currentPage: number, currentTodoListItem:TodoItem[]): TodoItem[] => currentTodoListItem
     .slice(currentPage * AMOUNT, currentPage * AMOUNT + AMOUNT);
 
 const useItemsToRender = (): TodoItem[] => {
+    const todoListStore = useTodoListStore();
     const [pageNumber] = usePageNumber();
 
     let itemsGroup: TodoItem[] = [];

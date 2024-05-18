@@ -1,9 +1,15 @@
 import {
     action, autorun, makeObservable, observable,
+    runInAction, configure,
 } from 'mobx';
 
-export const AMOUNT = 5;
-export const PAGE: string = 'page';
+configure({
+    enforceActions: 'always',
+    computedRequiresReaction: true,
+    reactionRequiresObservable: true,
+    observableRequiresReaction: true,
+    disableErrorBoundaries: true,
+});
 
 export interface TodoItem {
     id:number,
@@ -71,15 +77,19 @@ class TodoListStore {
             toggleRenderType: action,
             changeCurrentIdTodoListItem: action,
         });
-        const raw = localStorage.getItem('todolist') as string || '[]';
-        this.itemList = (JSON.parse(raw));
+
+        runInAction(() => {
+            this.itemList = (JSON.parse(localStorage.getItem('todolist') as string || '[]'));
+        });
     }
 }
 
-const todoListStore = new TodoListStore();
+export const сreateTodoListStore = (): TodoListStore => {
+    const todoListStore = new TodoListStore();
+    autorun(() => {
+        localStorage.setItem('todolist', JSON.stringify(todoListStore.itemList));
+    });
+    return todoListStore;
+};
 
-autorun(() => {
-    localStorage.setItem('todolist', JSON.stringify(todoListStore.itemList));
-});
-
-export default todoListStore;
+export default TodoListStore;

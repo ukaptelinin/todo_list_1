@@ -2,11 +2,13 @@ import * as React from 'react';
 import { FC } from 'react';
 import Stack from '@mui/material/Stack/Stack';
 import Pagination from '@mui/material/Pagination/Pagination';
-import todoListStore from '../../Stores/store';
+import { observer } from 'mobx-react-lite';
 import usePageNumber from '../../Hooks/usePageNumber';
 import usePaginatioNcountPages from './usePaginatinoCountPages';
+import useTodoListStore from '../../Hooks/useTodoListStore';
 
 const TodoPagination: FC = () => {
+    const todoListStore = useTodoListStore();
     const [pageNumber, setPageNumber] = usePageNumber();
     const handleChange = (event: React.ChangeEvent<unknown>, value: number):void => {
         setPageNumber(value);
@@ -28,4 +30,4 @@ const TodoPagination: FC = () => {
     }
     return null;
 };
-export default TodoPagination;
+export default observer(TodoPagination);

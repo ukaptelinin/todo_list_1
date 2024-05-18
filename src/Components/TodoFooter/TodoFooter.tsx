@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import { Grid } from '@mui/material';
-import { observer } from 'mobx-react';
-import todoListStore from '../../Stores/store';
+import { observer } from 'mobx-react-lite';
 import ChangeRenderType from '../ChangeRenderType/ChangeRenderType';
 import ButtonClearTodoList from '../ButtonClearTodoList/ButtonClearTodoList';
+import useTodoListStore from '../../Hooks/useTodoListStore';
 
 const TodoFooter: FC = () => {
+    const todoListStore = useTodoListStore();
     if (todoListStore.itemList.length > 0) {
         return (
             <footer>
