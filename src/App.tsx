@@ -4,12 +4,12 @@ import {
 } from 'react-router-dom';
 import { Container, Paper } from '@mui/material';
 
+import TodosStateContext, { todoListStore } from './Components/TodosStateContext/context';
+import TodoPagination from './Components/TodoPagination/TodoPagination';
 import TodoHeader from './Components/TodoHeader/TodoHeader';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoList from './Components/TodoList/TodoList';
 import TodoFooter from './Components/TodoFooter/TodoFooter';
-import TodoPagination from './Components/TodoPagination/TodoPagination';
-import TodosStateContext, { todoListStore } from './Components/TodosStateContext/context';
 
 const App: FC = () => (
 
