@@ -1,12 +1,12 @@
 import useTodoListStore from '../../Hooks/useTodoListStore';
-import { TodoItem } from '../../Stores/store';
+import { TodoListItem } from '../../Stores/TodoListStore';
 import { AMOUNT } from '../../constants';
 
 const usePaginatioNcountPages = (): number => {
-    const todoListStore = useTodoListStore();
     let countPages: number;
+    const todoListStore = useTodoListStore();
 
-    let itemsGroup: TodoItem[] = [];
+    let itemsGroup: TodoListItem[] = [];
 
     switch (todoListStore.todoRenderType) {
     case 'ACTIVE':

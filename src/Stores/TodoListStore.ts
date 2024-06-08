@@ -1,7 +1,9 @@
 import {
-    action, autorun, makeObservable, observable,
-    runInAction, configure,
+    action, makeObservable, observable,
+    configure,
+    runInAction,
 } from 'mobx';
+// import { TodosStore } from './TodosStore';
 
 configure({
     enforceActions: 'always',
@@ -11,22 +13,37 @@ configure({
     disableErrorBoundaries: true,
 });
 
-export interface TodoItem {
+export interface TodoListItem {
     id:number,
     text:string,
     isDone:boolean,
 }
 
+// export interface TodoItem {
+//     id:number,
+//     title:string,
+//     itemList:TodoListItem[]
+// }
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 
-class TodoListStore {
-    itemList: TodoItem[] = [];
+export class TodoListStore {
+    // todoItem : TodoItem = {
+    //     id: 0,
+    //     title: '',
+    //     itemList: [],
+    // };
+
+    itemList: TodoListItem[] = [];
 
     todoRenderType: TodoRenderType = 'ALL';
 
     currentIdTodoListItem: number | null = null;
 
-    addTodo = (newItem: TodoItem): void => {
+    title: string = '';
+
+    id: number = 0;
+
+    addTodo = (newItem: TodoListItem): void => {
         this.itemList.push(newItem);
     };
 
@@ -64,7 +81,7 @@ class TodoListStore {
         this.currentIdTodoListItem = itemId;
     };
 
-    constructor() {
+    constructor(title: string) {
         makeObservable(this, {
             itemList: observable,
             todoRenderType: observable,
@@ -77,19 +94,9 @@ class TodoListStore {
             toggleRenderType: action,
             changeCurrentIdTodoListItem: action,
         });
-
         runInAction(() => {
-            this.itemList = (JSON.parse(localStorage.getItem('todolist') as string || '[]'));
+            this.title = title;
+            this.id = Math.random();
         });
     }
 }
-
-export const сreateTodoListStore = (): TodoListStore => {
-    const todoListStore = new TodoListStore();
-    autorun(() => {
-        localStorage.setItem('todolist', JSON.stringify(todoListStore.itemList));
-    });
-    return todoListStore;
-};
-
-export default TodoListStore;

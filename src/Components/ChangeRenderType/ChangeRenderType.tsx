@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Button } from '@mui/material';
-import { TodoRenderType } from '../../Stores/store';
+import { TodoRenderType } from '../../Stores/TodoListStore';
 import usePageNumber from '../../Hooks/usePageNumber';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 

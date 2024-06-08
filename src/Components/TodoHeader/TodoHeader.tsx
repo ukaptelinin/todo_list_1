@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { JSX } from 'react';
 import { Typography } from '@mui/material';
 
-const TodoHeader: FC = () => (
+const TodoHeader = (titel:string): JSX.Element => (
     <header>
-        <Typography variant="h1" align="center" sx={{ mb: 3 }}>Список дел</Typography>
+        <Typography variant="h1" align="center" sx={{ mb: 3 }}>{titel}</Typography>
     </header>
 );
 

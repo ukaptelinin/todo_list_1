@@ -3,10 +3,10 @@ import { Grid, ListItem } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import TodoEditItemInput from '../../TodoEditItemInput/TodoEditItemInput';
 import TodoListItemElement from './TodoListItemElement/TodoListItemElement';
-import { TodoItem } from '../../../Stores/store';
+import { TodoListItem } from '../../../Stores/TodoListStore';
 import useTodoListStore from '../../../Hooks/useTodoListStore';
 
-const TodoListItem: FC<TodoItem> = ({
+const TodoCurrentListItem: FC<TodoListItem> = ({
     id, text, isDone,
 }) => {
     const todoListStore = useTodoListStore();
@@ -34,4 +34,4 @@ const TodoListItem: FC<TodoItem> = ({
     );
 };
 
-export default observer(TodoListItem);
+export default observer(TodoCurrentListItem);

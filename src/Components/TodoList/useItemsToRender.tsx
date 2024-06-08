@@ -1,16 +1,16 @@
 import usePageNumber from '../../Hooks/usePageNumber';
 import useTodoListStore from '../../Hooks/useTodoListStore';
-import { TodoItem } from '../../Stores/store';
+import { TodoListItem } from '../../Stores/TodoListStore';
 import { AMOUNT } from '../../constants';
 
-const preparePage = (currentPage: number, currentTodoListItem:TodoItem[]): TodoItem[] => currentTodoListItem
+const preparePage = (currentPage: number, currentTodoListItem:TodoListItem[]): TodoListItem[] => currentTodoListItem
     .slice(currentPage * AMOUNT, currentPage * AMOUNT + AMOUNT);
 
-const useItemsToRender = (): TodoItem[] => {
+const useItemsToRender = (): TodoListItem[] => {
     const todoListStore = useTodoListStore();
     const [pageNumber] = usePageNumber();
 
-    let itemsGroup: TodoItem[] = [];
+    let itemsGroup: TodoListItem[] = [];
 
     switch (todoListStore.todoRenderType) {
     case 'ACTIVE':

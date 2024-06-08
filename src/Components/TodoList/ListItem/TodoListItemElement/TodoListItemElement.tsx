@@ -3,10 +3,10 @@ import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import TodoDeleteButton from '../../../TodoDeleteButton/TodoDeleteButton';
 import TodoDoneToggle from '../../../TodoDoneToggle/TodoDoneToggle';
-import { TodoItem } from '../../../../Stores/store';
 import useTodoListStore from '../../../../Hooks/useTodoListStore';
+import { TodoListItem } from '../../../../Stores/TodoListStore';
 
-const TodoListItemElement: FC<TodoItem> = ({
+const TodoListItemElement: FC<TodoListItem> = ({
     id, text, isDone,
 }) => {
     const todoListStore = useTodoListStore();
