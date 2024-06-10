@@ -5,14 +5,14 @@ import {
 
 import AppHeader from './Components/AppHeader/AppHeader';
 import TodosStateContext, { todosStore } from './Components/TodosStateContext/TodosStateContext';
-import Case from './Components/Case/Case';
+import RootRoutes from './Components/RootRoutes/RootRoutes';
 
 const App: FC = () => (
 
     <TodosStateContext.Provider value={todosStore}>
         <BrowserRouter>
             <AppHeader />
-            <Case />
+            <RootRoutes />
         </BrowserRouter>
     </TodosStateContext.Provider>
 );

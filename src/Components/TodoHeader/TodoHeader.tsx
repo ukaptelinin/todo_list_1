@@ -1,10 +1,14 @@
-import { JSX } from 'react';
+import { FC } from 'react';
 import { Typography } from '@mui/material';
+import useTodoListStore from '../../Hooks/useTodoListStore';
 
-const TodoHeader = (titel:string): JSX.Element => (
-    <header>
-        <Typography variant="h1" align="center" sx={{ mb: 3 }}>{titel}</Typography>
-    </header>
-);
+const TodoHeader: FC = () => {
+    const todoListStore = useTodoListStore();
+    return (
+        <header>
+            <Typography variant="h3" align="center" sx={{ mb: 3, color: '#191991' }}>{todoListStore.title}</Typography>
+        </header>
+    );
+};
 
 export default TodoHeader;

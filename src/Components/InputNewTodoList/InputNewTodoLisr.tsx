@@ -6,20 +6,20 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import useTodosStore from '../../Hooks/useTodosStore';
 
 interface ITodoInput {
-    inputTitel: string;
+    inputTitle: string;
 }
 
-const InputNewTodo: FC = () => {
+const InputNewTodoList: FC = () => {
     const todosStore = useTodosStore();
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
-            inputTitel: '',
+            inputTitle: '',
         },
     });
     const onSubmit: SubmitHandler<ITodoInput> = (data) => {
-        todosStore.addTodosItem(data.inputTitel);
+        todosStore.addTodosItem(data.inputTitle);
         reset({
-            inputTitel: '',
+            inputTitle: '',
         });
     };
 
@@ -27,7 +27,7 @@ const InputNewTodo: FC = () => {
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
-                    name="inputTitel"
+                    name="inputTitle"
                     control={control}
                     render={({ field }) => (
                         <TextField
@@ -43,4 +43,4 @@ const InputNewTodo: FC = () => {
     );
 };
 
-export default InputNewTodo;
+export default InputNewTodoList;

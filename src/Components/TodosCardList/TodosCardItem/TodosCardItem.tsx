@@ -7,9 +7,8 @@ import Typography from '@mui/material/Typography/Typography';
 import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import { TodoListStore } from '../../../Stores/TodoListStore';
 
-const TodosCardItem:FC<TodoListStore> = ({ id, title }) => {
+const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
     const URL = `/todoitem/${id}`;
     return (
 

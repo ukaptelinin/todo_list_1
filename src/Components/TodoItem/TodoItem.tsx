@@ -10,11 +10,13 @@ import TodoPagination from '../TodoPagination/TodoPagination';
 import TodoFooter from '../TodoFooter/TodoFooter';
 import TodoListStateContext from '../TodosStateContext/TodoListStateContext';
 import useCurrentTodoListStore from './useCurrentTodoListStore';
+import TodoHeader from '../TodoHeader/TodoHeader';
 
 const TodoItem:FC = () => (
     <TodoListStateContext.Provider value={useCurrentTodoListStore()}>
         <Container maxWidth="sm" style={{ padding: '10px' }}>
             <Paper>
+                <TodoHeader />
                 <TodoInput />
                 <TodoList />
                 <TodoPagination />

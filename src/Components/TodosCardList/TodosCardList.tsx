@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import Grid from '@mui/material/Grid/Grid';
-import TodosCardItem from './TodosCardItem/TodosCardItem';
 import useTodosStore from '../../Hooks/useTodosStore';
 import { TodoListStore } from '../../Stores/TodoListStore';
+import TodosCardItem from './TodosCardItem/TodosCardItem';
 
 const TodosCardList:FC = () => {
     const todosStore = useTodosStore();
@@ -14,7 +14,8 @@ const TodosCardList:FC = () => {
                     <Grid item xs={3}>
                         <TodosCardItem
                             key={item.id}
-                            {...item}
+                            id={item.id}
+                            title={item.title}
                         />
                     </Grid>
                 ))}

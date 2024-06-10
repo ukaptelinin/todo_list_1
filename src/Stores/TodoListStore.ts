@@ -1,17 +1,7 @@
 import {
     action, makeObservable, observable,
-    configure,
     runInAction,
 } from 'mobx';
-// import { TodosStore } from './TodosStore';
-
-configure({
-    enforceActions: 'always',
-    computedRequiresReaction: true,
-    reactionRequiresObservable: true,
-    observableRequiresReaction: true,
-    disableErrorBoundaries: true,
-});
 
 export interface TodoListItem {
     id:number,
@@ -19,20 +9,9 @@ export interface TodoListItem {
     isDone:boolean,
 }
 
-// export interface TodoItem {
-//     id:number,
-//     title:string,
-//     itemList:TodoListItem[]
-// }
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 
 export class TodoListStore {
-    // todoItem : TodoItem = {
-    //     id: 0,
-    //     title: '',
-    //     itemList: [],
-    // };
-
     itemList: TodoListItem[] = [];
 
     todoRenderType: TodoRenderType = 'ALL';
