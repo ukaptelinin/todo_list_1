@@ -4,9 +4,7 @@ import TodosStateContext from '../Components/TodosStateContext/TodoListStateCont
 
 const useTodoListStore = (): TodoListStore => {
     const todoListStore = useContext(TodosStateContext);
-    if (!todoListStore) {
-        throw Error('todoListStore instance shoold be injected!');
-    }
+
     return todoListStore!;
 };
 

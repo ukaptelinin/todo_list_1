@@ -8,9 +8,6 @@ const useCurrentTodoListStore = () :TodoListStore => {
     const currentTodoListStore: TodoListStore | undefined = todosStore
         .todoListStores
         .find((item) => item.id === Number(id));
-    if (!currentTodoListStore) {
-        throw Error('todoListStore not found!');
-    }
     return currentTodoListStore!;
 };
 
