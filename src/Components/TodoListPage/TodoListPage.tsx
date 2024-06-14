@@ -11,16 +11,15 @@ import TodoFooter from '../TodoFooter/TodoFooter';
 import TodoListStateContext from '../TodosStateContext/TodoListStateContext';
 import TodoHeader from '../TodoHeader/TodoHeader';
 import useCurrentTodoListStore from './useCurrentTodoListStore';
-import { TodoListStore } from '../../Stores/TodoListStore';
 
 const TodoListPage:FC = () => {
-    const currentTodoListStore:TodoListStore = useCurrentTodoListStore();
+    const currentTodoListStore = useCurrentTodoListStore();
     const error = 'Todoliststore not found';
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!currentTodoListStore) navigate(`/*/${error}`);
-    });
+    }, []);
     return (
         <TodoListStateContext.Provider value={currentTodoListStore}>
             <Container maxWidth="sm" style={{ padding: '10px' }}>
