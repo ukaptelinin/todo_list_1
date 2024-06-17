@@ -9,10 +9,9 @@ import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 
 const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
-    const URL = `/todoitem/${id}`;
+    const URL = `/list/${id}`;
 
     return (
-
         <Card sx={{
             maxWidth: 250, alignContent: 'center', backgroundColor: 'Lavender',
         }}

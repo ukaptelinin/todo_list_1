@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 import { Typography } from '@mui/material';
 
-const ErrorPage: FC<{ errorcode: string, errormessage:string }> = ({ errorcode, errormessage }) => (
+const ErrorPage: FC<{ errorCode: string, errorMessage:string }> = ({ errorCode, errorMessage }) => (
     <>
         <Typography variant="h1" color="red" align="center" marginTop="50">
-            {errorcode}
+            {errorCode}
         </Typography>
         <Typography variant="h3" color="red" align="center">
-            {errormessage}
+            {errorMessage}
         </Typography>
     </>
 

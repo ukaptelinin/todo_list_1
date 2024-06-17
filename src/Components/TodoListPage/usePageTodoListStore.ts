@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import useTodosStore from '../../Hooks/useTodosStore';
 import { TodoListStore } from '../../Stores/TodoListStore';
 
-const useCurrentTodoListStore = () :TodoListStore => {
+const usePageTodoListStore = () :TodoListStore => {
     const todosStore = useTodosStore();
     const { id } = useParams();
     const currentTodoListStore: TodoListStore | undefined = todosStore
@@ -11,4 +11,4 @@ const useCurrentTodoListStore = () :TodoListStore => {
     return currentTodoListStore!;
 };
 
-export default useCurrentTodoListStore;
+export default usePageTodoListStore;

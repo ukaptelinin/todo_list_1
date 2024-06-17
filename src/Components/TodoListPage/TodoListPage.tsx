@@ -10,15 +10,16 @@ import TodoPagination from '../TodoPagination/TodoPagination';
 import TodoFooter from '../TodoFooter/TodoFooter';
 import TodoListStateContext from '../TodosStateContext/TodoListStateContext';
 import TodoHeader from '../TodoHeader/TodoHeader';
-import useCurrentTodoListStore from './useCurrentTodoListStore';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import { MAIN_PATH } from '../../constants';
+import usePageTodoListStore from './usePageTodoListStore';
 
 const TodoListPage:FC = () => {
-    const currentTodoListStore = useCurrentTodoListStore();
+    const pageTodoListStore = usePageTodoListStore();
     return (
-        <TodoListStateContext.Provider value={currentTodoListStore}>
+        <TodoListStateContext.Provider value={pageTodoListStore}>
             <Container maxWidth="sm" style={{ padding: '10px' }}>
-                {currentTodoListStore
+                {pageTodoListStore
                     ? (
                         <Paper>
                             <TodoHeader />
@@ -29,13 +30,13 @@ const TodoListPage:FC = () => {
                         </Paper>
                     ) : (
                         <ErrorPage
-                            errorcode="404"
-                            errormessage="Todolist not found"
+                            errorCode="404"
+                            errorMessage="Todolist not found"
                         />
                     )}
                 <Stack direction="row" alignItems="right">
                     <Button variant="outlined" style={{ marginRight: '5px' }}>
-                        <Link to="/todo_list_1" style={{ textDecoration: 'none', color: 'inherit' }}>CLOSE</Link>
+                        <Link to={MAIN_PATH} style={{ textDecoration: 'none', color: 'inherit' }}>CLOSE</Link>
                     </Button>
                 </Stack>
             </Container>
