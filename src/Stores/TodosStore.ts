@@ -3,6 +3,7 @@ import {
     observable,
     configure,
     runInAction,
+    action,
 } from 'mobx';
 import { TodoListStore } from './TodoListStore';
 
@@ -23,8 +24,13 @@ class TodosStore {
         });
     };
 
+    deleteTodoList = (itemId: number): void => {
+        this.todoListStores = this.todoListStores.filter((todoListStores) => todoListStores.id !== itemId);
+    };
+
     constructor() {
         makeObservable(this, {
+            deleteTodoList: action,
             todoListStores: observable,
         });
     }
