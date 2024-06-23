@@ -4,32 +4,29 @@ import CardActions from '@mui/material/CardActions/CardActions';
 import CardContent from '@mui/material/CardContent/CardContent';
 import IconButton from '@mui/material/IconButton/IconButton';
 import Typography from '@mui/material/Typography/Typography';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button/Button';
-import DialogActions from '@mui/material/DialogActions/DialogActions';
-import DialogContent from '@mui/material/DialogContent/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText/DialogContentText';
-import Dialog from '@mui/material/Dialog/Dialog';
-import useTodosStore from '../../../Hooks/useTodosStore';
+import TodolistDialogDeleting from './TodolistDialogDeleting/TodolistDialogDeleting';
+import useModalState from '../../../Hooks/useModalState';
+import { todosStore } from '../../TodosStateContext/TodosStateContext';
 
 const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
-    const todosStore = useTodosStore();
-    const [open, setOpen] = useState(false);
+    const { open, openModal, clouseModal } = useModalState(false);
     const URL = `/list/${id}`;
+    const TITLE = 'Вы действительно хотите удалить список на всегда?';
 
     const handleClickOpen = ():void => {
-        setOpen(true);
+        openModal();
     };
 
     const handleClose = ():void => {
-        setOpen(false);
+        clouseModal();
     };
 
     const handleDeleteOnClick = (): void => {
         todosStore.deleteTodoList(id);
-        setOpen(false);
+        clouseModal();
     };
 
     return (
@@ -52,20 +49,12 @@ const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
                     </IconButton>
                 </CardActions>
             </Card>
-            <Dialog
+            <TodolistDialogDeleting
                 open={open}
-                onClose={handleClose}
-            >
-                <DialogContent>
-                    <DialogContentText variant="h6" color="red">
-                        Вы действительно хотите удалить список на всегда?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button color="error" onClick={handleDeleteOnClick}>Да</Button>
-                    <Button onClick={handleClose}>Нет</Button>
-                </DialogActions>
-            </Dialog>
+                confirm={handleDeleteOnClick}
+                cancel={handleClose}
+                title={TITLE}
+            />
 
         </>
     );
