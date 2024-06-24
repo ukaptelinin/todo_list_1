@@ -13,16 +13,8 @@ import { todosStore } from '../../TodosStateContext/TodosStateContext';
 
 const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
     const { open, openModal, clouseModal } = useModalState(false);
-    const URL = `/list/${id}`;
-    const TITLE = 'Вы действительно хотите удалить список на всегда?';
-
-    const handleClickOpen = ():void => {
-        openModal();
-    };
-
-    const handleClose = ():void => {
-        clouseModal();
-    };
+    const url = `/list/${id}`;
+    const modalTitle = 'Вы действительно хотите удалить список на всегда?';
 
     const handleDeleteOnClick = (): void => {
         todosStore.deleteTodoList(id);
@@ -41,10 +33,10 @@ const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to={URL}>
+                    <Link to={url}>
                         <Edit />
                     </Link>
-                    <IconButton aria-label="delete" size="small" onClick={handleClickOpen}>
+                    <IconButton aria-label="delete" size="small" onClick={openModal}>
                         <Delete />
                     </IconButton>
                 </CardActions>
@@ -52,8 +44,8 @@ const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
             <TodolistDialogDeleting
                 open={open}
                 confirm={handleDeleteOnClick}
-                cancel={handleClose}
-                title={TITLE}
+                cancel={clouseModal}
+                title={modalTitle}
             />
 
         </>
