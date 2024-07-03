@@ -1,5 +1,5 @@
 import {
-    action, makeObservable, observable,
+    makeAutoObservable,
     runInAction,
 } from 'mobx';
 
@@ -9,16 +9,24 @@ export interface TodoListItem {
     isDone:boolean,
 }
 
+export type TodoListStoreType = {
+    title: string,
+    itemList: TodoListItem[],
+    todoRenderType: TodoRenderType,
+    currentIdTodoListItem: number | null,
+    id: number,
+};
+
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 
 export class TodoListStore {
+    title: string = '';
+
     itemList: TodoListItem[] = [];
 
     todoRenderType: TodoRenderType = 'ALL';
 
     currentIdTodoListItem: number | null = null;
-
-    title: string = '';
 
     id: number = 0;
 
@@ -60,22 +68,37 @@ export class TodoListStore {
         this.currentIdTodoListItem = itemId;
     };
 
-    constructor(title: string) {
-        makeObservable(this, {
-            itemList: observable,
-            todoRenderType: observable,
-            currentIdTodoListItem: observable,
-            addTodo: action,
-            toggleDone: action,
-            deleteTodo: action,
-            editTodo: action,
-            todoClearCompleted: action,
-            toggleRenderType: action,
-            changeCurrentIdTodoListItem: action,
-        });
+    toJSON():TodoListStoreType {
+        return {
+            title: this.title,
+            itemList: this.itemList,
+            todoRenderType: this.todoRenderType,
+            currentIdTodoListItem: this.currentIdTodoListItem,
+            id: this.id,
+        };
+    }
+
+    static fromJSON(json:TodoListStoreType): TodoListStore {
+        return new TodoListStore(json.title,
+            json.itemList,
+            json.todoRenderType,
+            json.currentIdTodoListItem,
+            json.id);
+    }
+
+    constructor(title: string = '',
+        itemList: TodoListItem[] = [],
+        todoRenderType: TodoRenderType = 'ALL',
+        currentIdTodoListItem: number | null = null,
+        id: number = 0) {
+        makeAutoObservable(this);
         runInAction(() => {
             this.title = title;
-            this.id = Math.random();
+            this.itemList = itemList;
+            this.todoRenderType = todoRenderType;
+            this.currentIdTodoListItem = currentIdTodoListItem;
+            if (id !== 0) this.id = id;
+            else this.id = Math.random();
         });
     }
 }
