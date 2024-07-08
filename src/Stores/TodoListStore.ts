@@ -97,8 +97,7 @@ export class TodoListStore {
             this.itemList = itemList;
             this.todoRenderType = todoRenderType;
             this.currentIdTodoListItem = currentIdTodoListItem;
-            if (id !== 0) this.id = id;
-            else this.id = Math.random();
+            this.id = id !== 0 ? id : Math.random();
         });
     }
 }
