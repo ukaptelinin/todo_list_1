@@ -27,7 +27,7 @@ class TodosStore {
 
     loadStores = ():void => {
         const storesData = JSON.parse(localStorage.getItem('todoListStores') as string || '[]');
-        if (Array.isArray(storesData)) {
+        if (Array.isArray(storesData) && storesData.length > 0) {
             runInAction(() => {
                 this.todoListStores = storesData.map(
                     (storeData: TodoListStoreType) => TodoListStore.fromJSON(storeData),
