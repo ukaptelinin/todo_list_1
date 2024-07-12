@@ -10,8 +10,12 @@ import { Link } from 'react-router-dom';
 import TodolistDialogDeleting from './TodolistDialogDeleting/TodolistDialogDeleting';
 import useModalState from '../../../Hooks/useModalState';
 import { todosStore } from '../../TodosStateContext/TodosStateContext';
+import TodosCardItemList from './TodosCardItemList/TodosCardItemList';
+import TodoListStateContext from '../../TodosStateContext/TodoListStateContext';
+import usePageTodoListStore from '../../TodoListPage/usePageTodoListStore';
 
 const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
+    const pageTodoListStore = usePageTodoListStore(id);
     const { open, openModal, clouseModal } = useModalState(false);
     const url = `/list/${id}`;
     const modalTitle = 'Вы действительно хотите удалить список на всегда?';
@@ -22,33 +26,36 @@ const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
     };
 
     return (
-        <>
-            <Card sx={{
-                maxWidth: 250, alignContent: 'center', backgroundColor: 'Lavender',
-            }}
-            >
-                <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        {title}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to={url}>
-                        <Edit />
-                    </Link>
-                    <IconButton aria-label="delete" size="small" onClick={openModal}>
-                        <Delete />
-                    </IconButton>
-                </CardActions>
-            </Card>
-            <TodolistDialogDeleting
-                open={open}
-                confirm={handleDeleteOnClick}
-                cancel={clouseModal}
-                title={modalTitle}
-            />
+        <TodoListStateContext.Provider value={pageTodoListStore}>
+            <>
+                <Card sx={{
+                    maxWidth: 250, alignContent: 'center', backgroundColor: 'Lavender',
+                }}
+                >
+                    <CardContent>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            {title}
+                        </Typography>
+                        <TodosCardItemList />
+                    </CardContent>
+                    <CardActions>
+                        <Link to={url}>
+                            <Edit />
+                        </Link>
+                        <IconButton aria-label="delete" size="small" onClick={openModal}>
+                            <Delete />
+                        </IconButton>
+                    </CardActions>
+                </Card>
+                <TodolistDialogDeleting
+                    open={open}
+                    confirm={handleDeleteOnClick}
+                    cancel={clouseModal}
+                    title={modalTitle}
+                />
 
-        </>
+            </>
+        </TodoListStateContext.Provider>
     );
 };
 export default observer(TodosCardItem);
