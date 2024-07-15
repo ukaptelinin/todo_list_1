@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Grid, ListItem, Typography } from '@mui/material';
-import { observer } from 'mobx-react-lite';
 import { TodoListItem } from '../../../../../Stores/TodoListStore';
 import TodoDoneToggle from '../../../../TodoDoneToggle/TodoDoneToggle';
 
@@ -26,4 +25,4 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
     </Grid>
 );
 
-export default observer(TodoListCardItemElement);
+export default TodoListCardItemElement;
