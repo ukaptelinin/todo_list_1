@@ -8,11 +8,7 @@ const prepareCardList = (currentTodoCardList:TodoListItem[]): TodoListItem[] => 
 const useItemsListToRender = (): TodoListItem[] => {
     const todoListStore = useTodoListStore();
 
-    let itemsGroup: TodoListItem[] = [];
-
-    itemsGroup = todoListStore.itemList;
-
-    return prepareCardList(itemsGroup);
+    return prepareCardList(todoListStore.itemList);
 };
 
 export default useItemsListToRender;

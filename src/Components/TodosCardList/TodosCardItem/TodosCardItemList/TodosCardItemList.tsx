@@ -3,8 +3,8 @@ import List from '@mui/material/List';
 import { observer } from 'mobx-react-lite';
 import useTodoListStore from '../../../../Hooks/useTodoListStore';
 import { TodoListItem } from '../../../../Stores/TodoListStore';
-import TodosCurrentCardListItem from './TodosCurrentCardListItem/TodosCurrentCardListItem';
 import useItemsListToRender from './useItemsListToRender';
+import TodoListCardItemElement from './TodoListCardItemElement/TodoListCardItemElement';
 
 const TodosCardItemList: FC = () => {
     const itemsListToRender = useItemsListToRender();
@@ -15,7 +15,7 @@ const TodosCardItemList: FC = () => {
 
             <List>
                 {itemsListToRender.map((item: TodoListItem) => (
-                    <TodosCurrentCardListItem
+                    <TodoListCardItemElement
                         key={item.id}
                         {...item}
                     />

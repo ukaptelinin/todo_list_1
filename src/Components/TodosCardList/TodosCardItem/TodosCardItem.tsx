@@ -12,10 +12,10 @@ import useModalState from '../../../Hooks/useModalState';
 import { todosStore } from '../../TodosStateContext/TodosStateContext';
 import TodosCardItemList from './TodosCardItemList/TodosCardItemList';
 import TodoListStateContext from '../../TodosStateContext/TodoListStateContext';
-import usePageTodoListStore from '../../TodoListPage/usePageTodoListStore';
+import useTodoListStoreOfId from './useTodoListStoreOfId';
 
 const TodosCardItem:FC<{ id:number, title:string }> = ({ id, title }) => {
-    const pageTodoListStore = usePageTodoListStore(id);
+    const pageTodoListStore = useTodoListStoreOfId(id);
     const { open, openModal, clouseModal } = useModalState(false);
     const url = `/list/${id}`;
     const modalTitle = 'Вы действительно хотите удалить список на всегда?';
