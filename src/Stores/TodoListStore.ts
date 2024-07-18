@@ -7,6 +7,7 @@ export interface TodoListItem {
     id:number,
     text:string,
     isDone:boolean,
+    priority:TodoListPriorityType,
 }
 
 export type TodoListStoreType = {
@@ -18,6 +19,7 @@ export type TodoListStoreType = {
 };
 
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
+export type TodoListPriorityType = 'HIGH' | 'MEDIUM' | 'LOW' | '';
 
 export class TodoListStore {
     title: string = '';

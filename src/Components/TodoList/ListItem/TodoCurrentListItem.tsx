@@ -7,7 +7,7 @@ import { TodoListItem } from '../../../Stores/TodoListStore';
 import useTodoListStore from '../../../Hooks/useTodoListStore';
 
 const TodoCurrentListItem: FC<TodoListItem> = ({
-    id, text, isDone,
+    id, text, isDone, priority,
 }) => {
     const todoListStore = useTodoListStore();
     return (
@@ -27,6 +27,7 @@ const TodoCurrentListItem: FC<TodoListItem> = ({
                             id={id}
                             text={text}
                             isDone={isDone}
+                            priority={priority}
                         />
                     )}
             </ListItem>

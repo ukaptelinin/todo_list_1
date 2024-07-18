@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Grid, ListItem, Typography } from '@mui/material';
 import { TodoListItem } from '../../../../../Stores/TodoListStore';
 import TodoDoneToggle from '../../../../TodoDoneToggle/TodoDoneToggle';
+import useTodoListItemColor from '../../../../TodoList/useTodoListItemColor';
 
 const TodoListCardItemElement: FC<TodoListItem> = ({
     id, text, isDone,
@@ -14,8 +15,7 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
             <Grid item xs={10}>
                 <Typography
                     variant="h6"
-                    sx={{ textDecoration: isDone ? 'line-through' : 'none' }}
-
+                    sx={{ textDecoration: isDone ? 'line-through' : 'none', color: useTodoListItemColor(id) }}
                 >
                     {text}
                 </Typography>

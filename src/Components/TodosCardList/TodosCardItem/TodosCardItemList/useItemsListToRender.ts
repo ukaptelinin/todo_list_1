@@ -1,6 +1,7 @@
 import { AMOUNT } from '../../../../constants';
 import useTodoListStore from '../../../../Hooks/useTodoListStore';
 import { TodoListItem } from '../../../../Stores/TodoListStore';
+import useItemsToRenderPriority from '../../../TodoList/useItemsToRenderPriority';
 
 const prepareCardList = (currentTodoCardList:TodoListItem[]): TodoListItem[] => currentTodoCardList
     .slice(0, AMOUNT);
@@ -8,7 +9,7 @@ const prepareCardList = (currentTodoCardList:TodoListItem[]): TodoListItem[] => 
 const useItemsListToRender = (): TodoListItem[] => {
     const todoListStore = useTodoListStore();
 
-    return prepareCardList(todoListStore.itemList);
+    return prepareCardList(useItemsToRenderPriority(todoListStore.itemList));
 };
 
 export default useItemsListToRender;

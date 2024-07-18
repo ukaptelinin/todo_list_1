@@ -5,6 +5,7 @@ import TodoDeleteButton from '../../../TodoDeleteButton/TodoDeleteButton';
 import TodoDoneToggle from '../../../TodoDoneToggle/TodoDoneToggle';
 import useTodoListStore from '../../../../Hooks/useTodoListStore';
 import { TodoListItem } from '../../../../Stores/TodoListStore';
+import useTodoListItemColor from '../../useTodoListItemColor';
 
 const TodoListItemElement: FC<TodoListItem> = ({
     id, text, isDone,
@@ -23,7 +24,7 @@ const TodoListItemElement: FC<TodoListItem> = ({
             <Grid item xs={9}>
                 <Typography
                     variant="h4"
-                    sx={{ textDecoration: isDone ? 'line-through' : 'none' }}
+                    sx={{ textDecoration: isDone ? 'line-through' : 'none', color: useTodoListItemColor(id) }}
                     onDoubleClick={handleOnDoubleClick}
                 >
                     {text}
