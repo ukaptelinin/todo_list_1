@@ -23,7 +23,7 @@ const TodoInput: FC = () => {
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             inputText: '',
-            inputPriority: '' as TodoListPriorityType,
+            inputPriority: 'NONE' as TodoListPriorityType,
         },
     });
     const [pageNumber, setPageNumber] = usePageNumber();
@@ -42,7 +42,7 @@ const TodoInput: FC = () => {
         });
         reset({
             inputText: '',
-            inputPriority: '',
+            inputPriority: 'NONE',
         });
     };
 

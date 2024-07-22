@@ -19,7 +19,7 @@ export type TodoListStoreType = {
 };
 
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
-export type TodoListPriorityType = 'HIGH' | 'MEDIUM' | 'LOW' | '';
+export type TodoListPriorityType = 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE';
 
 export class TodoListStore {
     title: string = '';

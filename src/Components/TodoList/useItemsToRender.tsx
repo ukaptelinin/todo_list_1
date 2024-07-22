@@ -2,7 +2,7 @@ import usePageNumber from '../../Hooks/usePageNumber';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 import { TodoListItem } from '../../Stores/TodoListStore';
 import { AMOUNT } from '../../constants';
-import useItemsToRenderPriority from './useItemsToRenderPriority';
+import useItemsToRenderPriority from './TodoListItemsPriority';
 
 const preparePage = (currentPage: number, currentTodoListItem:TodoListItem[]): TodoListItem[] => currentTodoListItem
     .slice(currentPage * AMOUNT, currentPage * AMOUNT + AMOUNT);
