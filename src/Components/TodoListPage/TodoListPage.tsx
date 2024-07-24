@@ -14,8 +14,9 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 import { MAIN_PATH } from '../../constants';
 import usePageTodoListStore from './usePageTodoListStore';
 
-const TodoListPage:FC = () => {
+const TodoListPage: FC = () => {
     const pageTodoListStore = usePageTodoListStore();
+
     return (
         <TodoListStateContext.Provider value={pageTodoListStore}>
             <Container maxWidth="sm" style={{ padding: '10px' }}>

@@ -15,7 +15,7 @@ const calculatePageNumber = (currentPageNumber: number,
 
 interface ITodoInput {
     inputText: string;
-    inputPriority:TodoListPriorityType;
+    inputPriority: TodoListPriorityType;
 }
 
 const TodoInput: FC = () => {

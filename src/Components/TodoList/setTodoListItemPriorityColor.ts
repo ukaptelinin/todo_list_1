@@ -1,6 +1,6 @@
 import { TodoListPriorityType } from '../../Stores/TodoListStore';
 
-const TodoListItemColor = (priority:TodoListPriorityType): string => {
+const setTodoListItemPriorityColor = (priority: TodoListPriorityType): string => {
     let itemColor = '';
 
     switch (priority) {
@@ -20,4 +20,4 @@ const TodoListItemColor = (priority:TodoListPriorityType): string => {
     return itemColor;
 };
 
-export default TodoListItemColor;
+export default setTodoListItemPriorityColor;

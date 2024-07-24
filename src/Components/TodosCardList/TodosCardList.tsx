@@ -5,12 +5,12 @@ import useTodosStore from '../../Hooks/useTodosStore';
 import { TodoListStore } from '../../Stores/TodoListStore';
 import TodosCardItem from './TodosCardItem/TodosCardItem';
 
-const TodosCardList:FC = () => {
+const TodosCardList: FC = () => {
     const todosStore = useTodosStore();
     if (todosStore.todoListStores.length) {
         return (
             <Grid container spacing={2}>
-                {todosStore.todoListStores.map((item:TodoListStore) => (
+                {todosStore.todoListStores.map((item: TodoListStore) => (
                     <Grid item xs={3}>
                         <TodosCardItem
                             key={item.id}
@@ -24,4 +24,5 @@ const TodosCardList:FC = () => {
     }
     return null;
 };
+
 export default observer(TodosCardList);
