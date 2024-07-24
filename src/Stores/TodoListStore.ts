@@ -4,10 +4,10 @@ import {
 } from 'mobx';
 
 export interface TodoListItem {
-    id:number,
-    text:string,
-    isDone:boolean,
-    priority:TodoListPriorityType,
+    id: number,
+    text: string,
+    isDone: boolean,
+    priority: TodoListPriorityType,
 }
 
 export type TodoListStoreType = {
@@ -70,7 +70,7 @@ export class TodoListStore {
         this.currentIdTodoListItem = itemId;
     };
 
-    toJSON():TodoListStoreType {
+    toJSON(): TodoListStoreType {
         return {
             title: this.title,
             itemList: this.itemList,
@@ -80,7 +80,7 @@ export class TodoListStore {
         };
     }
 
-    static fromJSON(json:TodoListStoreType): TodoListStore {
+    static fromJSON(json: TodoListStoreType): TodoListStore {
         return new TodoListStore(json.title,
             json.itemList,
             json.todoRenderType,
