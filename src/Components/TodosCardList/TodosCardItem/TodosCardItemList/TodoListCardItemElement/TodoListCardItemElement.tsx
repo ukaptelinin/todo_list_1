@@ -1,26 +1,28 @@
 import { FC } from 'react';
 import { Grid, ListItem, Typography } from '@mui/material';
 import { TodoListItem } from '../../../../../Stores/TodoListStore';
-import TodoDoneToggle from '../../../../TodoDoneToggle/TodoDoneToggle';
+import setTodoListItemPriorityColor from '../../../../TodoList/setTodoListItemPriorityColor';
+import ToggleTodoListItemDone from '../../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
 
 const TodoListCardItemElement: FC<TodoListItem> = ({
-    id, text, isDone,
+    id, text, isDone, priority,
 }) => (
     <Grid container direction="row">
         <ListItem sx={{ borderBottom: '1px solid silver' }}>
             <Grid item xs={2}>
-                <TodoDoneToggle id={id} isDone={isDone} />
+                <ToggleTodoListItemDone id={id} isDone={isDone} />
             </Grid>
             <Grid item xs={10}>
                 <Typography
                     variant="h6"
-                    sx={{ textDecoration: isDone ? 'line-through' : 'none' }}
-
+                    sx={{
+                        textDecoration: isDone ? 'line-through' : 'none',
+                        color: setTodoListItemPriorityColor(priority),
+                    }}
                 >
                     {text}
                 </Typography>
             </Grid>
-
         </ListItem>
     </Grid>
 );

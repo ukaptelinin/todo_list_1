@@ -6,7 +6,7 @@ type UseModalStateReturn = {
     clouseModal: () => void,
 };
 
-const useModalState = (setState:boolean): UseModalStateReturn => {
+const useModalState = (setState: boolean): UseModalStateReturn => {
     const [open, setOpen] = useState(setState);
 
     const openModal = (): void => {

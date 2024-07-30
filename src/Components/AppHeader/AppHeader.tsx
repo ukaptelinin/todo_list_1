@@ -1,12 +1,12 @@
 import type { FC } from 'react';
-
 import {
-    AppBar, Box, Toolbar,
+    AppBar,
+    Box,
+    Toolbar,
     Typography,
 } from '@mui/material';
 
 const AppHeader: FC = () => (
-
     <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
             <Toolbar>
@@ -16,7 +16,6 @@ const AppHeader: FC = () => (
             </Toolbar>
         </AppBar>
     </Box>
-
 );
 
 export default AppHeader;

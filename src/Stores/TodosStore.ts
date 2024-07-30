@@ -25,7 +25,7 @@ class TodosStore {
         this.todoListStores = this.todoListStores.filter((todoListStores) => todoListStores.id !== itemId);
     };
 
-    loadStores = ():void => {
+    loadStores = (): void => {
         const storesData = JSON.parse(localStorage.getItem('todoListStores') as string || '[]');
         if (Array.isArray(storesData) && storesData.length > 0) {
             runInAction(() => {
@@ -36,7 +36,7 @@ class TodosStore {
         }
     };
 
-    saveStores = ():void => {
+    saveStores = (): void => {
         const storesData = this.todoListStores.map((store) => store.toJSON());
         localStorage.setItem('todoListStores', JSON.stringify(storesData));
     };
@@ -54,4 +54,5 @@ export const сreateTodosStore = (): TodosStore => {
     });
     return todosStore;
 };
+
 export default TodosStore;
