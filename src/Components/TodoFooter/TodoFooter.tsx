@@ -3,11 +3,7 @@ import { Grid } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import ChangeRenderType from '../ChangeRenderType/ChangeRenderType';
 import useTodoListStore from '../../Hooks/useTodoListStore';
-<<<<<<< HEAD
 import ClearCompletedButton from '../ClearCompletedButton/ClearCompletedButton';
-=======
-import ClearTodoListComletedButton from '../ClearTodoListComletedButton/ClearTodoListComletedButton';
->>>>>>> 060b980d021bdf52d90c17cdf906b7472487949b
 
 const TodoFooter: FC = () => {
     const todoListStore = useTodoListStore();
@@ -31,11 +27,7 @@ const TodoFooter: FC = () => {
                         <ChangeRenderType renderType="COMPLETED" title="COMPLETED" />
                     </Grid>
                     <Grid item>
-<<<<<<< HEAD
                         <ClearCompletedButton />
-=======
-                        <ClearTodoListComletedButton />
->>>>>>> 060b980d021bdf52d90c17cdf906b7472487949b
                     </Grid>
                 </Grid>
             </footer>
