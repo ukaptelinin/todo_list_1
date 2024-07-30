@@ -3,8 +3,8 @@ import { Grid, ListItem } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import TodoListItemElement from './TodoListItemElement/TodoListItemElement';
 import { TodoListItem } from '../../../Stores/TodoListStore';
+import EditListItemInput from '../../EditListItemInput/EditListItemInput';
 import useTodoListStore from '../../../Hooks/useTodoListStore';
-import EditTodoListItemInput from '../../EditTodoListItemInput/EditTodoListItemInput.tsx';
 
 const TodoCurrentListItem: FC<TodoListItem> = ({
     id, text, isDone, priority,
@@ -17,7 +17,7 @@ const TodoCurrentListItem: FC<TodoListItem> = ({
                 { todoListStore.currentIdTodoListItem === id
                     ? (
                         <Grid item xs={12}>
-                            <EditTodoListItemInput
+                            <EditListItemInput
                                 id={id}
                                 text={text}
                             />

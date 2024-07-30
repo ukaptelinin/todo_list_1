@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Button } from '@mui/material';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 
-const ClearTodoListComletedButton: FC = () => {
+const ClearCompletedButton: FC = () => {
     const todoListStore = useTodoListStore();
     const handleOnClick = (): void => {
         todoListStore.todoClearCompleted();
@@ -20,4 +20,4 @@ const ClearTodoListComletedButton: FC = () => {
     );
 };
 
-export default ClearTodoListComletedButton;
+export default ClearCompletedButton;

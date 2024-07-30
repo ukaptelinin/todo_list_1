@@ -4,8 +4,8 @@ import { observer } from 'mobx-react-lite';
 import useTodoListStore from '../../../../Hooks/useTodoListStore';
 import { TodoListItem } from '../../../../Stores/TodoListStore';
 import setTodoListItemPriorityColor from '../../setTodoListItemPriorityColor';
-import DeleteTodoListItemButton from '../../../DeleteTodoListItemButton/DeleteTodoListItemButton';
 import ToggleTodoListItemDone from '../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
+import DeleteListItemButton from '../../../DeleteListItemButton/DeleteListItemButton';
 
 const TodoListItemElement: FC<TodoListItem> = ({
     id, text, isDone, priority,
@@ -27,8 +27,7 @@ const TodoListItemElement: FC<TodoListItem> = ({
                 <Typography
                     variant="h4"
                     sx={{
-                        textDecoration: isDone ? 'line-through'
-                            : 'none',
+                        textDecoration: isDone ? 'line-through' : 'none',
                         color: setTodoListItemPriorityColor(priority),
                     }}
                     onDoubleClick={handleOnDoubleClick}
@@ -37,7 +36,7 @@ const TodoListItemElement: FC<TodoListItem> = ({
                 </Typography>
             </Grid>
             <Grid item xs={1}>
-                <DeleteTodoListItemButton id={id} />
+                <DeleteListItemButton id={id} />
             </Grid>
         </>
     );

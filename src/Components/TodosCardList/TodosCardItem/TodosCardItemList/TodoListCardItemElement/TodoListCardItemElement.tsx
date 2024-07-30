@@ -16,9 +16,7 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
                 <Typography
                     variant="h6"
                     sx={{
-                        textDecoration: isDone
-                            ? 'line-through'
-                            : 'none',
+                        textDecoration: isDone ? 'line-through' : 'none',
                         color: setTodoListItemPriorityColor(priority),
                     }}
                 >

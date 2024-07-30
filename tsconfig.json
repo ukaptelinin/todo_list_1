@@ -20,6 +20,4 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/Components/EditTodoListItemInput/EditTodoListItemInput.tsx"],
-  "references": [{ "path": "./tsconfig.node.json" }]
 }

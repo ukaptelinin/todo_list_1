@@ -1,14 +1,13 @@
 import { TodoListItem } from '../../Stores/TodoListStore';
 
-const sortTodoListItemsPriority = (currentTodoList: TodoListItem[]): TodoListItem[] => {
-    const priorityArray = ['HIGH', 'MEDIUM', 'LOW', 'NONE'];
+const priorityArray = ['HIGH', 'MEDIUM', 'LOW', 'NONE'];
 
+const sortTodoListItemsPriority = (currentTodoList: TodoListItem[]): TodoListItem[] => {
     let itemsGroup: TodoListItem[] = [];
 
-    itemsGroup = currentTodoList.toSorted((a: TodoListItem, b: TodoListItem): number => {
-        if (priorityArray.indexOf(a.priority) > priorityArray.indexOf(b.priority)) return 1;
-        return -1;
-    });
+    itemsGroup = currentTodoList
+        .toSorted((a: TodoListItem, b: TodoListItem): number => ((priorityArray.indexOf(a.priority)
+    > priorityArray.indexOf(b.priority)) ? 1 : -1));
 
     return itemsGroup;
 };

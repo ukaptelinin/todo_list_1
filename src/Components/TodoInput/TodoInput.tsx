@@ -20,10 +20,10 @@ interface ITodoInput {
 
 const TodoInput: FC = () => {
     const todoListStore = useTodoListStore();
-    const { control, handleSubmit, reset } = useForm({
+    const { control, handleSubmit, reset } = useForm<ITodoInput>({
         defaultValues: {
             inputText: '',
-            inputPriority: 'NONE' as TodoListPriorityType,
+            inputPriority: 'NONE',
         },
     });
     const [pageNumber, setPageNumber] = usePageNumber();
@@ -72,7 +72,6 @@ const TodoInput: FC = () => {
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 label="Приоритет"
-
                             >
                                 <MenuItem value="HIGH" sx={{ color: 'crimson' }}>HIGH</MenuItem>
                                 <MenuItem value="MEDIUM" sx={{ color: 'green' }}>MEDIUM</MenuItem>

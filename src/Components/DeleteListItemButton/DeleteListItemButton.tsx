@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 
-const DeleteTodoListItemButton: FC<{ id: number }> = ({ id }) => {
+const DeleteListItemButton: FC<{ id: number }> = ({ id }) => {
     const todoListStore = useTodoListStore();
     const handleOnClick = (): void => {
         todoListStore.deleteTodo(id);
@@ -19,4 +19,4 @@ const DeleteTodoListItemButton: FC<{ id: number }> = ({ id }) => {
     );
 };
 
-export default DeleteTodoListItemButton;
+export default DeleteListItemButton;

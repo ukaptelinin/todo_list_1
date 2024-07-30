@@ -7,7 +7,7 @@ interface ITodoInput {
     inputText: string;
 }
 
-const EditTodoListItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
+const EditListItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
     const todoListStore = useTodoListStore();
     const { control, handleSubmit } = useForm({
         defaultValues: {
@@ -37,4 +37,4 @@ const EditTodoListItemInput: FC<{ id: number, text: string }> = ({ id, text }) =
     );
 };
 
-export default EditTodoListItemInput;
+export default EditListItemInput;
