@@ -6,7 +6,6 @@ import Button from '@mui/material/Button/Button';
 import { FC } from 'react';
 
 const ConfirmDialog: FC < { open: boolean, confirm: () => void, cancel: () => void, title: string, } > = ({
-
     open, confirm, cancel, title,
 }) => (
     <Dialog

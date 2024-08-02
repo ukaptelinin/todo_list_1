@@ -1,6 +1,8 @@
 import { TodoListPriorityType } from '../../Stores/TodoListStore';
 
-const priorityColorTable = {
+type RecordType = Record<TodoListPriorityType, string>;
+
+const PRIORITY_COLOR_TABLE: RecordType = {
     HIGH: 'crimson',
     MEDIUM: 'green',
     LOW: 'darkblue',
@@ -8,6 +10,6 @@ const priorityColorTable = {
 };
 
 const setTodoListItemPriorityColor = (priority: TodoListPriorityType):
-string => priorityColorTable[priority] as TodoListPriorityType;
+string => PRIORITY_COLOR_TABLE[priority];
 
 export default setTodoListItemPriorityColor;
