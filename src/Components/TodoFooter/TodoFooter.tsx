@@ -10,13 +10,7 @@ const TodoFooter: FC = () => {
     if (todoListStore.itemList.length > 0) {
         return (
             <footer>
-                <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-around"
-                    sx={{ mt: 2, mb: 2 }}
-                >
+                <Grid container direction="row" alignItems="center" justifyContent="space-around" sx={{ mt: 2, mb: 2 }}>
                     <Grid item>
                         <ChangeRenderType renderType="ALL" title="ALL" />
                     </Grid>

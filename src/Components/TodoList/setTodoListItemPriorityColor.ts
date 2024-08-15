@@ -9,7 +9,6 @@ const PRIORITY_COLOR_TABLE: RecordType = {
     NONE: 'black',
 };
 
-const setTodoListItemPriorityColor = (priority: TodoListPriorityType):
-string => PRIORITY_COLOR_TABLE[priority];
+const setTodoListItemPriorityColor = (priority: TodoListPriorityType): string => PRIORITY_COLOR_TABLE[priority];
 
 export default setTodoListItemPriorityColor;

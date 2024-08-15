@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 type UseModalStateReturn = {
-    open: boolean,
-    openModal: () => void,
-    clouseModal: () => void,
+    open: boolean;
+    openModal: () => void;
+    clouseModal: () => void;
 };
 
 const useModalState = (setState: boolean): UseModalStateReturn => {

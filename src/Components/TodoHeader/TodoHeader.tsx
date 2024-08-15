@@ -7,7 +7,9 @@ const TodoHeader: FC = () => {
 
     return (
         <header>
-            <Typography variant="h3" align="center" sx={{ mb: 3, color: '#191991' }}>{todoListStore.title}</Typography>
+            <Typography variant="h3" align="center" sx={{ mb: 3, color: '#191991' }}>
+                {todoListStore.title}
+            </Typography>
         </header>
     );
 };

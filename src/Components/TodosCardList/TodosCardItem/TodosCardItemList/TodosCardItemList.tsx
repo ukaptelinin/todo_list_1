@@ -14,10 +14,7 @@ const TodosCardItemList: FC = () => {
         return (
             <List>
                 {itemsListToRender.map((item: TodoListItem) => (
-                    <TodoListCardItemElement
-                        key={item.id}
-                        {...item}
-                    />
+                    <TodoListCardItemElement key={item.id} {...item} />
                 ))}
             </List>
         );

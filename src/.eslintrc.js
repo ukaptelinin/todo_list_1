@@ -1,83 +1,29 @@
-
-
-  module.exports = {
-    extends: [
-      '@eslint-kit/patch',
-      '@eslint-kit/base',
-      '@eslint-kit/typescript',
-      '@eslint-kit/react',
-      '@eslint-kit/prettier',
-    ],
+module.exports = {
     parser: '@typescript-eslint/parser',
-    env: {
-      node: true,
-      browser: true,
+    extends: [
+      'eslint:recommended',
+      'plugin:react/recommended',
+      'plugin:@typescript-eslint/recommended',
+      'plugin:prettier/recommended',
+    ],
+    plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+    parserOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
     settings: {
-      'import/resolver': {
-        node: {
-          paths: ['.'],
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        },
+      react: {
+        version: 'detect', // Automatically detect the react version
       },
     },
-    ignorePatterns: ['/node_modules/**/*', '/coverage/**/*', '/build/**/*', '/src/**/*generated.*', '/config/'],
     rules: {
-      /*'import/order': [
-        2,
-        {
-          pathGroups: ALLOWED_PATH_GROUPS,
-          pathGroupsExcludedImportTypes: ['builtin'],
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-        },
-      ],*/
-      'import/no-anonymous-default-export': 'off',
-      'import/no-cycle': 'off',
-      'react/jsx-props-no-spreading': 'off',
-      'no-restricted-imports': [
-        'warn',
-        //2,
-        {
-          patterns: ['../../*'],
-          //patterns: DENIED_PATH_GROUPS,
-        },
-      ],
-      '@typescript-eslint/naming-convention': [
-        'warn',
-        {
-          selector: 'variable',
-          format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
-          leadingUnderscore: 'allow',
-        },
-        {
-          selector: 'parameter',
-          format: ['camelCase'],
-          leadingUnderscore: 'allow',
-          filter: {
-            regex: '.*Component$',
-            match: false,
-          },
-        },
-        {
-          selector: 'typeLike',
-          format: ['PascalCase'],
-        },
-      ],
-      "@typescript-eslint/ban-ts-comment": "off",
-      "react/react-in-jsx-scope": "off",
-      "unicorn/prefer-query-selector": "off",
+      'prettier/prettier': 'error',
+      'react/react-in-jsx-scope': 'off', // For Next.js or React 17+
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
-    overrides: [
-      {
-        files: ['**/*.test.js', '**/*.test.jsx', '**/*.test.ts', '**/*.test.tsx'],
-        env: {
-          jest: true,
-        },
-        rules: {
-          'no-magic-numbers': 'off',
-          '@typescript-eslint/ban-ts-comment': 'off',
-        },
-      },
-    ],
   };
   

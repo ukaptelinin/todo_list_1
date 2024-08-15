@@ -12,11 +12,7 @@ const TodosCardList: FC = () => {
             <Grid container spacing={2}>
                 {todosStore.todoListStores.map((item: TodoListStore) => (
                     <Grid item xs={3}>
-                        <TodosCardItem
-                            key={item.id}
-                            id={item.id}
-                            title={item.title}
-                        />
+                        <TodosCardItem key={item.id} id={item.id} title={item.title} />
                     </Grid>
                 ))}
             </Grid>

@@ -14,10 +14,7 @@ const TodoList: FC = () => {
         return (
             <List>
                 {itemsToRender.map((item: TodoListItem) => (
-                    <TodoCurrentListItem
-                        key={item.id}
-                        {...item}
-                    />
+                    <TodoCurrentListItem key={item.id} {...item} />
                 ))}
             </List>
         );

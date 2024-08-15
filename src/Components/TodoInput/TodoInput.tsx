@@ -1,17 +1,13 @@
 import { FC } from 'react';
-import {
-    Button, InputLabel, MenuItem, Select, TextField,
-} from '@mui/material';
+import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import usePageNumber from '../../Hooks/usePageNumber';
 import { AMOUNT } from '../../constants';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 import { TodoListPriorityType } from '../../Stores/TodoListStore';
 
-const calculatePageNumber = (currentPageNumber: number,
-    itemsCount: number): number => (itemsCount % AMOUNT > 0
-    ? Math.floor(itemsCount / AMOUNT + 1)
-    : currentPageNumber + 1);
+const calculatePageNumber = (currentPageNumber: number, itemsCount: number): number =>
+    itemsCount % AMOUNT > 0 ? Math.floor(itemsCount / AMOUNT + 1) : currentPageNumber + 1;
 
 interface ITodoInput {
     inputText: string;
@@ -30,9 +26,9 @@ const TodoInput: FC = () => {
 
     const onSubmit: SubmitHandler<ITodoInput> = (data) => {
         todoListStore.toggleRenderType('ALL');
-        setPageNumber(todoListStore.itemList.length
-            ? calculatePageNumber(pageNumber, todoListStore.itemList.length)
-            : 1);
+        setPageNumber(
+            todoListStore.itemList.length ? calculatePageNumber(pageNumber, todoListStore.itemList.length) : 1,
+        );
 
         todoListStore.addTodo({
             id: Math.random(),
@@ -73,14 +69,22 @@ const TodoInput: FC = () => {
                                 id="demo-simple-select"
                                 label="Приоритет"
                             >
-                                <MenuItem value="HIGH" sx={{ color: 'crimson' }}>HIGH</MenuItem>
-                                <MenuItem value="MEDIUM" sx={{ color: 'green' }}>MEDIUM</MenuItem>
-                                <MenuItem value="LOW" sx={{ color: 'darkblue' }}>LOW</MenuItem>
+                                <MenuItem value="HIGH" sx={{ color: 'crimson' }}>
+                                    HIGH
+                                </MenuItem>
+                                <MenuItem value="MEDIUM" sx={{ color: 'green' }}>
+                                    MEDIUM
+                                </MenuItem>
+                                <MenuItem value="LOW" sx={{ color: 'darkblue' }}>
+                                    LOW
+                                </MenuItem>
                             </Select>
                         </>
                     )}
                 />
-                <Button size="small" variant="outlined" onClick={handleSubmit(onSubmit)}>Save</Button>
+                <Button size="small" variant="outlined" onClick={handleSubmit(onSubmit)}>
+                    Save
+                </Button>
             </form>
         </div>
     );

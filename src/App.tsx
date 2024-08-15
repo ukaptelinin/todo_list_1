@@ -5,10 +5,9 @@ import TodosStateContext, { todosStore } from './Components/TodosStateContext/To
 import RootRoutes from './Components/RootRoutes/RootRoutes';
 
 const App: FC = () => (
-
     <TodosStateContext.Provider value={todosStore}>
         <BrowserRouter>
-            <AppHeader />
+                   <AppHeader />
             <RootRoutes />
         </BrowserRouter>
     </TodosStateContext.Provider>

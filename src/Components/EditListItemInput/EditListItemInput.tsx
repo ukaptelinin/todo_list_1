@@ -7,10 +7,10 @@ interface ITodoInput {
     inputText: string;
 }
 
-const EditListItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
+const EditListItemInput: FC<{ id: number; text: string }> = ({ id, text }) => {
     const todoListStore = useTodoListStore();
     const { control, handleSubmit } = useForm({
-        defaultValues: {
+           defaultValues: {
             inputText: text,
         },
     });
@@ -25,13 +25,7 @@ const EditListItemInput: FC<{ id: number, text: string }> = ({ id, text }) => {
             <Controller
                 name="inputText"
                 control={control}
-                render={({ field }) => (
-                    <TextField
-                        fullWidth
-                        {...field}
-                        inputProps={{ style: { fontSize: 30 } }}
-                    />
-                )}
+                render={({ field }) => <TextField fullWidth {...field} inputProps={{ style: { fontSize: 30 } }} />}
             />
         </form>
     );

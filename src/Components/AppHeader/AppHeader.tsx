@@ -1,10 +1,5 @@
 import type { FC } from 'react';
-import {
-    AppBar,
-    Box,
-    Toolbar,
-    Typography,
-} from '@mui/material';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 
 const AppHeader: FC = () => (
     <Box sx={{ flexGrow: 1 }}>

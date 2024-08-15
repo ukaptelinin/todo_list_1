@@ -7,9 +7,7 @@ import setTodoListItemPriorityColor from '../../setTodoListItemPriorityColor';
 import DeleteListItemButton from '../../../DeleteListItemButton/DeleteListItemButton';
 import ToggleTodoListItemDone from '../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
 
-const TodoListItemElement: FC<TodoListItem> = ({
-    id, text, isDone, priority,
-}) => {
+const TodoListItemElement: FC<TodoListItem> = ({ id, text, isDone, priority }) => {
     const todoListStore = useTodoListStore();
 
     const handleOnDoubleClick = (): void => {

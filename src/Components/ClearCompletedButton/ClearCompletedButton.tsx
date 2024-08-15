@@ -9,12 +9,7 @@ const ClearCompletedButton: FC = () => {
     };
 
     return (
-        <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleOnClick}
-            sx={{ ml: 5 }}
-        >
+        <Button variant="contained" color="secondary" onClick={handleOnClick} sx={{ ml: 5 }}>
             Clear completed
         </Button>
     );

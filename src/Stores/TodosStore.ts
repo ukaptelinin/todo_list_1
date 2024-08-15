@@ -1,9 +1,4 @@
-import {
-    configure,
-    runInAction,
-    autorun,
-    makeAutoObservable,
-} from 'mobx';
+import { configure, runInAction, autorun, makeAutoObservable } from 'mobx';
 import { TodoListStore, TodoListStoreType } from './TodoListStore';
 
 configure({
@@ -26,11 +21,11 @@ class TodosStore {
     };
 
     loadStores = (): void => {
-        const storesData = JSON.parse(localStorage.getItem('todoListStores') as string || '[]');
+        const storesData = JSON.parse((localStorage.getItem('todoListStores') as string) || '[]');
         if (Array.isArray(storesData) && storesData.length > 0) {
             runInAction(() => {
-                this.todoListStores = storesData.map(
-                    (storeData: TodoListStoreType) => TodoListStore.fromJSON(storeData),
+                this.todoListStores = storesData.map((storeData: TodoListStoreType) =>
+                    TodoListStore.fromJSON(storeData),
                 );
             });
         }

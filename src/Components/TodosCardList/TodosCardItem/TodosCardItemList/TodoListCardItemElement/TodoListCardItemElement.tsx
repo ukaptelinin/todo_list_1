@@ -4,9 +4,7 @@ import { TodoListItem } from '../../../../../Stores/TodoListStore';
 import setTodoListItemPriorityColor from '../../../../TodoList/setTodoListItemPriorityColor';
 import ToggleTodoListItemDone from '../../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
 
-const TodoListCardItemElement: FC<TodoListItem> = ({
-    id, text, isDone, priority,
-}) => (
+const TodoListCardItemElement: FC<TodoListItem> = ({ id, text, isDone, priority }) => (
     <Grid container direction="row">
         <ListItem sx={{ borderBottom: '1px solid silver' }}>
             <Grid item xs={2}>

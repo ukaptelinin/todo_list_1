@@ -1,21 +1,18 @@
-import {
-    makeAutoObservable,
-    runInAction,
-} from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 export interface TodoListItem {
-    id: number,
-    text: string,
-    isDone: boolean,
-    priority: TodoListPriorityType,
+    id: number;
+    text: string;
+    isDone: boolean;
+    priority: TodoListPriorityType;
 }
 
 export type TodoListStoreType = {
-    title: string,
-    itemList: TodoListItem[],
-    todoRenderType: TodoRenderType,
-    currentIdTodoListItem: number | null,
-    id: number,
+    title: string;
+    itemList: TodoListItem[];
+    todoRenderType: TodoRenderType;
+    currentIdTodoListItem: number | null;
+    id: number;
 };
 
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
@@ -81,18 +78,16 @@ export class TodoListStore {
     }
 
     static fromJSON(json: TodoListStoreType): TodoListStore {
-        return new TodoListStore(json.title,
-            json.itemList,
-            json.todoRenderType,
-            json.currentIdTodoListItem,
-            json.id);
+        return new TodoListStore(json.title, json.itemList, json.todoRenderType, json.currentIdTodoListItem, json.id);
     }
 
-    constructor(title: string = '',
+    constructor(
+        title: string = '',
         itemList: TodoListItem[] = [],
         todoRenderType: TodoRenderType = 'ALL',
         currentIdTodoListItem: number | null = null,
-        id: number = 0) {
+        id: number = 0,
+    ) {
         makeAutoObservable(this);
         runInAction(() => {
             this.title = title;

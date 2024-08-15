@@ -14,7 +14,7 @@ import TodosCardItemList from './TodosCardItemList/TodosCardItemList';
 import TodoListStateContext from '../../TodosStateContext/TodoListStateContext';
 import useTodoListStoreOfId from './useTodoListStoreOfId';
 
-const TodosCardItem: FC<{ id: number, title: string }> = ({ id, title }) => {
+const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     const pageTodoListStore = useTodoListStoreOfId(id);
     const { open, openModal, clouseModal } = useModalState(false);
     const url = `/list/${id}`;
@@ -28,9 +28,12 @@ const TodosCardItem: FC<{ id: number, title: string }> = ({ id, title }) => {
     return (
         <TodoListStateContext.Provider value={pageTodoListStore}>
             <>
-                <Card sx={{
-                    maxWidth: 250, alignContent: 'center', backgroundColor: 'Lavender',
-                }}
+                <Card
+                    sx={{
+                        maxWidth: 250,
+                        alignContent: 'center',
+                        backgroundColor: 'Lavender',
+                    }}
                 >
                     <CardContent>
                         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -53,7 +56,6 @@ const TodosCardItem: FC<{ id: number, title: string }> = ({ id, title }) => {
                     cancel={clouseModal}
                     title={modalTitle}
                 />
-
             </>
         </TodoListStateContext.Provider>
     );
