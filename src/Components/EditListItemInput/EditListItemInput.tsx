@@ -10,7 +10,7 @@ interface ITodoInput {
 const EditListItemInput: FC<{ id: number; text: string }> = ({ id, text }) => {
     const todoListStore = useTodoListStore();
     const { control, handleSubmit } = useForm({
-           defaultValues: {
+        defaultValues: {
             inputText: text,
         },
     });
