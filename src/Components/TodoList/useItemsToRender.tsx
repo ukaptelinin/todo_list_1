@@ -2,7 +2,6 @@ import usePageNumber from '../../Hooks/usePageNumber';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 import { TodoListItem } from '../../Stores/TodoListStore';
 import { AMOUNT } from '../../constants';
-import sortTodoListItemsPriority from './sortTodoListItemsPriority';
 
 const preparePage = (currentPage: number, currentTodoListItem: TodoListItem[]): TodoListItem[] =>
     currentTodoListItem.slice(currentPage * AMOUNT, currentPage * AMOUNT + AMOUNT);
@@ -12,7 +11,9 @@ const useItemsToRender = (): TodoListItem[] => {
     const [pageNumber] = usePageNumber();
 
     let itemsGroup: TodoListItem[] = [];
-
+   /* 
+    todoListStore.sortTodoListItemsPriority()
+    */
     switch (todoListStore.todoRenderType) {
         case 'ACTIVE':
             itemsGroup = todoListStore.itemList.filter((item) => !item.isDone);
@@ -23,7 +24,7 @@ const useItemsToRender = (): TodoListItem[] => {
         default:
             itemsGroup = todoListStore.itemList;
     }
-    return preparePage(pageNumber - 1, sortTodoListItemsPriority(itemsGroup));
+    return preparePage(pageNumber - 1,todoListStore.todoRenderType === 'ALL' ? todoListStore.itemList: itemsGroup);
 };
 
 export default useItemsToRender;

@@ -40,6 +40,6 @@ const TodoListPage: FC = () => {
                 </Stack>
             </Container>
         </TodoListStateContext.Provider>
-    );
+        );
 };
 export default TodoListPage;

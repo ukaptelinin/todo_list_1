@@ -1,10 +1,29 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+import { RefObject } from 'react';
 
 export interface TodoListItem {
     id: number;
     text: string;
     isDone: boolean;
     priority: TodoListPriorityType;
+}
+
+export interface TodoListItemProps {
+    id: number;
+    text: string;
+    isDone: boolean;
+    priority: TodoListPriorityType;
+    index: number;
+    moveItem: (dragIndex: number, hoverIndex: number) => void;
+}
+
+export interface TodoListItemElementProps {
+    id: number;
+    text: string;
+    isDone: boolean;
+    priority: TodoListPriorityType;
+    dragRef:  RefObject<HTMLButtonElement>
+    onPointerDown: (event: React.PointerEvent) => void;
 }
 
 export type TodoListStoreType = {
@@ -17,6 +36,7 @@ export type TodoListStoreType = {
 
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 export type TodoListPriorityType = 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE';
+const PRIORITY_ARRAY: TodoListPriorityType[] = ['HIGH', 'MEDIUM', 'LOW', 'NONE'];
 
 export class TodoListStore {
     title: string = '';
@@ -55,6 +75,17 @@ export class TodoListStore {
         });
     };
 
+    reRecordTodo =(currentTodoList: TodoListItem[]): void => {
+        this.itemList = Array.from(currentTodoList);
+    };
+
+    sortTodoListItemsPriority = (): void => {
+    
+        this.itemList = this.itemList.toSorted((a: TodoListItem, b: TodoListItem): number =>
+            PRIORITY_ARRAY.indexOf(a.priority) > PRIORITY_ARRAY.indexOf(b.priority) ? 1 : -1,
+        );
+    };
+
     todoClearCompleted = (): void => {
         this.itemList = this.itemList.filter((itemList) => !itemList.isDone);
     };
@@ -65,6 +96,14 @@ export class TodoListStore {
 
     changeCurrentIdTodoListItem = (itemId: number | null): void => {
         this.currentIdTodoListItem = itemId;
+    };
+
+    moveItem = (dragIndex: number, hoverIndex: number): void => {
+        const newItems = Array.from(this.itemList);
+        const [draggedItem] = newItems.splice(dragIndex, 1);
+        newItems.splice(hoverIndex, 0, draggedItem);
+        newItems[hoverIndex].priority = this.itemList[hoverIndex].priority;
+        this.reRecordTodo(newItems);
     };
 
     toJSON(): TodoListStoreType {

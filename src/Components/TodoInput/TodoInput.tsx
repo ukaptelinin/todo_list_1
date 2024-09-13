@@ -36,6 +36,7 @@ const TodoInput: FC = () => {
             isDone: false,
             priority: data.inputPriority,
         });
+        todoListStore.sortTodoListItemsPriority();
         reset({
             inputText: '',
             inputPriority: 'NONE',
