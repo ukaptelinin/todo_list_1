@@ -21,7 +21,11 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({ id, text, isDone, p
     return (
         <>
              <Grid item xs={1}>
-                 <IconButton  ref={dragRef} onPointerDown={onPointerDown}> 
+                 <IconButton  
+                     ref={dragRef} 
+                     onPointerDown={onPointerDown} 
+                     disabled={todoListStore.todoRenderType !== 'ALL' ? true : false}
+                  > 
                      <Casino  sx={{color: 'brown', cursor: 'move'}}/>
                  </IconButton>
             </Grid>
@@ -46,4 +50,5 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({ id, text, isDone, p
         </>
     );
 };
+
 export default observer(TodoListItemElement);

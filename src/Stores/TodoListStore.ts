@@ -80,7 +80,6 @@ export class TodoListStore {
     };
 
     sortTodoListItemsPriority = (): void => {
-    
         this.itemList = this.itemList.toSorted((a: TodoListItem, b: TodoListItem): number =>
             PRIORITY_ARRAY.indexOf(a.priority) > PRIORITY_ARRAY.indexOf(b.priority) ? 1 : -1,
         );

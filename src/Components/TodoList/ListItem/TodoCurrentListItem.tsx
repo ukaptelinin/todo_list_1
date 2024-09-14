@@ -9,9 +9,8 @@ import { useDrop } from 'react-dnd/dist/hooks/useDrop/useDrop';
 import type { Identifier, XYCoord } from 'dnd-core';
 import { useDrag } from 'react-dnd/dist/hooks/useDrag/useDrag';
 import { DragItem } from '../../../constants';
-import { DragSourceMonitor } from 'react-dnd/dist/types/monitors';
 
-const TodoCurrentListItem: FC<TodoListItemProps> = ({ id, text, isDone, priority, index, moveItem}) => {
+const TodoCurrentListItem: FC<TodoListItemProps> = ({ id, text, isDone, priority, index, moveItem }) => {
     const todoListStore = useTodoListStore();
     const ref = useRef<HTMLDivElement>(null);
     const dragRef = useRef<HTMLButtonElement>(null);
@@ -23,75 +22,78 @@ const TodoCurrentListItem: FC<TodoListItemProps> = ({ id, text, isDone, priority
   >({
     accept: 'ITEM',
     collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      };
+        return {
+            handlerId: monitor.getHandlerId(),
+        };
     },
     hover(item: DragItem, monitor) {
-      if (!ref.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
+        if (!ref.current) {
+            return;
+        }
+        const dragIndex = item.index;
+        const hoverIndex = index;
 
-      if (dragIndex === hoverIndex) {
-        return;
-      }
+        if (dragIndex === hoverIndex) {
+            return;
+        }
 
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+        const hoverBoundingRect = ref.current?.getBoundingClientRect();
 
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        const hoverMiddleY =
+            (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-      const clientOffset = monitor.getClientOffset();
+        const clientOffset = monitor.getClientOffset();
 
-      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+        const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
+        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            return;
+        }
 
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
+        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            return;
+        }
 
-      moveItem(dragIndex, hoverIndex);
+        moveItem(dragIndex, hoverIndex);
 
-      item.index = hoverIndex;
-    },
+        item.index = hoverIndex;
+      },
   });
 
   const [{ isDragging }, drag, preview] = useDrag({
-    type: 'ITEM',
-    item: () => {
-      return { id, index };
-    },
-    collect: (monitor: any) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
+      type: 'ITEM',
+      item: () => {
+          return { id, index };
+      },
+      collect: (monitor: any) => ({
+          isDragging: monitor.isDragging(),
+      }),
+    });
 
-    // Обработчик для события pointerdown (универсальное событие для всех устройств)
-    const handlePointerDown = (event: React.PointerEvent) => {
+  const handlePointerDown = (event: React.PointerEvent) => {
       if (dragRef.current) {
-        drag(dragRef.current);
+          drag(dragRef.current);
       }
     };
-    const opacity = isDragging ? 0 : 1;
-    // Используем preview для всего элемента, но перетаскивание инициируется только при взаимодействии с IconButton
-    preview(drop(ref)); 
+  const opacity = isDragging ? 0 : 1;
+      preview(drop(ref)); 
 
     return (
-        <Grid container direction="row" ref={ref} sx={{opacity}}>
-      
+        <Grid container direction="row" ref={ref} sx={{opacity}}>   
             <ListItem sx={{ border: '1px solid silver', borderRadius: '5px', marginBottom: '5px' }}>
                 {todoListStore.currentIdTodoListItem === id ? (
                     <Grid item xs={12}>
                         <EditListItemInput id={id} text={text} />
                     </Grid>
                 ) : (
-                    <TodoListItemElement id={id} text={text} isDone={isDone} priority={priority} dragRef={dragRef} onPointerDown={handlePointerDown}/>
-                  
+                    <TodoListItemElement 
+                        id={id} 
+                        text={text} 
+                        isDone={isDone} 
+                        priority={priority} 
+                        dragRef={dragRef} 
+                        onPointerDown={handlePointerDown}
+                    />           
                 )}
             </ListItem>
         </Grid>

@@ -11,9 +11,7 @@ const useItemsToRender = (): TodoListItem[] => {
     const [pageNumber] = usePageNumber();
 
     let itemsGroup: TodoListItem[] = [];
-   /* 
-    todoListStore.sortTodoListItemsPriority()
-    */
+   
     switch (todoListStore.todoRenderType) {
         case 'ACTIVE':
             itemsGroup = todoListStore.itemList.filter((item) => !item.isDone);
@@ -24,7 +22,10 @@ const useItemsToRender = (): TodoListItem[] => {
         default:
             itemsGroup = todoListStore.itemList;
     }
-    return preparePage(pageNumber - 1,todoListStore.todoRenderType === 'ALL' ? todoListStore.itemList: itemsGroup);
+    return preparePage(pageNumber - 1,
+                       todoListStore.todoRenderType === 'ALL' ? 
+                       todoListStore.itemList: itemsGroup
+                      );
 };
 
 export default useItemsToRender;
