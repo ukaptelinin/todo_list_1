@@ -6,9 +6,9 @@ import RootRoutes from './Components/RootRoutes/RootRoutes';
 
 const App: FC = () => (
     <TodosStateContext.Provider value={todosStore}>
-        <BrowserRouter>
+        <BrowserRouter>      
             <AppHeader />
-            <RootRoutes />
+            <RootRoutes />   
         </BrowserRouter>
     </TodosStateContext.Provider>
 );
