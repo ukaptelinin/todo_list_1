@@ -22,11 +22,11 @@ const TodoListPage: FC = () => {
             <Container maxWidth="sm" style={{ padding: '10px' }}>
                 {pageTodoListStore ? (
                     <Paper>
-                        <TodoHeader />
-                        <TodoInput />
-                        <TodoList />
-                        <TodoPagination />
-                        <TodoFooter />
+                        <TodoHeader/>
+                        <TodoInput/>
+                        <TodoList/>
+                        <TodoPagination/>
+                        <TodoFooter/>
                     </Paper>
                 ) : (
                     <ErrorPage errorCode="404" errorMessage="Todolist not found" />

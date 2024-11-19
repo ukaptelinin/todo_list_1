@@ -51,6 +51,7 @@ export class TodoListStore {
 
     addTodo = (newItem: TodoListItem): void => {
         this.itemList.push(newItem);
+        this.sortTodoListItemsPriority();
     };
 
     toggleDone = (itemId: number): void => {
@@ -75,9 +76,6 @@ export class TodoListStore {
         });
     };
 
-    reRecordTodo =(currentTodoList: TodoListItem[]): void => {
-        this.itemList = Array.from(currentTodoList);
-    };
 
     sortTodoListItemsPriority = (): void => {
         this.itemList = this.itemList.toSorted((a: TodoListItem, b: TodoListItem): number =>
@@ -97,12 +95,12 @@ export class TodoListStore {
         this.currentIdTodoListItem = itemId;
     };
 
-    moveItem = (dragIndex: number, hoverIndex: number): void => {
+    moveItem = (fromIndex: number, toIndex: number): void => {
         const newItems = Array.from(this.itemList);
-        const [draggedItem] = newItems.splice(dragIndex, 1);
-        newItems.splice(hoverIndex, 0, draggedItem);
-        newItems[hoverIndex].priority = this.itemList[hoverIndex].priority;
-        this.reRecordTodo(newItems);
+        const [draggedItem] = newItems.splice(fromIndex, 1);
+        newItems.splice(toIndex, 0, draggedItem);
+        newItems[toIndex].priority = this.itemList[toIndex].priority;
+        this.itemList = Array.from(newItems);
     };
 
     toJSON(): TodoListStoreType {
