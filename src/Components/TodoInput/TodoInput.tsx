@@ -1,13 +1,15 @@
 import { FC } from 'react';
-import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import usePageNumber from '../../Hooks/usePageNumber';
 import { AMOUNT } from '../../constants';
 import useTodoListStore from '../../Hooks/useTodoListStore';
-import { TodoListPriorityType } from '../../Stores/TodoListStore';
+import { TodoListItem, TodoListPriorityType } from '../../Stores/TodoListStore';
+import SelectPriority from '../../SelectPriority/SelectPriority';
 
-const calculatePageNumber = (currentPageNumber: number, itemsCount: number): number =>
-    itemsCount % AMOUNT > 0 ? Math.floor(itemsCount / AMOUNT + 1) : currentPageNumber + 1;
+const findIndexById = (itemList: TodoListItem[], id: number): number => {
+    return itemList.findIndex((item) => item.id === id);
+};
 
 interface ITodoInput {
     inputText: string;
@@ -22,20 +24,19 @@ const TodoInput: FC = () => {
             inputPriority: 'NONE',
         },
     });
-    const [pageNumber, setPageNumber] = usePageNumber();
+    const [, setPageNumber] = usePageNumber();
 
     const onSubmit: SubmitHandler<ITodoInput> = (data) => {
         todoListStore.toggleRenderType('ALL');
-        setPageNumber(
-            todoListStore.itemList.length ? calculatePageNumber(pageNumber, todoListStore.itemList.length) : 1,
-        );
-
+        const itemId = Math.random();
         todoListStore.addTodo({
-            id: Math.random(),
+            id: itemId,
             text: data.inputText,
             isDone: false,
             priority: data.inputPriority,
         });
+        const itemIndex = findIndexById(todoListStore.itemList, itemId);
+        setPageNumber(Math.floor(itemIndex / AMOUNT) + 1);
         reset({
             inputText: '',
             inputPriority: 'NONE',
@@ -57,32 +58,12 @@ const TodoInput: FC = () => {
                         />
                     )}
                 />
-                <Controller
-                    name="inputPriority"
-                    control={control}
-                    render={({ field }) => (
-                        <>
-                            <InputLabel id="demo-simple-select-label">Приоритет</InputLabel>
-                            <Select
-                                {...field}
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Приоритет"
-                            >
-                                <MenuItem value="HIGH" sx={{ color: 'crimson' }}>
-                                    HIGH
-                                </MenuItem>
-                                <MenuItem value="MEDIUM" sx={{ color: 'green' }}>
-                                    MEDIUM
-                                </MenuItem>
-                                <MenuItem value="LOW" sx={{ color: 'darkblue' }}>
-                                    LOW
-                                </MenuItem>
-                            </Select>
-                        </>
-                    )}
-                />
-                <Button size="small" variant="outlined" onClick={handleSubmit(onSubmit)}>
+                <SelectPriority control={control} name="inputPriority" />
+                <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={handleSubmit(onSubmit)}
+                >
                     Save
                 </Button>
             </form>

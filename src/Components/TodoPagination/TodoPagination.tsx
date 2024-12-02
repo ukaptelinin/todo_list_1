@@ -10,7 +10,10 @@ import useTodoListStore from '../../Hooks/useTodoListStore';
 const TodoPagination: FC = () => {
     const todoListStore = useTodoListStore();
     const [pageNumber, setPageNumber] = usePageNumber();
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number): void => {
+    const handleChange = (
+        event: React.ChangeEvent<unknown>,
+        value: number,
+    ): void => {
         setPageNumber(value);
     };
     const count: number = usePaginatioNcountPages();

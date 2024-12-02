@@ -17,15 +17,20 @@ class TodosStore {
     };
 
     deleteTodoList = (itemId: number): void => {
-        this.todoListStores = this.todoListStores.filter((todoListStores) => todoListStores.id !== itemId);
+        this.todoListStores = this.todoListStores.filter(
+            (todoListStores) => todoListStores.id !== itemId,
+        );
     };
 
     loadStores = (): void => {
-        const storesData = JSON.parse((localStorage.getItem('todoListStores') as string) || '[]');
+        const storesData = JSON.parse(
+            (localStorage.getItem('todoListStores') as string) || '[]',
+        );
         if (Array.isArray(storesData) && storesData.length > 0) {
             runInAction(() => {
-                this.todoListStores = storesData.map((storeData: TodoListStoreType) =>
-                    TodoListStore.fromJSON(storeData),
+                this.todoListStores = storesData.map(
+                    (storeData: TodoListStoreType) =>
+                        TodoListStore.fromJSON(storeData),
                 );
             });
         }

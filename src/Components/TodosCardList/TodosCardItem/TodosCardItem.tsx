@@ -36,7 +36,11 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                     }}
                 >
                     <CardContent>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        <Typography
+                            sx={{ fontSize: 14 }}
+                            color="text.secondary"
+                            gutterBottom
+                        >
                             {title}
                         </Typography>
                         <TodosCardItemList />
@@ -45,7 +49,11 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                         <Link to={url}>
                             <Edit />
                         </Link>
-                        <IconButton aria-label="delete" size="small" onClick={openModal}>
+                        <IconButton
+                            aria-label="delete"
+                            size="small"
+                            onClick={openModal}
+                        >
                             <Delete />
                         </IconButton>
                     </CardActions>

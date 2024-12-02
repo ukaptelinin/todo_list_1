@@ -22,7 +22,7 @@ export interface TodoListItemElementProps {
     text: string;
     isDone: boolean;
     priority: TodoListPriorityType;
-    dragRef:  RefObject<HTMLButtonElement>
+    dragRef: RefObject<HTMLButtonElement>;
     onPointerDown: (event: React.PointerEvent) => void;
 }
 
@@ -36,7 +36,8 @@ export type TodoListStoreType = {
 
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 export type TodoListPriorityType = 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE';
-const PRIORITY_ARRAY: TodoListPriorityType[] = ['HIGH', 'MEDIUM', 'LOW', 'NONE'];
+
+const priorityOrder: TodoListPriorityType[] = ['HIGH', 'MEDIUM', 'LOW', 'NONE'];
 
 export class TodoListStore {
     title: string = '';
@@ -50,8 +51,17 @@ export class TodoListStore {
     id: number = 0;
 
     addTodo = (newItem: TodoListItem): void => {
-        this.itemList.push(newItem);
-        this.sortTodoListItemsPriority();
+        const insertIndex = this.itemList.findIndex(
+            (item) =>
+                priorityOrder.indexOf(newItem.priority) <
+                priorityOrder.indexOf(item.priority),
+        );
+
+        if (insertIndex === -1) {
+            this.itemList.push(newItem);
+        } else {
+            this.itemList.splice(insertIndex, 0, newItem);
+        }
     };
 
     toggleDone = (itemId: number): void => {
@@ -64,7 +74,9 @@ export class TodoListStore {
     };
 
     deleteTodo = (itemId: number): void => {
-        this.itemList = this.itemList.filter((listItem) => listItem.id !== itemId);
+        this.itemList = this.itemList.filter(
+            (listItem) => listItem.id !== itemId,
+        );
     };
 
     editTodo = (itemId: number, text: string): void => {
@@ -76,15 +88,28 @@ export class TodoListStore {
         });
     };
 
-
-    sortTodoListItemsPriority = (): void => {
-        this.itemList = this.itemList.toSorted((a: TodoListItem, b: TodoListItem): number =>
-            PRIORITY_ARRAY.indexOf(a.priority) > PRIORITY_ARRAY.indexOf(b.priority) ? 1 : -1,
-        );
-    };
-
     todoClearCompleted = (): void => {
         this.itemList = this.itemList.filter((itemList) => !itemList.isDone);
+    };
+
+    updateItemPriority = (
+        itemId: number,
+        newPriority: TodoListPriorityType,
+    ): void => {
+        const itemIndex = this.itemList.findIndex((item) => item.id === itemId);
+        if (itemIndex === -1) {
+            console.error('Item not found');
+            return;
+        }
+
+        const itemToUpdate = this.itemList[itemIndex];
+        this.itemList.splice(itemIndex, 1); // Удалить элемент из текущего места
+
+        // Обновить приоритет
+        itemToUpdate.priority = newPriority;
+
+        // Вставить элемент в новое место в соответствии с его новым приоритетом
+        this.addTodo(itemToUpdate);
     };
 
     toggleRenderType = (type: TodoRenderType): void => {
@@ -99,7 +124,6 @@ export class TodoListStore {
         const newItems = Array.from(this.itemList);
         const [draggedItem] = newItems.splice(fromIndex, 1);
         newItems.splice(toIndex, 0, draggedItem);
-        newItems[toIndex].priority = this.itemList[toIndex].priority;
         this.itemList = Array.from(newItems);
     };
 
@@ -114,7 +138,13 @@ export class TodoListStore {
     }
 
     static fromJSON(json: TodoListStoreType): TodoListStore {
-        return new TodoListStore(json.title, json.itemList, json.todoRenderType, json.currentIdTodoListItem, json.id);
+        return new TodoListStore(
+            json.title,
+            json.itemList,
+            json.todoRenderType,
+            json.currentIdTodoListItem,
+            json.id,
+        );
     }
 
     constructor(

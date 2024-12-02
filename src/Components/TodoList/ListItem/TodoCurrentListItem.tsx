@@ -7,34 +7,55 @@ import useTodoListStore from '../../../Hooks/useTodoListStore';
 import TodoListItemElement from './TodoListItemElement/TodoListItemElement';
 import useDnD from './useDnD';
 
-const TodoCurrentListItem: FC<TodoListItemProps> = ({ id, text, isDone, priority, index, moveItem }) => {
+const TodoCurrentListItem: FC<TodoListItemProps> = ({
+    id,
+    text,
+    isDone,
+    priority,
+    index,
+    moveItem,
+}) => {
     const todoListStore = useTodoListStore();
-    const {drag, drop, preview, ref, dragRef, isDragging} = useDnD( id, index, moveItem);
-    
-  const handlePointerDown = (event: React.PointerEvent) => {
-      if (dragRef.current) {
-          drag(dragRef.current);
-      }
+    const { drag, drop, preview, ref, dragRef, isDragging } = useDnD(
+        id,
+        index,
+        moveItem,
+    );
+
+    const handlePointerDown = (event: React.PointerEvent) => {
+        if (dragRef.current) {
+            drag(dragRef.current);
+        }
     };
-  const opacity = isDragging ? 0.2 : 1;
-      preview(drop(ref)); 
+    const opacity = isDragging ? 0.2 : 1;
+    preview(drop(ref));
 
     return (
-        <Grid container direction="row" ref={ref} sx={{opacity}}>   
-            <ListItem sx={{ border: '1px solid silver', borderRadius: '5px', marginBottom: '5px' }}>
+        <Grid container direction="row" ref={ref} sx={{ opacity }}>
+            <ListItem
+                sx={{
+                    border: '1px solid silver',
+                    borderRadius: '5px',
+                    marginBottom: '5px',
+                }}
+            >
                 {todoListStore.currentIdTodoListItem === id ? (
                     <Grid item xs={12}>
-                        <EditListItemInput id={id} text={text} />
+                        <EditListItemInput
+                            id={id}
+                            text={text}
+                            priority={priority}
+                        />
                     </Grid>
                 ) : (
-                    <TodoListItemElement 
-                        id={id} 
-                        text={text} 
-                        isDone={isDone} 
-                        priority={priority} 
-                        dragRef={dragRef} 
+                    <TodoListItemElement
+                        id={id}
+                        text={text}
+                        isDone={isDone}
+                        priority={priority}
+                        dragRef={dragRef}
                         onPointerDown={handlePointerDown}
-                    />           
+                    />
                 )}
             </ListItem>
         </Grid>

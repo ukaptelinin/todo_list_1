@@ -1,5 +1,40 @@
-# Ignore artifacts:
-build
-coverage
+# Игнорировать файловые директории node_modules и build
 node_modules/
-dist/
+build/
+
+# Игнорировать все файлы лога
+*.log
+
+# Игнорировать конфигурационные файлы
+*.config.js
+
+# Игнорировать файлы окружения
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Игнорировать директорию public
+public/
+
+# Игнорирование скомпилированных файлов
+*.d.ts
+
+# Игнорировать специфичные для IDE файлы и директории
+/.idea/
+/.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Игнорировать изображения и ассеты
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+
+# Игнорировать специфичные для OS файлы
+.DS_Store
+Thumbs.db

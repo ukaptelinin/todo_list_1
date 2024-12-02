@@ -22,24 +22,30 @@ const TodoListPage: FC = () => {
             <Container maxWidth="sm" style={{ padding: '10px' }}>
                 {pageTodoListStore ? (
                     <Paper>
-                        <TodoHeader/>
-                        <TodoInput/>
-                        <TodoList/>
-                        <TodoPagination/>
-                        <TodoFooter/>
+                        <TodoHeader />
+                        <TodoInput />
+                        <TodoList />
+                        <TodoPagination />
+                        <TodoFooter />
                     </Paper>
                 ) : (
-                    <ErrorPage errorCode="404" errorMessage="Todolist not found" />
+                    <ErrorPage
+                        errorCode="404"
+                        errorMessage="Todolist not found"
+                    />
                 )}
                 <Stack direction="row" alignItems="right">
                     <Button variant="outlined" style={{ marginRight: '5px' }}>
-                        <Link to={MAIN_PATH} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link
+                            to={MAIN_PATH}
+                            style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
                             CLOSE
                         </Link>
                     </Button>
                 </Stack>
             </Container>
         </TodoListStateContext.Provider>
-        );
+    );
 };
 export default TodoListPage;

@@ -17,14 +17,14 @@ const TodoList: FC = () => {
             <DndProvider backend={HTML5Backend}>
                 <List>
                     {itemsToRender.map((item: TodoListItem, index: number) => (
-                        <TodoCurrentListItem 
-                            key={item.id} 
-                            {...item} 
+                        <TodoCurrentListItem
+                            key={item.id}
+                            {...item}
                             index={index}
-                            moveItem={todoListStore.moveItem} 
+                            moveItem={todoListStore.moveItem}
                         />
                     ))}
-                </List> 
+                </List>
             </DndProvider>
         );
     }

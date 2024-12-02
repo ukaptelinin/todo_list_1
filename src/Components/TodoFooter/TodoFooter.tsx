@@ -10,7 +10,13 @@ const TodoFooter: FC = () => {
     if (todoListStore.itemList.length > 0) {
         return (
             <footer>
-                <Grid container direction="row" alignItems="center" justifyContent="space-around" sx={{ mt: 2, mb: 2 }}>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-around"
+                    sx={{ mt: 2, mb: 2 }}
+                >
                     <Grid item>
                         <ChangeRenderType renderType="ALL" title="ALL" />
                     </Grid>
@@ -18,7 +24,10 @@ const TodoFooter: FC = () => {
                         <ChangeRenderType renderType="ACTIVE" title="ACTIVE" />
                     </Grid>
                     <Grid item>
-                        <ChangeRenderType renderType="COMPLETED" title="COMPLETED" />
+                        <ChangeRenderType
+                            renderType="COMPLETED"
+                            title="COMPLETED"
+                        />
                     </Grid>
                     <Grid item>
                         <ClearCompletedButton />

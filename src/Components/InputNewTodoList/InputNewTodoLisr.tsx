@@ -31,7 +31,9 @@ const InputNewTodoList: FC = () => {
                         <TextField
                             sx={{ width: '80ch', margin: 2 }}
                             {...field}
-                            inputProps={{ style: { fontSize: 20, margin: 'auto' } }}
+                            inputProps={{
+                                style: { fontSize: 20, margin: 'auto' },
+                            }}
                             placeholder="Новый список"
                         />
                     )}
