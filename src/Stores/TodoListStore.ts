@@ -103,7 +103,7 @@ export class TodoListStore {
     ): void => {
         const itemIndex = this.itemList.findIndex((item) => item.id === itemId);
         if (itemIndex === -1) {
-            console.error('Error! The element "item" was not found.');
+            console.error('Error! Index of item not found');
             return;
         }
 
