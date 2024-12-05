@@ -27,7 +27,7 @@ const EditListItemInput: FC<{
     const onSubmit: SubmitHandler<ITodoInput> = (data) => {
         todoListStore.editTodo(id, data.inputText);
         todoListStore.changeCurrentIdTodoListItem(null);
-        if (data.inputPriority != priority) {
+        if (data.inputPriority !== priority) {
             todoListStore.updateItemPriority(id, data.inputPriority);
         }
     };

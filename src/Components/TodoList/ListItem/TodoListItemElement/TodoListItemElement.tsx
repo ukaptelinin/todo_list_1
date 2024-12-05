@@ -30,9 +30,7 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({
                 <IconButton
                     ref={dragRef}
                     onPointerDown={onPointerDown}
-                    disabled={
-                        todoListStore.todoRenderType !== 'ALL' ? true : false
-                    }
+                    disabled={todoListStore.todoRenderType !== 'ALL'}
                 >
                     <Casino sx={{ color: 'brown', cursor: 'move' }} />
                 </IconButton>

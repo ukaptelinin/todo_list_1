@@ -37,7 +37,12 @@ export type TodoListStoreType = {
 export type TodoRenderType = 'ALL' | 'ACTIVE' | 'COMPLETED';
 export type TodoListPriorityType = 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE';
 
-const priorityOrder: TodoListPriorityType[] = ['HIGH', 'MEDIUM', 'LOW', 'NONE'];
+const PRIORITY_ARRAY: TodoListPriorityType[] = [
+    'HIGH',
+    'MEDIUM',
+    'LOW',
+    'NONE',
+];
 
 export class TodoListStore {
     title: string = '';
@@ -53,8 +58,8 @@ export class TodoListStore {
     addTodo = (newItem: TodoListItem): void => {
         const insertIndex = this.itemList.findIndex(
             (item) =>
-                priorityOrder.indexOf(newItem.priority) <
-                priorityOrder.indexOf(item.priority),
+                PRIORITY_ARRAY.indexOf(newItem.priority) <
+                PRIORITY_ARRAY.indexOf(item.priority),
         );
 
         if (insertIndex === -1) {
@@ -103,12 +108,8 @@ export class TodoListStore {
         }
 
         const itemToUpdate = this.itemList[itemIndex];
-        this.itemList.splice(itemIndex, 1); // Удалить элемент из текущего места
-
-        // Обновить приоритет
+        this.itemList.splice(itemIndex, 1);
         itemToUpdate.priority = newPriority;
-
-        // Вставить элемент в новое место в соответствии с его новым приоритетом
         this.addTodo(itemToUpdate);
     };
 
