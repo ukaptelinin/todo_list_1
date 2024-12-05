@@ -58,11 +58,15 @@ const useDnD = (
             const clientOffset = monitor.getClientOffset();
             const hoverClientY =
                 (clientOffset as XYCoord).y - hoverBoundingRect.top;
-            const isMoreInvalidState =
+            const isDragAboveHoverAndCursorBelowMiddle =
                 dragIndex > hoverIndex && hoverClientY > hoverMiddleY;
-            const isLessInvalidState =
+            const isDragBelowHoverAndCursorAboveMiddle =
                 dragIndex < hoverIndex && hoverClientY < hoverMiddleY;
-            if (isMoreInvalidState || isLessInvalidState) return;
+            if (
+                isDragAboveHoverAndCursorBelowMiddle ||
+                isDragBelowHoverAndCursorAboveMiddle
+            )
+                return;
 
             if (
                 todoListStore.itemList[dragIndex].priority ===
