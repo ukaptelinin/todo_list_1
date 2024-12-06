@@ -108,7 +108,7 @@ export class TodoListStore {
         });
         if (itemIndex === -1) {
             console.error(
-                `The element cannot be rendered because its id=${editedElementId} after editing does not match the id=${itemId} of the same element before editing`,
+                `The element cannot be moved in the todolist because its id=${editedElementId} after editing does not match the id=${itemId} of the same element before editing`,
             );
             return;
         }
