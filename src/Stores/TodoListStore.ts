@@ -101,10 +101,14 @@ export class TodoListStore {
         itemId: number,
         newPriority: TodoListPriorityType,
     ): void => {
-        const itemIndex = this.itemList.findIndex((item) => item.id === itemId);
+        let editedElementId;
+        const itemIndex = this.itemList.findIndex((item) => {
+            editedElementId = item.id;
+            item.id === itemId;
+        });
         if (itemIndex === -1) {
             console.error(
-                'Error! Element with value "item" in array: "itemList" not found.',
+                `The element cannot be rendered because its id=${editedElementId} after editing does not match the id=${itemId} of the same element before editing`,
             );
             return;
         }
