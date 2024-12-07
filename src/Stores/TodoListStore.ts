@@ -101,18 +101,13 @@ export class TodoListStore {
         itemId: number,
         newPriority: TodoListPriorityType,
     ): void => {
-        let editedElementId;
-        const itemIndex = this.itemList.findIndex((item) => {
-            editedElementId = item.id;
-            item.id === itemId;
-        });
+        const itemIndex = this.itemList.findIndex((item) => item.id === itemId);
         if (itemIndex === -1) {
             console.error(
-                `The element cannot be moved in the todolist because its id=${editedElementId} after editing does not match the id=${itemId} of the same element before editing`,
+                `The item with id:${itemId} was not moved to the to-do list with id:${this.id} using the "updateItemPriority" method because it was not found in this to-do list.`,
             );
             return;
         }
-
         const itemToUpdate = this.itemList[itemIndex];
         this.itemList.splice(itemIndex, 1);
         itemToUpdate.priority = newPriority;
