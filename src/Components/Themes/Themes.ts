@@ -22,7 +22,6 @@ export const darkTheme = createTheme({
         MuiList: {
             styleOverrides: {
                 root: {
-                    // Применение стилей к кнопке с классом KlassName
                     '&.DarkColor': {
                         backgroundColor: '#00BFFF',
                     },
@@ -32,7 +31,6 @@ export const darkTheme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    // Применение стилей к кнопке с классом KlassName
                     '&.DarkColor': {
                         backgroundColor: '#00BFFF',
                     },
@@ -42,7 +40,6 @@ export const darkTheme = createTheme({
         MuiCard: {
             styleOverrides: {
                 root: {
-                    // Применение стилей к кнопке с классом KlassName
                     '&.DarkColor': {
                         backgroundColor: '#00BFFF',
                     },
@@ -53,7 +50,6 @@ export const darkTheme = createTheme({
         MuiTextField: {
             styleOverrides: {
                 root: {
-                    // Применение стилей к кнопке с классом KlassName
                     '&.DarkColor': {
                         color: 'white',
                         backgroundColor: '#00BFFF',
