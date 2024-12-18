@@ -29,6 +29,7 @@ const InputNewTodoList: FC = () => {
                     control={control}
                     render={({ field }) => (
                         <TextField
+                            className="DarkColor"
                             sx={{ width: '80ch', margin: 2 }}
                             {...field}
                             inputProps={{

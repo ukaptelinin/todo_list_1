@@ -15,7 +15,7 @@ const TodoList: FC = () => {
     if (todoListStore.itemList.length) {
         return (
             <DndProvider backend={HTML5Backend}>
-                <List>
+                <List className="DarkColor">
                     {itemsToRender.map((item: TodoListItem, index: number) => (
                         <TodoCurrentListItem
                             key={item.id}
