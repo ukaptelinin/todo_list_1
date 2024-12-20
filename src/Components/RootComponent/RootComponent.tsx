@@ -1,7 +1,7 @@
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { FC } from 'react';
 import useTodosStore from '../../Hooks/useTodosStore';
-import { darkTheme, lightTheme, systemDarkTheme } from '../Themes/Themes';
+import { darkTheme, lightTheme } from '../Themes/Themes';
 import TodosStateContext from '../TodosStateContext/TodosStateContext';
 import App from '../../App';
 import { observer } from 'mobx-react-lite';
@@ -18,8 +18,7 @@ const RootComponent: FC = () => {
         }
     };
 
-    const systemTheme =
-        getPreferredTheme() === 'dark' ? systemDarkTheme : lightTheme;
+    const systemTheme = getPreferredTheme() === 'dark' ? darkTheme : lightTheme;
 
     const theme =
         todosStore.currentTheme === 'SYSTEM'
