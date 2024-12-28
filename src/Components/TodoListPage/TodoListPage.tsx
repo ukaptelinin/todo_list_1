@@ -21,7 +21,7 @@ const TodoListPage: FC = () => {
         <TodoListStateContext.Provider value={pageTodoListStore}>
             <Container maxWidth="sm" style={{ padding: '10px' }}>
                 {pageTodoListStore ? (
-                    <Paper className="DarkColor">
+                    <Paper>
                         <TodoHeader />
                         <TodoInput />
                         <TodoList />

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import InputNewTodo from '../InputNewTodoList/InputNewTodoLisr';
+import InputNewTodo from '../InputNewTodoList/InputNewTodoList';
 import TodosCardList from '../TodosCardList/TodosCardList';
 
 const Main: FC = () => (

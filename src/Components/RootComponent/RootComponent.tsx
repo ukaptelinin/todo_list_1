@@ -1,40 +1,23 @@
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import { FC } from 'react';
-import useTodosStore from '../../Hooks/useTodosStore';
-import { darkTheme, lightTheme } from '../Themes/Themes';
-import TodosStateContext from '../TodosStateContext/TodosStateContext';
-import App from '../../App';
-import { observer } from 'mobx-react-lite';
+import { FC, useContext } from 'react';
 import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
+import TodoThemeContextProvider, {
+    TodosThemeStateContext,
+} from '../../TodosThemeContextProvider/context';
+import App from '../../App';
 
 const RootComponent: FC = () => {
-    const todosStore = useTodosStore();
-
-    const getPreferredTheme = () => {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
-        } else {
-            return 'light';
-        }
-    };
-
-    const systemTheme = getPreferredTheme() === 'dark' ? darkTheme : lightTheme;
-
-    const theme =
-        todosStore.currentTheme === 'SYSTEM'
-            ? systemTheme
-            : todosStore.currentTheme === 'DARK'
-              ? darkTheme
-              : lightTheme;
+    const { todoTheme, choiceTheme } = useContext(TodosThemeStateContext);
+    const theme = choiceTheme(todoTheme);
+    console.log(`Тип темы:${todoTheme}`);
+    console.log(`Тема:${theme}`);
 
     return (
-        <TodosStateContext.Provider value={todosStore}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <App />
-            </ThemeProvider>
-        </TodosStateContext.Provider>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <App />
+        </ThemeProvider>
     );
 };
 
-export default observer(RootComponent);
+export default RootComponent;

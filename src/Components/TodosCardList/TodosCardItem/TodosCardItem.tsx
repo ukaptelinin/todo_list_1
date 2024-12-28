@@ -29,7 +29,6 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
         <TodoListStateContext.Provider value={pageTodoListStore}>
             <>
                 <Card
-                    className="DarkColor"
                     sx={{
                         maxWidth: 250,
                         alignContent: 'center',

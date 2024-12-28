@@ -5,20 +5,22 @@ import {
 } from '@mui/icons-material';
 import ToggleButton from '@mui/material/ToggleButton/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup/ToggleButtonGroup';
-import React, { FC } from 'react';
-import useTodosStore from '../../Hooks/useTodosStore';
+import React, { FC, useContext } from 'react';
 import { CurrentThemeType } from '../../Stores/TodosStore';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
+import { TodosThemeStateContext } from '../../TodosThemeContextProvider/context';
 
 const ToggleThemeButtons: FC = () => {
-    const todosStore = useTodosStore();
-    const [alignment, setAlignment] = React.useState(todosStore.currentTheme);
+    const { todoTheme, toggleTheme } = useContext(TodosThemeStateContext);
+    const [alignment, setAlignment] = React.useState(todoTheme);
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: CurrentThemeType,
     ) => {
         setAlignment(newAlignment);
-        todosStore.toggleTheme(newAlignment);
+        toggleTheme(newAlignment);
+        console.log(newAlignment);
+        console.log(todoTheme);
     };
 
     return (
@@ -29,17 +31,17 @@ const ToggleThemeButtons: FC = () => {
             onChange={handleChange}
         >
             <Tooltip title="System theme">
-                <ToggleButton className="DarkColor" value="SYSTEM">
+                <ToggleButton value="SYSTEM">
                     <ContrastSharp />
                 </ToggleButton>
             </Tooltip>
             <Tooltip title="Light theme">
-                <ToggleButton className="DarkColor " value="LIGHT">
+                <ToggleButton value="LIGHT">
                     <WbSunnySharp />
                 </ToggleButton>
             </Tooltip>
             <Tooltip title="Dark theme">
-                <ToggleButton className="DarkColor" value="DARK">
+                <ToggleButton value="DARK">
                     <NightlightRoundSharp />
                 </ToggleButton>
             </Tooltip>
