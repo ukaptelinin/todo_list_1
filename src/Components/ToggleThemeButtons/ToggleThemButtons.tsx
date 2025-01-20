@@ -9,9 +9,9 @@ import React, { FC, useContext } from 'react';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
 import { ThemeContext } from '../../TodosThemeContextProvider/context';
 
-const ToggleThemeButtons: FC = () => {
-    type CurrentThemeType = 'SYSTEM' | 'LIGHT' | 'DARK';
+type CurrentThemeType = 'SYSTEM' | 'LIGHT' | 'DARK';
 
+const ToggleThemeButtons: FC = () => {
     const { todoTheme, switchTheme } = useContext(ThemeContext);
     const [alignment, setAlignment] = React.useState(todoTheme);
     const handleChange = (
