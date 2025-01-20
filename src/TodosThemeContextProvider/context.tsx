@@ -43,13 +43,20 @@ const TodoThemeContextProvider: FC<{ children: ReactNode }> = ({
             }
         })();
 
-        if (todoTheme === 'SYSTEM') {
-            const theme = preferredTheme === 'dark' ? darkTheme : lightTheme;
-            return theme;
-        } else {
-            const theme = todoTheme === 'DARK' ? darkTheme : lightTheme;
-            return theme;
+        let theme;
+
+        switch (todoTheme) {
+            case 'SYSTEM':
+                theme = preferredTheme === 'dark' ? darkTheme : lightTheme;
+                break;
+            case 'DARK':
+                theme = darkTheme;
+                break;
+            case 'LIGHT':
+                theme = lightTheme;
         }
+
+        return theme;
     };
 
     return (
