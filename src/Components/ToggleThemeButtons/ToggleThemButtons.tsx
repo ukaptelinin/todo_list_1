@@ -6,21 +6,20 @@ import {
 import ToggleButton from '@mui/material/ToggleButton/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup/ToggleButtonGroup';
 import React, { FC, useContext } from 'react';
-import { CurrentThemeType } from '../../Stores/TodosStore';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
-import { TodosThemeStateContext } from '../../TodosThemeContextProvider/context';
+import { ThemeContext } from '../../TodosThemeContextProvider/context';
 
 const ToggleThemeButtons: FC = () => {
-    const { todoTheme, toggleTheme } = useContext(TodosThemeStateContext);
+    type CurrentThemeType = 'SYSTEM' | 'LIGHT' | 'DARK';
+
+    const { todoTheme, switchTheme } = useContext(ThemeContext);
     const [alignment, setAlignment] = React.useState(todoTheme);
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: CurrentThemeType,
     ) => {
         setAlignment(newAlignment);
-        toggleTheme(newAlignment);
-        console.log(newAlignment);
-        console.log(todoTheme);
+        switchTheme(newAlignment);
     };
 
     return (

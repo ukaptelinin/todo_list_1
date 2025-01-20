@@ -9,8 +9,6 @@ configure({
     disableErrorBoundaries: true,
 });
 
-export type CurrentThemeType = 'SYSTEM' | 'LIGHT' | 'DARK';
-
 class TodosStore {
     todoListStores: TodoListStore[] = [];
 
