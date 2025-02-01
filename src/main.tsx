@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import RootComponent from './Components/RootComponent/RootComponent';
-import TodoThemeContextProvider from './TodosThemeContextProvider/context';
+import { ChoiseThemeProvider } from './TodosThemeContextProvider/context';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <TodoThemeContextProvider>
+        <ChoiseThemeProvider>
             <RootComponent />
-        </TodoThemeContextProvider>
+        </ChoiseThemeProvider>
     </React.StrictMode>,
 );

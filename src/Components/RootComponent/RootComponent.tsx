@@ -5,11 +5,10 @@ import { ThemeContext } from '../../TodosThemeContextProvider/context';
 import App from '../../App';
 
 const RootComponent: FC = () => {
-    const { todoTheme, choiceTheme } = useContext(ThemeContext);
-    const theme = choiceTheme(todoTheme);
+    const { todoTheme } = useContext(ThemeContext);
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={todoTheme}>
             <CssBaseline />
             <App />
         </ThemeProvider>
