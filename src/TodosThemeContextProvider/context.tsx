@@ -8,53 +8,39 @@ import {
 } from 'react';
 import { darkTheme, lightTheme } from '../Components/Themes/Themes';
 import { Theme } from '@mui/material';
+import { CURRENT_TYPE_THEME } from '../constants';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const SwitchThemeContext = createContext<ITodosSwitchThemeContext>({
-    themeType: { type: 'LIGHT', themeColorType: 'dark' },
+    themeType: 'LIGHT',
     switchTheme: (type: TodoThemeType): void => {},
-    toggleDarkTheme: (themeColorType: ThemeColorType): void => {},
 });
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-export type TodoThemeType = 'SYSTEM' | 'LIGHT' | 'DARK';
-export type ThemeColorType = 'dark' | 'light';
-export type TodoThemeContextType = {
-    type: TodoThemeType;
-    themeColorType: ThemeColorType;
-};
+export type TodoThemeType = 'SYSTEM' | 'LIGHT' | 'DARK' | undefined;
 
 interface ITodosSwitchThemeContext {
-    themeType: TodoThemeContextType;
+    themeType: TodoThemeType;
     switchTheme: (type: TodoThemeType) => void;
-    toggleDarkTheme: (themeColorType: ThemeColorType) => void;
 }
 
-const preferredTheme = ((): ThemeColorType => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-    } else {
-        return 'light';
-    }
-})();
-
-const getThemeTypeFromStorage = (): TodoThemeContextType => {
-    const storedTheme = localStorage.getItem('currentTypeTheme');
+const getThemeTypeFromStorage = (): TodoThemeType => {
+    const storedTheme = localStorage.getItem(CURRENT_TYPE_THEME);
     if (storedTheme) {
         {
-            return JSON.parse(storedTheme);
+            try {
+                return JSON.parse(storedTheme);
+            } catch (error) {
+                console.error('Error parsing theme from storage', error);
+            }
         }
-    } else
-        return {
-            type: 'LIGHT',
-            themeColorType: preferredTheme,
-        };
+    } else return 'LIGHT';
 };
 
 export const TodoSwitchThemeContextProvider: FC<{ children: ReactNode }> = ({
     children,
 }) => {
-    const [themeType, setTodoTheme] = useState<TodoThemeContextType>(
+    const [themeType, setTodoTheme] = useState<TodoThemeType>(
         getThemeTypeFromStorage,
     );
 
@@ -63,17 +49,7 @@ export const TodoSwitchThemeContextProvider: FC<{ children: ReactNode }> = ({
     }, [themeType]);
 
     const switchTheme = (type: TodoThemeType): void => {
-        setTodoTheme((currentType) => ({
-            ...currentType,
-            type,
-        }));
-    };
-
-    const toggleDarkTheme = (themeColorType: ThemeColorType): void => {
-        setTodoTheme((currentType) => ({
-            ...currentType,
-            themeColorType,
-        }));
+        setTodoTheme(type);
     };
 
     return (
@@ -81,7 +57,6 @@ export const TodoSwitchThemeContextProvider: FC<{ children: ReactNode }> = ({
             value={{
                 themeType,
                 switchTheme,
-                toggleDarkTheme,
             }}
         >
             {children}
@@ -92,38 +67,41 @@ export const TodoSwitchThemeContextProvider: FC<{ children: ReactNode }> = ({
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const ThemeContext = createContext<ITodosThemeContext>({
     todoTheme: lightTheme,
-    choiceTheme: (type: TodoThemeType): void => {},
 });
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 interface ITodosThemeContext {
     todoTheme: Theme;
-    choiceTheme: (type: TodoThemeType) => void;
 }
 const ThemeContextProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     const { themeType } = useContext(SwitchThemeContext);
 
-    const systemTheme =
-        themeType.themeColorType === 'dark' ? darkTheme : lightTheme;
-    const regularTheme = themeType.type === 'DARK' ? darkTheme : lightTheme;
+    const preferredTheme = (() => {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        } else {
+            return 'light';
+        }
+    })();
+
+    const systemTheme = preferredTheme === 'dark' ? darkTheme : lightTheme;
+    const regularTheme = themeType === 'DARK' ? darkTheme : lightTheme;
 
     const [todoTheme, setTodoTheme] = useState<Theme>(
-        themeType.type === 'SYSTEM' ? systemTheme : regularTheme,
+        themeType === 'SYSTEM' ? systemTheme : regularTheme,
     );
+    useEffect(() => {
+        const newTheme: Theme =
+            themeType === 'SYSTEM' ? systemTheme : regularTheme;
+        setTodoTheme(newTheme);
+    }, [themeType]);
 
-    const choiceTheme = (type: TodoThemeType): void => {
-        const regularTheme = type === 'DARK' ? darkTheme : lightTheme;
-        const theme: Theme = type === 'SYSTEM' ? systemTheme : regularTheme;
-
-        setTodoTheme(theme);
-    };
     return (
         <ThemeContext.Provider
             value={{
                 todoTheme,
-                choiceTheme,
             }}
         >
             {children}

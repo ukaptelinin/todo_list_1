@@ -9,14 +9,12 @@ import React, { FC, useContext } from 'react';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
 import {
     SwitchThemeContext,
-    ThemeContext,
     TodoThemeType,
 } from '../../TodosThemeContextProvider/context';
 
 const ToggleThemeButtons: FC = () => {
     const { themeType, switchTheme } = useContext(SwitchThemeContext);
-    const { choiceTheme } = useContext(ThemeContext);
-    const [alignment, setAlignment] = React.useState(themeType.type);
+    const [alignment, setAlignment] = React.useState(themeType);
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: TodoThemeType | null,
@@ -24,9 +22,6 @@ const ToggleThemeButtons: FC = () => {
         if (newAlignment !== null) {
             setAlignment(newAlignment);
             switchTheme(newAlignment);
-            choiceTheme(newAlignment);
-            console.log('Click');
-            console.log(newAlignment);
         }
     };
 
