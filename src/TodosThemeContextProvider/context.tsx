@@ -12,13 +12,13 @@ import { CURRENT_TYPE_THEME } from '../constants';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const SwitchThemeContext = createContext<ITodosSwitchThemeContext>({
-    themeType: 'LIGHT',
+    themeType: 'light',
     switchTheme: (type: TodoThemeType): void => {},
 });
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-export type TodoThemeType = 'SYSTEM' | 'LIGHT' | 'DARK';
-
+export type TodoThemeType = 'system' | 'light' | 'dark';
+export type ToggleThemeType = 'light' | 'dark';
 interface ITodosSwitchThemeContext {
     themeType: TodoThemeType;
     switchTheme: (type: TodoThemeType) => void;
@@ -32,7 +32,7 @@ const getThemeTypeFromStorage = (): TodoThemeType => {
     if (storedTheme) {
         return storedTheme;
     } else {
-        return 'LIGHT';
+        return 'light';
     }
 };
 
@@ -77,23 +77,20 @@ const ThemeContextProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
     const { themeType } = useContext(SwitchThemeContext);
 
-    const preferredTheme = (() => {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
-        } else {
-            return 'light';
-        }
-    })();
+    const resolveTheme = (toggleValue: TodoThemeType): ToggleThemeType => {
+        if (toggleValue !== 'system') return toggleValue;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+    };
 
-    const systemTheme = preferredTheme === 'dark' ? darkTheme : lightTheme;
-    const regularTheme = themeType === 'DARK' ? darkTheme : lightTheme;
+    const currenTheme =
+        resolveTheme(themeType) === 'dark' ? darkTheme : lightTheme;
 
-    const [todoTheme, setTodoTheme] = useState<Theme>(
-        themeType === 'SYSTEM' ? systemTheme : regularTheme,
-    );
+    const [todoTheme, setTodoTheme] = useState<Theme>(currenTheme);
     useEffect(() => {
-        const newTheme: Theme =
-            themeType === 'SYSTEM' ? systemTheme : regularTheme;
+        const newTheme =
+            resolveTheme(themeType) === 'dark' ? darkTheme : lightTheme;
         setTodoTheme(newTheme);
     }, [themeType]);
 
