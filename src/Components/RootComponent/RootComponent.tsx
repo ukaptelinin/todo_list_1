@@ -1,4 +1,4 @@
-import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import { ThemeProvider } from '@mui/material/styles';
 import { FC, useContext } from 'react';
 import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
 import { ThemeContext } from '../../TodosThemeContextProvider/context';

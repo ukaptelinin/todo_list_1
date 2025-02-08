@@ -6,7 +6,7 @@ import { TodoListItemElementProps } from '../../../../Stores/TodoListStore';
 import setTodoListItemPriorityColor from '../../setTodoListItemPriorityColor';
 import DeleteListItemButton from '../../../DeleteListItemButton/DeleteListItemButton';
 import ToggleTodoListItemDone from '../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
-import { Casino } from '@mui/icons-material';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 const TodoListItemElement: FC<TodoListItemElementProps> = ({
     id,
@@ -32,7 +32,9 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({
                     onPointerDown={onPointerDown}
                     disabled={todoListStore.todoRenderType !== 'ALL'}
                 >
-                    <Casino sx={{ color: 'brown', cursor: 'move' }} />
+                    <DragIndicatorIcon
+                        sx={{ color: 'brown', cursor: 'move' }}
+                    />
                 </IconButton>
             </Grid>
             <Grid item xs={2}>

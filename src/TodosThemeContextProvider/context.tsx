@@ -17,7 +17,7 @@ export const SwitchThemeContext = createContext<ITodosSwitchThemeContext>({
 });
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
-export type TodoThemeType = 'SYSTEM' | 'LIGHT' | 'DARK' | undefined;
+export type TodoThemeType = 'SYSTEM' | 'LIGHT' | 'DARK';
 
 interface ITodosSwitchThemeContext {
     themeType: TodoThemeType;
@@ -25,16 +25,15 @@ interface ITodosSwitchThemeContext {
 }
 
 const getThemeTypeFromStorage = (): TodoThemeType => {
-    const storedTheme = localStorage.getItem(CURRENT_TYPE_THEME);
+    const storedTheme = localStorage.getItem(
+        CURRENT_TYPE_THEME,
+    ) as TodoThemeType | null;
+    console.log(storedTheme);
     if (storedTheme) {
-        {
-            try {
-                return JSON.parse(storedTheme);
-            } catch (error) {
-                console.error('Error parsing theme from storage', error);
-            }
-        }
-    } else return 'LIGHT';
+        return storedTheme;
+    } else {
+        return 'LIGHT';
+    }
 };
 
 export const TodoSwitchThemeContextProvider: FC<{ children: ReactNode }> = ({
@@ -45,7 +44,7 @@ export const TodoSwitchThemeContextProvider: FC<{ children: ReactNode }> = ({
     );
 
     useEffect((): void => {
-        localStorage.setItem('currentTypeTheme', JSON.stringify(themeType));
+        localStorage.setItem('currentTypeTheme', themeType);
     }, [themeType]);
 
     const switchTheme = (type: TodoThemeType): void => {
