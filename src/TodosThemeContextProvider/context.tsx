@@ -28,7 +28,6 @@ const getThemeTypeFromStorage = (): TodoThemeType => {
     const storedTheme = localStorage.getItem(
         CURRENT_TYPE_THEME,
     ) as TodoThemeType | null;
-    console.log(storedTheme);
     if (storedTheme) {
         return storedTheme;
     } else {
@@ -84,10 +83,10 @@ const ThemeContextProvider: React.FC<{ children: ReactNode }> = ({
             : 'light';
     };
 
-    const currenTheme =
+    const currentTheme =
         resolveTheme(themeType) === 'dark' ? darkTheme : lightTheme;
 
-    const [todoTheme, setTodoTheme] = useState<Theme>(currenTheme);
+    const [todoTheme, setTodoTheme] = useState<Theme>(currentTheme);
     useEffect(() => {
         const newTheme =
             resolveTheme(themeType) === 'dark' ? darkTheme : lightTheme;
