@@ -31,7 +31,7 @@ const getThemeTypeFromStorage = (): TodoThemeType => {
     if (storedTheme) {
         return storedTheme;
     } else {
-        return 'light';
+        return 'system';
     }
 };
 
