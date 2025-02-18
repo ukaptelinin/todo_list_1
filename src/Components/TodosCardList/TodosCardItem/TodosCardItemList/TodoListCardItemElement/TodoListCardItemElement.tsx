@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Grid, ListItem, Typography } from '@mui/material';
 import { TodoListItem } from '../../../../../Stores/TodoListStore';
-import setTodoListItemPriorityColor from '../../../../TodoList/setTodoListItemPriorityColor';
 import ToggleTodoListItemDone from '../../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
+import useTodoListItemPriorityColor from '../../../../../Hooks/useTodoListItemPriorityColor';
 
 const TodoListCardItemElement: FC<TodoListItem> = ({
     id,
@@ -20,7 +20,7 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
                     variant="h6"
                     sx={{
                         textDecoration: isDone ? 'line-through' : 'none',
-                        color: setTodoListItemPriorityColor(priority),
+                        color: useTodoListItemPriorityColor(priority),
                     }}
                 >
                     {text}
