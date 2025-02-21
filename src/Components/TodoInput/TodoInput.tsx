@@ -60,6 +60,7 @@ const TodoInput: FC = () => {
                 />
                 <SelectPriority control={control} name="inputPriority" />
                 <Button
+                    type="submit"
                     size="small"
                     variant="outlined"
                     onClick={handleSubmit(onSubmit)}
