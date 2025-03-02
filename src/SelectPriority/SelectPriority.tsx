@@ -6,42 +6,75 @@ import Select from '@mui/material/Select/Select';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
+import useTodosTheme from '../Hooks/useTodoTheme';
+import getTodoListPriorityColor from '../utils/getTodoListPriorityColor';
+
+const SELECT_PRIORITY_LABEL = 'select-priority-label';
 
 const SelectPriority: FC<{ control: any; name: string }> = ({
     control,
     name,
-}) => (
-    <Controller
-        name={name}
-        control={control}
-        render={({ field }) => (
-            <Box sx={{ minWidth: 120, my: 1 }}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                        Приоритет
-                    </InputLabel>
-                    <Tooltip title="Enter task status" placement="top-start">
-                        <Select
-                            sx={{ width: 140 }}
-                            {...field}
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            label="Приоритет"
+}) => {
+    const todoTheme = useTodosTheme();
+    return (
+        <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+                <Box sx={{ minWidth: 120, my: 1 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id={SELECT_PRIORITY_LABEL}>
+                            Приоритет
+                        </InputLabel>
+                        <Tooltip
+                            title="Выберите приоритет задачи"
+                            placement="top-start"
                         >
-                            <MenuItem value="HIGH" sx={{ color: 'crimson' }}>
-                                HIGH
-                            </MenuItem>
-                            <MenuItem value="MEDIUM" sx={{ color: 'green' }}>
-                                MEDIUM
-                            </MenuItem>
-                            <MenuItem value="LOW" sx={{ color: 'darkblue' }}>
-                                LOW
-                            </MenuItem>
-                        </Select>
-                    </Tooltip>
-                </FormControl>
-            </Box>
-        )}
-    />
-);
+                            <Select
+                                sx={{ width: 140 }}
+                                {...field}
+                                labelId={SELECT_PRIORITY_LABEL}
+                                label="Приоритет"
+                            >
+                                <MenuItem
+                                    value="HIGH"
+                                    sx={{
+                                        color: getTodoListPriorityColor(
+                                            'HIGH',
+                                            todoTheme,
+                                        ),
+                                    }}
+                                >
+                                    HIGH
+                                </MenuItem>
+                                <MenuItem
+                                    value="MEDIUM"
+                                    sx={{
+                                        color: getTodoListPriorityColor(
+                                            'MEDIUM',
+                                            todoTheme,
+                                        ),
+                                    }}
+                                >
+                                    MEDIUM
+                                </MenuItem>
+                                <MenuItem
+                                    value="LOW"
+                                    sx={{
+                                        color: getTodoListPriorityColor(
+                                            'LOW',
+                                            todoTheme,
+                                        ),
+                                    }}
+                                >
+                                    LOW
+                                </MenuItem>
+                            </Select>
+                        </Tooltip>
+                    </FormControl>
+                </Box>
+            )}
+        />
+    );
+};
 export default SelectPriority;

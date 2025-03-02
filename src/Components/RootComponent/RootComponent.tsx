@@ -1,7 +1,9 @@
-import { ThemeProvider } from '@mui/material/styles';
 import { FC, useContext } from 'react';
-import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
 import { ThemeContext } from '../../TodosThemeContextProvider/context';
+
+import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
+
 import App from '../../App';
 
 const RootComponent: FC = () => {
