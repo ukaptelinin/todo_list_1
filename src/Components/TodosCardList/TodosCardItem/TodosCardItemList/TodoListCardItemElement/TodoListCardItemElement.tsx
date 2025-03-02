@@ -3,7 +3,7 @@ import { Grid, ListItem, Typography } from '@mui/material';
 import { TodoListItem } from '../../../../../Stores/TodoListStore';
 import ToggleTodoListItemDone from '../../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
 import useTodosTheme from '../../../../../Hooks/useTodoTheme';
-import selectTodoListPriorityColor from '../../../../../Hooks/useTodoListItemPriorityColor';
+import getTodoListPriorityColor from '../../../../../utils/getTodoListPriorityColor';
 
 const TodoListCardItemElement: FC<TodoListItem> = ({
     id,
@@ -23,7 +23,7 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
                         variant="h6"
                         sx={{
                             textDecoration: isDone ? 'line-through' : 'none',
-                            color: selectTodoListPriorityColor(
+                            color: getTodoListPriorityColor(
                                 priority,
                                 todoTheme,
                             ),

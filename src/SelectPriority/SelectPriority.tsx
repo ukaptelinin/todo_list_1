@@ -6,9 +6,8 @@ import Select from '@mui/material/Select/Select';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
-import useTodoListItemPriorityColor from '../Hooks/useTodoListItemPriorityColor';
 import useTodosTheme from '../Hooks/useTodoTheme';
-import selectTodoListPriorityColor from '../Hooks/useTodoListItemPriorityColor';
+import getTodoListPriorityColor from '../utils/getTodoListPriorityColor';
 
 const SELECT_PRIORITY_LABEL = 'select-priority-label';
 
@@ -40,7 +39,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                 <MenuItem
                                     value="HIGH"
                                     sx={{
-                                        color: selectTodoListPriorityColor(
+                                        color: getTodoListPriorityColor(
                                             'HIGH',
                                             todoTheme,
                                         ),
@@ -51,7 +50,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                 <MenuItem
                                     value="MEDIUM"
                                     sx={{
-                                        color: selectTodoListPriorityColor(
+                                        color: getTodoListPriorityColor(
                                             'MEDIUM',
                                             todoTheme,
                                         ),
@@ -62,7 +61,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                 <MenuItem
                                     value="LOW"
                                     sx={{
-                                        color: selectTodoListPriorityColor(
+                                        color: getTodoListPriorityColor(
                                             'LOW',
                                             todoTheme,
                                         ),

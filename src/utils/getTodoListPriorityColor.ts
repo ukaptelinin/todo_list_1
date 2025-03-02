@@ -3,7 +3,7 @@ import { TodoListPriorityType } from '../Stores/TodoListStore';
 
 type RecordType = Record<TodoListPriorityType, string>;
 
-const useTodoListItemPriorityColor = (
+const getTodoListPriorityColor = (
     priority: TodoListPriorityType,
     todoTheme: Theme,
 ): string => {
@@ -17,12 +17,4 @@ const useTodoListItemPriorityColor = (
     return PRIORITY_COLOR_MAP[priority];
 };
 
-const selectTodoListPriorityColor = (
-    priority: TodoListPriorityType,
-    todoTheme: Theme,
-): string => {
-    const color = useTodoListItemPriorityColor(priority, todoTheme);
-    return color;
-};
-
-export default selectTodoListPriorityColor;
+export default getTodoListPriorityColor;
