@@ -6,7 +6,8 @@ import { TodoListItemElementProps } from '../../../../Stores/TodoListStore';
 import DeleteListItemButton from '../../../DeleteListItemButton/DeleteListItemButton';
 import ToggleTodoListItemDone from '../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import useTodoListItemPriorityColor from '../../../../Hooks/useTodoListItemPriorityColor';
+import selectTodoListPriorityColor from '../../../../Hooks/useTodoListItemPriorityColor';
+import useTodosTheme from '../../../../Hooks/useTodoTheme';
 
 const TodoListItemElement: FC<TodoListItemElementProps> = ({
     id,
@@ -17,6 +18,7 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({
     onPointerDown,
 }) => {
     const todoListStore = useTodoListStore();
+    const todoTheme = useTodosTheme();
 
     const handleOnDoubleClick = (): void => {
         if (id !== todoListStore.currentIdTodoListItem) {
@@ -45,7 +47,7 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({
                     variant="h4"
                     sx={{
                         textDecoration: isDone ? 'line-through' : 'none',
-                        color: useTodoListItemPriorityColor(priority),
+                        color: selectTodoListPriorityColor(priority, todoTheme),
                     }}
                     onDoubleClick={handleOnDoubleClick}
                 >

@@ -1,11 +1,11 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { Typography } from '@mui/material';
 import useTodoListStore from '../../Hooks/useTodoListStore';
-import { ThemeContext } from '../../TodosThemeContextProvider/context';
+import useTodosTheme from '../../Hooks/useTodoTheme';
 
 const TodoHeader: FC = () => {
     const todoListStore = useTodoListStore();
-    const { todoTheme } = useContext(ThemeContext);
+    const todoTheme = useTodosTheme();
     return (
         <header>
             <Typography

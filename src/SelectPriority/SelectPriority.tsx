@@ -7,11 +7,16 @@ import Tooltip from '@mui/material/Tooltip/Tooltip';
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 import useTodoListItemPriorityColor from '../Hooks/useTodoListItemPriorityColor';
+import useTodosTheme from '../Hooks/useTodoTheme';
+import selectTodoListPriorityColor from '../Hooks/useTodoListItemPriorityColor';
+
+const SELECT_PRIORITY_LABEL = 'select-priority-label';
 
 const SelectPriority: FC<{ control: any; name: string }> = ({
     control,
     name,
 }) => {
+    const todoTheme = useTodosTheme();
     return (
         <Controller
             name={name}
@@ -19,7 +24,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
             render={({ field }) => (
                 <Box sx={{ minWidth: 120, my: 1 }}>
                     <FormControl fullWidth>
-                        <InputLabel id="select-priority-label">
+                        <InputLabel id={SELECT_PRIORITY_LABEL}>
                             Приоритет
                         </InputLabel>
                         <Tooltip
@@ -29,14 +34,15 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                             <Select
                                 sx={{ width: 140 }}
                                 {...field}
-                                labelId="select-priority-label"
+                                labelId={SELECT_PRIORITY_LABEL}
                                 label="Приоритет"
                             >
                                 <MenuItem
                                     value="HIGH"
                                     sx={{
-                                        color: useTodoListItemPriorityColor(
+                                        color: selectTodoListPriorityColor(
                                             'HIGH',
+                                            todoTheme,
                                         ),
                                     }}
                                 >
@@ -45,8 +51,9 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                 <MenuItem
                                     value="MEDIUM"
                                     sx={{
-                                        color: useTodoListItemPriorityColor(
+                                        color: selectTodoListPriorityColor(
                                             'MEDIUM',
+                                            todoTheme,
                                         ),
                                     }}
                                 >
@@ -55,8 +62,9 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                 <MenuItem
                                     value="LOW"
                                     sx={{
-                                        color: useTodoListItemPriorityColor(
+                                        color: selectTodoListPriorityColor(
                                             'LOW',
+                                            todoTheme,
                                         ),
                                     }}
                                 >

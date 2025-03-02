@@ -1,8 +1,10 @@
 import { FC, useContext } from 'react';
-import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
-import { ThemeContext } from '../../TodosThemeContextProvider/context';
-import App from '../../App';
 import { ThemeProvider } from '@mui/material/styles';
+import { ThemeContext } from '../../TodosThemeContextProvider/context';
+
+import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
+
+import App from '../../App';
 
 const RootComponent: FC = () => {
     const { todoTheme } = useContext(ThemeContext);

@@ -13,12 +13,12 @@ import { todosStore } from '../../TodosStateContext/TodosStateContext';
 import TodosCardItemList from './TodosCardItemList/TodosCardItemList';
 import TodoListStateContext from '../../TodosStateContext/TodoListStateContext';
 import useTodoListStoreOfId from './useTodoListStoreOfId';
-import { ThemeContext } from '../../../TodosThemeContextProvider/context';
+import useTodosTheme from '../../../Hooks/useTodoTheme';
 
 const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     const pageTodoListStore = useTodoListStoreOfId(id);
     const { open, openModal, clouseModal } = useModalState(false);
-    const { todoTheme } = useContext(ThemeContext);
+    const todoTheme = useTodosTheme();
     const url = `/list/${id}`;
     const modalTitle = 'Вы действительно хотите удалить список на всегда?';
 
@@ -52,7 +52,7 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                     </CardContent>
                     <CardActions>
                         <Link to={url}>
-                            <Edit color={'info'} />
+                            <Edit color="info" />
                         </Link>
                         <IconButton
                             aria-label="delete"

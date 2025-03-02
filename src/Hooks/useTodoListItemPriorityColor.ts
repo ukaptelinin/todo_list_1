@@ -1,21 +1,28 @@
-import { useContext } from 'react';
+import { Theme } from '@mui/material/styles';
 import { TodoListPriorityType } from '../Stores/TodoListStore';
-import { ThemeContext } from '../TodosThemeContextProvider/context';
 
 type RecordType = Record<TodoListPriorityType, string>;
 
 const useTodoListItemPriorityColor = (
     priority: TodoListPriorityType,
+    todoTheme: Theme,
 ): string => {
-    const { todoTheme } = useContext(ThemeContext);
-    const PRIORITY_COLOR_TABLE: RecordType = {
+    const PRIORITY_COLOR_MAP: RecordType = {
         HIGH: todoTheme.palette.error.light,
         MEDIUM: todoTheme.palette.success.light,
         LOW: todoTheme.palette.info.light,
         NONE: todoTheme.palette.grey[500],
     };
 
-    return PRIORITY_COLOR_TABLE[priority];
+    return PRIORITY_COLOR_MAP[priority];
 };
 
-export default useTodoListItemPriorityColor;
+const selectTodoListPriorityColor = (
+    priority: TodoListPriorityType,
+    todoTheme: Theme,
+): string => {
+    const color = useTodoListItemPriorityColor(priority, todoTheme);
+    return color;
+};
+
+export default selectTodoListPriorityColor;
