@@ -21,6 +21,7 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
                     sx={{
                         textDecoration: isDone ? 'line-through' : 'none',
                         color: useTodoListItemPriorityColor(priority),
+                        ml: 1,
                     }}
                 >
                     {text}

@@ -34,7 +34,10 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                     sx={{
                         maxWidth: 250,
                         alignContent: 'center',
-                        backgroundColor: todoTheme.custom.todosCard,
+                        backgroundColor:
+                            todoTheme.palette.grey[
+                                todoTheme.palette.mode === 'dark' ? 800 : 300
+                            ],
                     }}
                 >
                     <CardContent>
@@ -49,7 +52,7 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                     </CardContent>
                     <CardActions>
                         <Link to={url}>
-                            <Edit />
+                            <Edit color={'info'} />
                         </Link>
                         <IconButton
                             aria-label="delete"

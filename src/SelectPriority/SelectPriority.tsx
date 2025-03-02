@@ -4,15 +4,14 @@ import InputLabel from '@mui/material/InputLabel/InputLabel';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
 import Select from '@mui/material/Select/Select';
 import Tooltip from '@mui/material/Tooltip/Tooltip';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { Controller } from 'react-hook-form';
-import { ThemeContext } from '../TodosThemeContextProvider/context';
+import useTodoListItemPriorityColor from '../Hooks/useTodoListItemPriorityColor';
 
 const SelectPriority: FC<{ control: any; name: string }> = ({
     control,
     name,
 }) => {
-    const { todoTheme } = useContext(ThemeContext);
     return (
         <Controller
             name={name}
@@ -20,7 +19,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
             render={({ field }) => (
                 <Box sx={{ minWidth: 120, my: 1 }}>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
+                        <InputLabel id="select-priority-label">
                             Приоритет
                         </InputLabel>
                         <Tooltip
@@ -30,25 +29,36 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                             <Select
                                 sx={{ width: 140 }}
                                 {...field}
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
+                                labelId="select-priority-label"
                                 label="Приоритет"
                             >
                                 <MenuItem
                                     value="HIGH"
-                                    sx={todoTheme.custom.highPriority}
+                                    sx={{
+                                        color: useTodoListItemPriorityColor(
+                                            'HIGH',
+                                        ),
+                                    }}
                                 >
                                     HIGH
                                 </MenuItem>
                                 <MenuItem
                                     value="MEDIUM"
-                                    sx={todoTheme.custom.mediumPriority}
+                                    sx={{
+                                        color: useTodoListItemPriorityColor(
+                                            'MEDIUM',
+                                        ),
+                                    }}
                                 >
                                     MEDIUM
                                 </MenuItem>
                                 <MenuItem
                                     value="LOW"
-                                    sx={todoTheme.custom.lowPriority}
+                                    sx={{
+                                        color: useTodoListItemPriorityColor(
+                                            'LOW',
+                                        ),
+                                    }}
                                 >
                                     LOW
                                 </MenuItem>
