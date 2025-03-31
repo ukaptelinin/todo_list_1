@@ -5,6 +5,7 @@ import useTodoListStore from '../../Hooks/useTodoListStore';
 import Button from '@mui/material/Button/Button';
 import { TodoListPriorityType } from '../../Stores/TodoListStore';
 import SelectPriority from '../../SelectPriority/SelectPriority';
+import { FormControl } from '@mui/material';
 
 interface ITodoInput {
     inputText: string;
@@ -33,26 +34,48 @@ const EditListItemInput: FC<{
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+            style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '1rem',
+            }}
+            onSubmit={handleSubmit(onSubmit)}
+        >
             <Controller
                 name="inputText"
                 control={control}
                 render={({ field }) => (
-                    <TextField
-                        fullWidth
-                        {...field}
-                        inputProps={{ style: { fontSize: 30 } }}
-                    />
+                    <div style={{ flexGrow: 1, minWidth: 0 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                fullWidth
+                                {...field}
+                                sx={{
+                                    fontSize: 40,
+                                }}
+                                label="Что надо сделать?"
+                                variant="outlined"
+                            />
+                        </FormControl>
+                    </div>
                 )}
             />
-            <SelectPriority control={control} name="inputPriority" />
-            <Button
-                size="small"
-                variant="outlined"
-                onClick={handleSubmit(onSubmit)}
-            >
-                Save
-            </Button>
+            <div style={{ flexShrink: 0 }}>
+                <SelectPriority control={control} name="inputPriority" />
+            </div>
+            <div style={{ flexShrink: 0 }}>
+                <Button
+                    size="large"
+                    variant="outlined"
+                    onClick={handleSubmit(onSubmit)}
+                >
+                    Сохранить
+                </Button>
+            </div>
         </form>
     );
 };

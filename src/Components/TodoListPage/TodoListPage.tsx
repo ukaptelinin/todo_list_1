@@ -3,6 +3,7 @@ import Container from '@mui/material/Container/Container';
 import Paper from '@mui/material/Paper/Paper';
 import Stack from '@mui/material/Stack/Stack';
 import Button from '@mui/material/Button/Button';
+
 import { Link } from 'react-router-dom';
 import TodoInput from '../TodoInput/TodoInput';
 import TodoList from '../TodoList/TodoList';
@@ -13,19 +14,22 @@ import TodoHeader from '../TodoHeader/TodoHeader';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import { MAIN_PATH } from '../../constants';
 import usePageTodoListStore from './usePageTodoListStore';
+import { observer } from 'mobx-react-lite';
+import { IconButton, Tooltip } from '@mui/material';
 
 const TodoListPage: FC = () => {
     const pageTodoListStore = usePageTodoListStore();
 
     return (
         <TodoListStateContext.Provider value={pageTodoListStore}>
-            <Container maxWidth="sm" style={{ padding: '10px' }}>
+            <Container maxWidth="md" style={{ padding: '10px' }}>
                 {pageTodoListStore ? (
-                    <Paper>
+                    <Paper sx={{ p: 2 }}>
                         <TodoHeader />
-                        <TodoInput />
                         <TodoList />
-                        <TodoPagination />
+                        {pageTodoListStore.itemList.length > 5 && (
+                            <TodoPagination />
+                        )}
                         <TodoFooter />
                     </Paper>
                 ) : (
@@ -34,18 +38,8 @@ const TodoListPage: FC = () => {
                         errorMessage="Todolist not found"
                     />
                 )}
-                <Stack direction="row" alignItems="right">
-                    <Button variant="outlined" style={{ marginRight: '5px' }}>
-                        <Link
-                            to={MAIN_PATH}
-                            style={{ textDecoration: 'none', color: 'inherit' }}
-                        >
-                            CLOSE
-                        </Link>
-                    </Button>
-                </Stack>
             </Container>
         </TodoListStateContext.Provider>
     );
 };
-export default TodoListPage;
+export default observer(TodoListPage);

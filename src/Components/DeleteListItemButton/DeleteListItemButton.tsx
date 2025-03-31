@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 
@@ -10,7 +10,7 @@ const DeleteListItemButton: FC<{ id: number }> = ({ id }) => {
     };
 
     return (
-        <IconButton onClick={handleOnClick}>
+        <IconButton onClick={handleOnClick} sx={{ padding: 0 }}>
             <Delete />
         </IconButton>
     );

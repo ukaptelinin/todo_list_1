@@ -8,6 +8,14 @@ const ChangeRenderType: FC<{ renderType: TodoRenderType; title: string }> = ({
     renderType,
     title,
 }) => {
+    type RecordType = Record<string, string>;
+
+    const RENDER_TYPE_MAP: RecordType = {
+        ВСЕ: 'ALL',
+        АКТИВНЫЕ: 'ACTIVE',
+        ВЫПОЛНЕННЫЕ: 'ВЫПОЛНЕННЫЕ',
+    };
+
     const todoListStore = useTodoListStore();
     const [, setPageNumber] = usePageNumber();
 

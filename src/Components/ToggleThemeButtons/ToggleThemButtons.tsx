@@ -32,17 +32,17 @@ const ToggleThemeButtons: FC = () => {
             exclusive
             onChange={handleChange}
         >
-            <Tooltip title="System theme">
+            <Tooltip title="Системная тема">
                 <ToggleButton value="system">
                     <ContrastSharp />
                 </ToggleButton>
             </Tooltip>
-            <Tooltip title="Light theme">
+            <Tooltip title="Светлая тема">
                 <ToggleButton value="light">
                     <WbSunnySharp />
                 </ToggleButton>
             </Tooltip>
-            <Tooltip title="Dark theme">
+            <Tooltip title="Темная тема">
                 <ToggleButton value="dark">
                     <NightlightRoundSharp />
                 </ToggleButton>

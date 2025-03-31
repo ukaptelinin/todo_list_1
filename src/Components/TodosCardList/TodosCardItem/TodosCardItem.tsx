@@ -44,6 +44,7 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                         <Typography
                             sx={{ fontSize: 14 }}
                             color="text.secondary"
+                            variant="h5"
                             gutterBottom
                         >
                             {title}
