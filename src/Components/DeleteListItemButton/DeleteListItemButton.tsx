@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 

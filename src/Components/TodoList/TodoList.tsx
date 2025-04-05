@@ -18,19 +18,17 @@ const TodoList: FC = () => {
         <DndProvider backend={HTML5Backend}>
             <TodoInput />
             <List>
-                {todoListStore.itemList.length
-                    ? itemsToRender.map((item: TodoListItem, index: number) => (
-                          <TodoCurrentListItem
-                              key={item.id}
-                              {...item}
-                              index={index}
-                              moveItem={todoListStore.moveItem}
-                          />
-                      ))
-                    : null}
+                {itemsToRender.map((item: TodoListItem, index: number) => (
+                    <TodoCurrentListItem
+                        key={item.id}
+                        {...item}
+                        index={index}
+                        moveItem={todoListStore.moveItem}
+                    />
+                ))}
             </List>
         </DndProvider>
     );
 };
 
-export default TodoList;
+export default observer(TodoList);

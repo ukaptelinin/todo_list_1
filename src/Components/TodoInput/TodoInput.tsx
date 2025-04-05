@@ -82,16 +82,14 @@ const TodoInput: FC = () => {
                         />
                     </Box>
 
-                    <Box flexShrink={0}>
-                        <Button
-                            size="large"
-                            type="submit"
-                            variant="outlined"
-                            onClick={handleSubmit(onSubmit)}
-                        >
-                            Сохранить
-                        </Button>
-                    </Box>
+                    <Button
+                        size="large"
+                        type="submit"
+                        variant="outlined"
+                        onClick={handleSubmit(onSubmit)}
+                    >
+                        Сохранить
+                    </Button>
                 </Box>
             </form>
         </div>

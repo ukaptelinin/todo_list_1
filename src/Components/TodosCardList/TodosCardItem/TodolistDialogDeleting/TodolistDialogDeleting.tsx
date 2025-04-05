@@ -25,4 +25,5 @@ const ConfirmDialog: FC<{
         </DialogActions>
     </Dialog>
 );
+
 export default ConfirmDialog;

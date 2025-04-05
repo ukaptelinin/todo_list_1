@@ -68,11 +68,7 @@ const EditListItemInput: FC<{
                 <SelectPriority control={control} name="inputPriority" />
             </div>
             <div style={{ flexShrink: 0 }}>
-                <Button
-                    size="large"
-                    variant="outlined"
-                    onClick={handleSubmit(onSubmit)}
-                >
+                <Button size="large" variant="outlined" type="submit">
                     Сохранить
                 </Button>
             </div>
