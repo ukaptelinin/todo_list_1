@@ -8,11 +8,18 @@ const ToggleTodoListItemDone: FC<{ id: number; isDone: boolean }> = ({
 }) => {
     const todoListStore = useTodoListStore();
 
-    const handleToggleDone = (): void => {
+    const handleToggleDone = (
+        event: React.MouseEvent<HTMLDivElement>,
+    ): void => {
+        event.stopPropagation();
         todoListStore.toggleDone(id);
     };
 
-    return <Checkbox onChange={handleToggleDone} checked={isDone} />;
+    return (
+        <div onClick={handleToggleDone}>
+            <Checkbox checked={isDone} sx={{ pl: 0 }} />
+        </div>
+    );
 };
 
 export default ToggleTodoListItemDone;
