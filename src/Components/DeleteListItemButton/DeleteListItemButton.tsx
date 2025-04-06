@@ -10,7 +10,7 @@ const DeleteListItemButton: FC<{ id: number }> = ({ id }) => {
     };
 
     return (
-        <IconButton onClick={handleOnClick}>
+        <IconButton onClick={handleOnClick} sx={{ padding: 0 }}>
             <Delete />
         </IconButton>
     );

@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Button, TextField } from '@mui/material';
+import { FC, useEffect, useRef } from 'react';
+import { Box, Button, FormControl, TextField } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import usePageNumber from '../../Hooks/usePageNumber';
 import { AMOUNT } from '../../constants';
@@ -27,46 +27,70 @@ const TodoInput: FC = () => {
     const [, setPageNumber] = usePageNumber();
 
     const onSubmit: SubmitHandler<ITodoInput> = (data) => {
-        todoListStore.toggleRenderType('ALL');
-        const itemId = Math.random();
-        todoListStore.addTodo({
-            id: itemId,
-            text: data.inputText,
-            isDone: false,
-            priority: data.inputPriority,
-        });
-        const itemIndex = findIndexById(todoListStore.itemList, itemId);
-        setPageNumber(Math.floor(itemIndex / AMOUNT) + 1);
-        reset({
-            inputText: '',
-            inputPriority: 'NONE',
-        });
+        if (data.inputText) {
+            todoListStore.toggleRenderType('ALL');
+            const itemId = Math.random();
+            todoListStore.addTodo({
+                id: itemId,
+                text: data.inputText,
+                isDone: false,
+                priority: data.inputPriority,
+            });
+            const itemIndex = findIndexById(todoListStore.itemList, itemId);
+            setPageNumber(Math.floor(itemIndex / AMOUNT) + 1);
+            reset({
+                inputText: '',
+                inputPriority: 'NONE',
+            });
+        }
     };
 
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Controller
-                    name="inputText"
-                    control={control}
-                    render={({ field }) => (
-                        <TextField
-                            fullWidth
-                            {...field}
-                            inputProps={{ style: { fontSize: 30 } }}
-                            placeholder="Что надо сделать?"
-                        />
-                    )}
-                />
-                <SelectPriority control={control} name="inputPriority" />
-                <Button
-                    type="submit"
-                    size="small"
-                    variant="outlined"
-                    onClick={handleSubmit(onSubmit)}
+                <Box
+                    width="100%"
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    gap={2}
                 >
-                    Save
-                </Button>
+                    <Controller
+                        name="inputText"
+                        control={control}
+                        render={({ field }) => (
+                            <Box flexGrow={1}>
+                                <FormControl fullWidth>
+                                    <TextField
+                                        fullWidth
+                                        {...field}
+                                        sx={{
+                                            fontSize: 40,
+                                        }}
+                                        label="Что надо сделать?"
+                                        variant="outlined"
+                                    />
+                                </FormControl>
+                            </Box>
+                        )}
+                    />
+
+                    <Box flexShrink={0}>
+                        <SelectPriority
+                            control={control}
+                            name="inputPriority"
+                        />
+                    </Box>
+
+                    <Button
+                        size="large"
+                        type="submit"
+                        variant="outlined"
+                        onClick={handleSubmit(onSubmit)}
+                    >
+                        Сохранить
+                    </Button>
+                </Box>
             </form>
         </div>
     );

@@ -12,21 +12,25 @@ const TodoFooter: FC = () => {
             <footer>
                 <Grid
                     container
+                    width="100%"
                     direction="row"
                     alignItems="center"
-                    justifyContent="space-around"
+                    justifyContent="space-between"
                     sx={{ mt: 2, mb: 2 }}
                 >
                     <Grid item>
-                        <ChangeRenderType renderType="ALL" title="ALL" />
+                        <ChangeRenderType renderType="ALL" title="ВСЕ" />
                     </Grid>
                     <Grid item>
-                        <ChangeRenderType renderType="ACTIVE" title="ACTIVE" />
+                        <ChangeRenderType
+                            renderType="ACTIVE"
+                            title="АКТИВНЫЕ"
+                        />
                     </Grid>
                     <Grid item>
                         <ChangeRenderType
                             renderType="COMPLETED"
-                            title="COMPLETED"
+                            title="ВЫПОЛНЕННЫЕ"
                         />
                     </Grid>
                     <Grid item>

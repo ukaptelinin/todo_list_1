@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, ListItem, Typography } from '@mui/material';
+import { Box, ListItem, Typography } from '@mui/material';
 import { TodoListItem } from '../../../../../Stores/TodoListStore';
 import ToggleTodoListItemDone from '../../../../ToggleTodoListItemDone/ToggleTodoListItemDone';
 import useTodosTheme from '../../../../../Hooks/useTodoTheme';
@@ -12,16 +12,24 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
     priority,
 }) => {
     const todoTheme = useTodosTheme();
+
     return (
-        <Grid container direction="row">
-            <ListItem sx={{ borderBottom: '1px solid silver' }}>
-                <Grid item xs={2}>
+        <Box
+            width="100%"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+        >
+            <ListItem sx={{ borderBottom: '1px solid silver', px: 0 }}>
+                <Box flexShrink={0}>
                     <ToggleTodoListItemDone id={id} isDone={isDone} />
-                </Grid>
-                <Grid item xs={10} sx={{ pl: 1 }}>
+                </Box>
+                <Box flexGrow={2} minWidth={0}>
                     <Typography
-                        variant="h6"
                         sx={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            fontSize: 20,
                             textDecoration: isDone ? 'line-through' : 'none',
                             color: getTodoListPriorityColor(
                                 priority,
@@ -31,9 +39,9 @@ const TodoListCardItemElement: FC<TodoListItem> = ({
                     >
                         {text}
                     </Typography>
-                </Grid>
+                </Box>
             </ListItem>
-        </Grid>
+        </Box>
     );
 };
 

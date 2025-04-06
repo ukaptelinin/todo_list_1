@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TextField } from '@mui/material';
+import { Box, FormControl, TextField } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import useTodosStore from '../../Hooks/useTodosStore';
 
@@ -22,24 +22,31 @@ const InputNewTodoList: FC = () => {
     };
 
     return (
-        <div>
+        <Box width="100%">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name="inputTitle"
                     control={control}
                     render={({ field }) => (
-                        <TextField
-                            sx={{ width: '80ch', margin: 2 }}
-                            {...field}
-                            inputProps={{
-                                style: { fontSize: 20, margin: 'auto' },
-                            }}
-                            placeholder="Новый список"
-                        />
+                        <FormControl fullWidth>
+                            <TextField
+                                sx={{
+                                    fontSize: 20,
+                                    width: {
+                                        xs: '100%',
+                                        sm: '60ch',
+                                        md: '80ch',
+                                    },
+                                }}
+                                {...field}
+                                variant="outlined"
+                                label="Новый список"
+                            />
+                        </FormControl>
                     )}
                 />
             </form>
-        </div>
+        </Box>
     );
 };
 

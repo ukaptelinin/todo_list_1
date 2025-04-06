@@ -21,7 +21,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
             name={name}
             control={control}
             render={({ field }) => (
-                <Box sx={{ minWidth: 120, my: 1 }}>
+                <Box sx={{ minWidth: 110 }}>
                     <FormControl fullWidth>
                         <InputLabel id={SELECT_PRIORITY_LABEL}>
                             Приоритет
@@ -31,7 +31,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                             placement="top-start"
                         >
                             <Select
-                                sx={{ width: 140 }}
+                                sx={{ width: 110 }}
                                 {...field}
                                 labelId={SELECT_PRIORITY_LABEL}
                                 label="Приоритет"
@@ -45,7 +45,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                         ),
                                     }}
                                 >
-                                    HIGH
+                                    ВЫСШИЙ
                                 </MenuItem>
                                 <MenuItem
                                     value="MEDIUM"
@@ -56,7 +56,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                         ),
                                     }}
                                 >
-                                    MEDIUM
+                                    СРЕДНИЙ
                                 </MenuItem>
                                 <MenuItem
                                     value="LOW"
@@ -67,7 +67,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                         ),
                                     }}
                                 >
-                                    LOW
+                                    НИЗКИЙ
                                 </MenuItem>
                             </Select>
                         </Tooltip>

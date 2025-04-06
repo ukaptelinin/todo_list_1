@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, ListItem } from '@mui/material';
+import { Box, ListItem } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { TodoListItemProps } from '../../../Stores/TodoListStore';
 import EditListItemInput from '../../EditListItemInput/EditListItemInput';
@@ -31,7 +31,7 @@ const TodoCurrentListItem: FC<TodoListItemProps> = ({
     preview(drop(ref));
 
     return (
-        <Grid container direction="row" ref={ref} sx={{ opacity }}>
+        <Box width="100%" ref={ref} sx={{ opacity }}>
             <ListItem
                 sx={{
                     border: '1px solid silver',
@@ -40,13 +40,11 @@ const TodoCurrentListItem: FC<TodoListItemProps> = ({
                 }}
             >
                 {todoListStore.currentIdTodoListItem === id ? (
-                    <Grid item xs={12}>
-                        <EditListItemInput
-                            id={id}
-                            text={text}
-                            priority={priority}
-                        />
-                    </Grid>
+                    <EditListItemInput
+                        id={id}
+                        text={text}
+                        priority={priority}
+                    />
                 ) : (
                     <TodoListItemElement
                         id={id}
@@ -58,7 +56,7 @@ const TodoCurrentListItem: FC<TodoListItemProps> = ({
                     />
                 )}
             </ListItem>
-        </Grid>
+        </Box>
     );
 };
 

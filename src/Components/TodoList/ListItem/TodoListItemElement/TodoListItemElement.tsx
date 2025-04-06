@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import useTodoListStore from '../../../../Hooks/useTodoListStore';
@@ -27,25 +27,33 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({
     };
 
     return (
-        <>
-            <Grid item xs={1}>
+        <Box
+            width="100%"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            gap={1}
+        >
+            <Box flexShrink={0}>
                 <IconButton
                     ref={dragRef}
                     onPointerDown={onPointerDown}
                     disabled={todoListStore.todoRenderType !== 'ALL'}
+                    sx={{ padding: 0 }}
                 >
-                    <DragIndicatorIcon
-                        sx={{ color: 'brown', cursor: 'move' }}
-                    />
+                    <DragIndicatorIcon sx={{ cursor: 'move' }} />
                 </IconButton>
-            </Grid>
-            <Grid item xs={2}>
+            </Box>
+            <Box flexShrink={0}>
                 <ToggleTodoListItemDone id={id} isDone={isDone} />
-            </Grid>
-            <Grid item xs={8}>
+            </Box>
+            <Box flexGrow={1} minWidth={0}>
                 <Typography
-                    variant="h4"
                     sx={{
+                        maxWidth: '100%',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        fontSize: 20,
                         textDecoration: isDone ? 'line-through' : 'none',
                         color: getTodoListPriorityColor(priority, todoTheme),
                     }}
@@ -53,11 +61,11 @@ const TodoListItemElement: FC<TodoListItemElementProps> = ({
                 >
                     {text}
                 </Typography>
-            </Grid>
-            <Grid item xs={1}>
+            </Box>
+            <Box flexShrink={0}>
                 <DeleteListItemButton id={id} />
-            </Grid>
-        </>
+            </Box>
+        </Box>
     );
 };
 
