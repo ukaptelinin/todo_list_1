@@ -5,6 +5,7 @@ import useTodosTheme from '../../Hooks/useTodoTheme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { MAIN_PATH } from '../../constants';
 import { Link } from 'react-router-dom';
+import EditToDoListTitle from '../EditToDoListTitle/EditToDoListTitle';
 
 const TodoHeader: FC = () => {
     const [isEditTitle, setEditTitle] = useState(false);
@@ -18,7 +19,7 @@ const TodoHeader: FC = () => {
             <Box
                 sx={{
                     display: 'flex',
-                    alignItems: 'center', // Выравниваем элементы по вертикали
+                    alignItems: 'center',
                     width: '100%',
                     py: 1,
                     position: 'relative',
@@ -55,15 +56,22 @@ const TodoHeader: FC = () => {
                         textAlign: 'center',
                     }}
                 >
-                    <Typography
-                        variant="h3"
-                        sx={{
-                            display: 'inline-block',
-                        }}
-                        onClick={handleOnClick}
-                    >
-                        {todoListStore.title}
-                    </Typography>
+                    {isEditTitle ? (
+                        <EditToDoListTitle
+                            setState={setEditTitle}
+                            title={todoListStore.title}
+                        />
+                    ) : (
+                        <Typography
+                            variant="h3"
+                            sx={{
+                                display: 'inline-block',
+                            }}
+                            onClick={handleOnClick}
+                        >
+                            {todoListStore.title}
+                        </Typography>
+                    )}
                 </Box>
             </Box>
         </header>
