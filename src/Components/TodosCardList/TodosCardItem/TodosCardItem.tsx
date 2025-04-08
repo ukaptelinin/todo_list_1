@@ -14,7 +14,6 @@ import TodosCardItemList from './TodosCardItemList/TodosCardItemList';
 import TodoListStateContext from '../../TodosStateContext/TodoListStateContext';
 import useTodoListStoreOfId from './useTodoListStoreOfId';
 import useTodosTheme from '../../../Hooks/useTodoTheme';
-import { Tooltip } from '@mui/material';
 
 const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     const pageTodoListStore = useTodoListStoreOfId(id);
@@ -24,13 +23,17 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     const modalTitle = 'Вы действительно хотите удалить список на всегда?';
 
     const handleOpenModal = (event: React.MouseEvent): void => {
-        event.preventDefault(); // Предотвращаем переход по ссылке
+        event.preventDefault();
         openModal();
     };
 
     const handleDeleteOnClick = (): void => {
         todosStore.deleteTodoList(id);
         clouseModal();
+    };
+
+    const handleOnClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
     };
 
     return (
@@ -57,7 +60,9 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                             >
                                 {title}
                             </Typography>
-                            <TodosCardItemList />
+                            <div onClick={handleOnClick}>
+                                <TodosCardItemList />
+                            </div>
                         </CardContent>
                         <CardActions>
                             <IconButton

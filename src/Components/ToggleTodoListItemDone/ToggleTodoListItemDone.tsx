@@ -8,10 +8,7 @@ const ToggleTodoListItemDone: FC<{ id: number; isDone: boolean }> = ({
 }) => {
     const todoListStore = useTodoListStore();
 
-    const handleToggleDone = (
-        event: React.MouseEvent<HTMLDivElement>,
-    ): void => {
-        event.stopPropagation();
+    const handleToggleDone = (): void => {
         todoListStore.toggleDone(id);
     };
 
