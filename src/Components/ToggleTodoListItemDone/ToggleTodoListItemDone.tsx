@@ -12,7 +12,9 @@ const ToggleTodoListItemDone: FC<{ id: number; isDone: boolean }> = ({
         todoListStore.toggleDone(id);
     };
 
-    return <Checkbox onChange={handleToggleDone} checked={isDone} />;
+    return (
+        <Checkbox onChange={handleToggleDone} checked={isDone} sx={{ pl: 0 }} />
+    );
 };
 
 export default ToggleTodoListItemDone;

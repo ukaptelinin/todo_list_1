@@ -1,10 +1,10 @@
-import { Delete, Edit } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 import Card from '@mui/material/Card/Card';
 import CardActions from '@mui/material/CardActions/CardActions';
 import CardContent from '@mui/material/CardContent/CardContent';
 import IconButton from '@mui/material/IconButton/IconButton';
 import Typography from '@mui/material/Typography/Typography';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import TodolistDialogDeleting from './TodolistDialogDeleting/TodolistDialogDeleting';
@@ -22,51 +22,63 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     const url = `/list/${id}`;
     const modalTitle = 'Вы действительно хотите удалить список на всегда?';
 
-    const handleDeleteOnClick = (): void => {
+    const handleOpenModal = (event: React.MouseEvent): void => {
+        event.preventDefault();
+        openModal();
+    };
+
+    const deleteList = (): void => {
         todosStore.deleteTodoList(id);
         clouseModal();
+    };
+
+    const stopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
     };
 
     return (
         <TodoListStateContext.Provider value={pageTodoListStore}>
             <>
-                <Card
-                    sx={{
-                        maxWidth: 250,
-                        alignContent: 'center',
-                        backgroundColor:
-                            todoTheme.palette.grey[
-                                todoTheme.palette.mode === 'dark' ? 800 : 300
-                            ],
-                    }}
-                >
-                    <CardContent>
-                        <Typography
-                            sx={{ fontSize: 14 }}
-                            color="text.secondary"
-                            variant="h5"
-                            gutterBottom
-                        >
-                            {title}
-                        </Typography>
-                        <TodosCardItemList />
-                    </CardContent>
-                    <CardActions>
-                        <Link to={url}>
-                            <Edit color="info" />
-                        </Link>
-                        <IconButton
-                            aria-label="delete"
-                            size="small"
-                            onClick={openModal}
-                        >
-                            <Delete />
-                        </IconButton>
-                    </CardActions>
-                </Card>
+                <Link to={url} style={{ textDecoration: 'none' }}>
+                    <Card
+                        sx={{
+                            maxWidth: 250,
+                            alignContent: 'center',
+                            backgroundColor:
+                                todoTheme.palette.grey[
+                                    todoTheme.palette.mode === 'dark'
+                                        ? 800
+                                        : 300
+                                ],
+                        }}
+                    >
+                        <CardContent>
+                            <Typography
+                                color="text.secondary"
+                                variant="h5"
+                                gutterBottom
+                            >
+                                {title}
+                            </Typography>
+                            <div onClick={stopPropagation}>
+                                <TodosCardItemList />
+                            </div>
+                        </CardContent>
+                        <CardActions>
+                            <IconButton
+                                aria-label="delete"
+                                size="small"
+                                onClick={handleOpenModal}
+                            >
+                                <Delete />
+                            </IconButton>
+                        </CardActions>
+                    </Card>
+                </Link>
+
                 <TodolistDialogDeleting
                     open={open}
-                    confirm={handleDeleteOnClick}
+                    confirm={deleteList}
                     cancel={clouseModal}
                     title={modalTitle}
                 />

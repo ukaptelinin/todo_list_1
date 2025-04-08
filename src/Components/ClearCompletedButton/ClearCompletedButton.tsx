@@ -4,18 +4,19 @@ import useTodoListStore from '../../Hooks/useTodoListStore';
 
 const ClearCompletedButton: FC = () => {
     const todoListStore = useTodoListStore();
-    const handleOnClick = (): void => {
+    const onClick = (): void => {
         todoListStore.todoClearCompleted();
     };
 
     return (
         <Button
             variant="contained"
-            color="secondary"
-            onClick={handleOnClick}
+            size="large"
+            color="error"
+            onClick={onClick}
             sx={{ ml: 5 }}
         >
-            Clear completed
+            Удалить выполненные
         </Button>
     );
 };

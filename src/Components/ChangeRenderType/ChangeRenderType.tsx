@@ -18,6 +18,7 @@ const ChangeRenderType: FC<{ renderType: TodoRenderType; title: string }> = ({
 
     return (
         <Button
+            size="large"
             variant={
                 todoListStore.todoRenderType === title
                     ? 'outlined'
