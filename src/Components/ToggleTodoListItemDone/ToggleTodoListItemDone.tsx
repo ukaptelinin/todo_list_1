@@ -13,9 +13,7 @@ const ToggleTodoListItemDone: FC<{ id: number; isDone: boolean }> = ({
     };
 
     return (
-        <div onClick={handleToggleDone}>
-            <Checkbox checked={isDone} sx={{ pl: 0 }} />
-        </div>
+        <Checkbox onChange={handleToggleDone} checked={isDone} sx={{ pl: 0 }} />
     );
 };
 

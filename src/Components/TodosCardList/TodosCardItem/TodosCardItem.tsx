@@ -27,12 +27,12 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
         openModal();
     };
 
-    const handleDeleteOnClick = (): void => {
+    const deleteList = (): void => {
         todosStore.deleteTodoList(id);
         clouseModal();
     };
 
-    const handleOnClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const stopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
     };
 
@@ -60,7 +60,7 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                             >
                                 {title}
                             </Typography>
-                            <div onClick={handleOnClick}>
+                            <div onClick={stopPropagation}>
                                 <TodosCardItemList />
                             </div>
                         </CardContent>
@@ -78,7 +78,7 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
 
                 <TodolistDialogDeleting
                     open={open}
-                    confirm={handleDeleteOnClick}
+                    confirm={deleteList}
                     cancel={clouseModal}
                     title={modalTitle}
                 />
