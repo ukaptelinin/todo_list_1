@@ -92,9 +92,11 @@ export class TodoListStore {
             return listItem;
         });
     };
+
     editTodoTitle = (title: string): void => {
         this.title = title;
     };
+
     todoClearCompleted = (): void => {
         this.itemList = this.itemList.filter((itemList) => !itemList.isDone);
     };

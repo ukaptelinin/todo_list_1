@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import useTodoListStore from '../../Hooks/useTodoListStore';
-import useTodosTheme from '../../Hooks/useTodoTheme';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { MAIN_PATH } from '../../constants';
 import { Link } from 'react-router-dom';
@@ -9,11 +8,10 @@ import EditToDoListTitle from '../EditToDoListTitle/EditToDoListTitle';
 
 const TodoHeader: FC = () => {
     const [isEditTitle, setEditTitle] = useState(false);
-    const handleOnClick = (): void => {
+    const onClick = (): void => {
         setEditTitle(true);
     };
     const todoListStore = useTodoListStore();
-    const todoTheme = useTodosTheme();
     return (
         <header>
             <Box
@@ -27,7 +25,6 @@ const TodoHeader: FC = () => {
             >
                 <Box
                     sx={{
-                        position: 'absolute',
                         left: 0,
                     }}
                 >
@@ -58,7 +55,7 @@ const TodoHeader: FC = () => {
                 >
                     {isEditTitle ? (
                         <EditToDoListTitle
-                            setState={setEditTitle}
+                            toggleEditMode={setEditTitle}
                             title={todoListStore.title}
                         />
                     ) : (
@@ -67,7 +64,7 @@ const TodoHeader: FC = () => {
                             sx={{
                                 display: 'inline-block',
                             }}
-                            onClick={handleOnClick}
+                            onClick={onClick}
                         >
                             {todoListStore.title}
                         </Typography>

@@ -1,16 +1,19 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 
-const useClickOutside = <T extends HTMLElement>(
+const useClickOutside = <T extends HTMLFormElement>(
     action: () => void,
-    divRef: RefObject<T>,
+    formRef: RefObject<T>,
 ) => {
+    const actionRef = useRef(action);
+    actionRef.current = action;
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
-                divRef.current &&
-                !divRef.current.contains(event.target as Node)
+                formRef.current &&
+                !formRef.current.contains(event.target as Node)
             ) {
-                action();
+                actionRef.current();
             }
         };
 
@@ -19,7 +22,7 @@ const useClickOutside = <T extends HTMLElement>(
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [action, divRef]);
+    }, []);
 };
 
 export default useClickOutside;

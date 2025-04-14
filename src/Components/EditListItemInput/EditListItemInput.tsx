@@ -34,16 +34,16 @@ const EditListItemInput: FC<{
         }
     };
 
-    const divRef = useRef<HTMLFormElement>(null);
-    const clickAction = (): void => {
+    const formRef = useRef<HTMLFormElement>(null);
+    const clickActionOutsideComponent = (): void => {
         todoListStore.changeCurrentIdTodoListItem(null);
     };
 
-    useClickOutside(clickAction, divRef);
+    useClickOutside(clickActionOutsideComponent, formRef);
 
     return (
         <form
-            ref={divRef}
+            ref={formRef}
             style={{
                 width: '100%',
                 display: 'flex',
