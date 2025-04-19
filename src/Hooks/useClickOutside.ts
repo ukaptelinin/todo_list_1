@@ -1,18 +1,15 @@
 import { RefObject, useEffect, useRef } from 'react';
 
-const useClickOutside = <T extends HTMLFormElement>(
+const useClickOutside = <T extends HTMLElement>(
     action: () => void,
-    formRef: RefObject<T>,
+    ref: RefObject<T>,
 ) => {
     const actionRef = useRef(action);
     actionRef.current = action;
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (
-                formRef.current &&
-                !formRef.current.contains(event.target as Node)
-            ) {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
                 actionRef.current();
             }
         };

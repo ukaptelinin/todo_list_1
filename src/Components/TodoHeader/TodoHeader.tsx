@@ -8,7 +8,7 @@ import EditToDoListTitle from '../EditToDoListTitle/EditToDoListTitle';
 
 const TodoHeader: FC = () => {
     const [isEditTitle, setEditTitle] = useState(false);
-    const onClick = (): void => {
+    const onClickToggleEditTitleMode = (): void => {
         setEditTitle(true);
     };
     const todoListStore = useTodoListStore();
@@ -64,7 +64,7 @@ const TodoHeader: FC = () => {
                             sx={{
                                 display: 'inline-block',
                             }}
-                            onClick={onClick}
+                            onClick={onClickToggleEditTitleMode}
                         >
                             {todoListStore.title}
                         </Typography>
