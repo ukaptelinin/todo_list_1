@@ -1,5 +1,5 @@
 import { FC, useRef } from 'react';
-import { FormControl, TextField } from '@mui/material';
+import { Box, FormControl, TextField } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 import useClickOutside from '../../Hooks/useClickOutside';
@@ -7,11 +7,15 @@ import useClickOutside from '../../Hooks/useClickOutside';
 interface EditToDoListTitleProps {
     toggleEditMode: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
+    fontSize: string;
+    width: string;
 }
 
 const EditToDoListTitle: FC<EditToDoListTitleProps> = ({
     toggleEditMode,
     title,
+    fontSize,
+    width,
 }) => {
     const todoListStore = useTodoListStore();
     const { control, handleSubmit } = useForm({
@@ -33,25 +37,32 @@ const EditToDoListTitle: FC<EditToDoListTitleProps> = ({
     useClickOutside(clickActionOutsideComponent, formRef);
 
     return (
-        <form
-            ref={formRef}
-            style={{ width: '30%' }}
-            onSubmit={handleSubmit(onSubmit)}
-        >
-            <Controller
-                name="editTitle"
-                control={control}
-                render={({ field }) => (
-                    <FormControl fullWidth>
-                        <TextField
-                            {...field}
-                            variant="outlined"
-                            label="Текущий список"
-                        />
-                    </FormControl>
-                )}
-            />
-        </form>
+        <Box sx={{ width }}>
+            <form
+                ref={formRef}
+                style={{ width: '100%' }}
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <Controller
+                    name="editTitle"
+                    control={control}
+                    render={({ field }) => (
+                        <FormControl fullWidth>
+                            <TextField
+                                {...field}
+                                sx={{
+                                    fontSize,
+                                    '& .MuiInputBase-root': {
+                                        fontSize: 'inherit',
+                                    },
+                                }}
+                                variant="outlined"
+                            />
+                        </FormControl>
+                    )}
+                />
+            </form>
+        </Box>
     );
 };
 
