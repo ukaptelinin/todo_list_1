@@ -13,11 +13,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { MAIN_PATH } from '../../constants';
 import { Link } from 'react-router-dom';
 import EditToDoListTitle from '../EditToDoListTitle/EditToDoListTitle';
+import useTodosTheme from '../../Hooks/useTodoTheme';
 
 const TodoHeader: FC = () => {
     const todoListStore = useTodoListStore();
     const [showEditButton, setShowEditButton] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const todoTheme = useTodosTheme();
 
     const handleMouseEnter = () => {
         setShowEditButton(true);
@@ -87,7 +89,7 @@ const TodoHeader: FC = () => {
                         sx={{
                             position: 'relative',
                             display: 'inline-flex',
-                            maxWidth: '60%', // Ограничиваем максимальную ширину
+                            maxWidth: '60%',
                         }}
                     >
                         <Typography
@@ -118,7 +120,8 @@ const TodoHeader: FC = () => {
                                             position: 'absolute',
                                             right: '-36px',
                                             top: 0,
-                                            backgroundColor: 'blue',
+                                            backgroundColor:
+                                                todoTheme.palette.info.light,
                                             boxShadow: 1,
                                         }}
                                     >

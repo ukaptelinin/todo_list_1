@@ -75,9 +75,9 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                         <div
                             style={{
                                 position: 'relative',
-                                display: 'flex', // Изменено на flex
-                                alignItems: 'center', // Выравнивание по центру
-                                width: '100%', // Занимает всю ширину
+                                display: 'flex',
+                                alignItems: 'center',
+                                width: '100%',
                             }}
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
@@ -88,7 +88,7 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                     whiteSpace: 'nowrap',
-                                    pr: 4, // Добавляем отступ для кнопки редактирования
+                                    pr: 4,
                                 }}
                                 color="text.secondary"
                                 variant="h5"
@@ -104,7 +104,8 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                                         sx={{
                                             position: 'absolute',
                                             right: 0,
-                                            backgroundColor: 'blue',
+                                            backgroundColor:
+                                                todoTheme.palette.info.light,
                                             boxShadow: 1,
                                         }}
                                     >
