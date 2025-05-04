@@ -35,6 +35,7 @@ const SelectPriority: FC<{ control: any; name: string }> = ({
                                 {...field}
                                 labelId={SELECT_PRIORITY_LABEL}
                                 label="Приоритет"
+                                onMouseDown={(e) => e.stopPropagation()}
                             >
                                 <MenuItem
                                     value="HIGH"

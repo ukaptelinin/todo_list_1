@@ -3,7 +3,7 @@ import Card from '@mui/material/Card/Card';
 import CardContent from '@mui/material/CardContent/CardContent';
 import IconButton from '@mui/material/IconButton/IconButton';
 import Typography from '@mui/material/Typography/Typography';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import TodolistDialogDeleting from './TodolistDialogDeleting/TodolistDialogDeleting';
@@ -14,27 +14,30 @@ import TodoListStateContext from '../../TodosStateContext/TodoListStateContext';
 import useTodoListStoreOfId from './useTodoListStoreOfId';
 import useTodosTheme from '../../../Hooks/useTodoTheme';
 import EditToDoListTitle from '../../EditToDoListTitle/EditToDoListTitle';
+import { Dialog, Fade, Tooltip } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     const pageTodoListStore = useTodoListStoreOfId(id);
+    const [showEditButton, setShowEditButton] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const [isEditTitle, setEditTitle] = useState(false);
-    const [typographyStyles, setTypographyStyles] = useState({
-        width: 'auto',
-        fontSize: '2rem',
-    });
-    const typographyRef = useRef(null);
-    useEffect(() => {
-        if (typographyRef.current) {
-            const computedStyles = window.getComputedStyle(
-                typographyRef.current,
-            );
-            setTypographyStyles({
-                width: computedStyles.width,
-                fontSize: computedStyles.fontSize,
-            });
-        }
-    }, [title, isEditTitle]);
+    const handleMouseEnter = () => {
+        setShowEditButton(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowEditButton(false);
+    };
+
+    const handleEditClick = (event: React.MouseEvent<HTMLElement>) => {
+        setIsDialogOpen(true);
+        setShowEditButton(false);
+    };
+
+    const handleDialogClose = () => {
+        setIsDialogOpen(false);
+    };
 
     const { open, openModal, clouseModal } = useModalState(false);
     const todoTheme = useTodosTheme();
@@ -55,12 +58,6 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
         event.stopPropagation();
     };
 
-    const onClickTitle = (event: React.MouseEvent): void => {
-        event.preventDefault();
-        event.stopPropagation();
-        setEditTitle(true);
-    };
-
     return (
         <TodoListStateContext.Provider value={pageTodoListStore}>
             <>
@@ -75,29 +72,63 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
                     }}
                 >
                     <CardContent>
-                        {isEditTitle ? (
-                            <EditToDoListTitle
-                                toggleEditMode={setEditTitle}
-                                title={title}
-                                width={typographyStyles.width}
-                                fontSize={typographyStyles.fontSize}
-                            />
-                        ) : (
+                        <div
+                            style={{
+                                position: 'relative',
+                                display: 'flex', // Изменено на flex
+                                alignItems: 'center', // Выравнивание по центру
+                                width: '100%', // Занимает всю ширину
+                            }}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
                             <Typography
+                                sx={{
+                                    flex: 1,
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    pr: 4, // Добавляем отступ для кнопки редактирования
+                                }}
                                 color="text.secondary"
                                 variant="h5"
-                                ref={typographyRef}
-                                onClick={onClickTitle}
                             >
                                 {title}
                             </Typography>
-                        )}
+
+                            <Fade in={showEditButton}>
+                                <Tooltip title="Редактировать" arrow>
+                                    <IconButton
+                                        onClick={handleEditClick}
+                                        size="small"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: 0,
+                                            backgroundColor: 'blue',
+                                            boxShadow: 1,
+                                        }}
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Fade>
+                            <Dialog
+                                open={isDialogOpen}
+                                onClose={handleDialogClose}
+                            >
+                                <EditToDoListTitle
+                                    toggleEditMode={setIsDialogOpen}
+                                    title={title}
+                                />
+                            </Dialog>
+                        </div>
                         <Link to={url} style={{ textDecoration: 'none' }}>
                             <div onClick={stopPropagation}>
                                 <TodosCardItemList />
                                 <IconButton
                                     aria-label="delete"
                                     size="small"
+                                    sx={{ pl: 0 }}
                                     onClick={handleOpenModal}
                                 >
                                     <Delete />

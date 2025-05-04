@@ -1,21 +1,23 @@
 import { FC, useRef } from 'react';
-import { Box, FormControl, TextField } from '@mui/material';
+import {
+    Button,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    TextField,
+} from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import useTodoListStore from '../../Hooks/useTodoListStore';
-import useClickOutside from '../../Hooks/useClickOutside';
 
 interface EditToDoListTitleProps {
     toggleEditMode: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
-    fontSize: string;
-    width: string;
 }
 
 const EditToDoListTitle: FC<EditToDoListTitleProps> = ({
     toggleEditMode,
     title,
-    fontSize,
-    width,
 }) => {
     const todoListStore = useTodoListStore();
     const { control, handleSubmit } = useForm({
@@ -29,20 +31,20 @@ const EditToDoListTitle: FC<EditToDoListTitleProps> = ({
         toggleEditMode(false);
     };
 
-    const formRef = useRef<HTMLFormElement>(null);
-    const clickActionOutsideComponent = (): void => {
+    const handleDialogClose = () => {
         toggleEditMode(false);
     };
 
-    useClickOutside(clickActionOutsideComponent, formRef);
-
     return (
-        <Box sx={{ width }}>
-            <form
-                ref={formRef}
-                style={{ width: '100%' }}
-                onSubmit={handleSubmit(onSubmit)}
-            >
+        <form
+            style={{
+                width: '100%',
+                fontSize: 20,
+            }}
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <DialogTitle>Новый заголовок</DialogTitle>
+            <DialogContent>
                 <Controller
                     name="editTitle"
                     control={control}
@@ -50,19 +52,26 @@ const EditToDoListTitle: FC<EditToDoListTitleProps> = ({
                         <FormControl fullWidth>
                             <TextField
                                 {...field}
-                                sx={{
-                                    fontSize,
-                                    '& .MuiInputBase-root': {
-                                        fontSize: 'inherit',
-                                    },
-                                }}
+                                sx={{ py: 0 }}
                                 variant="outlined"
                             />
                         </FormControl>
                     )}
                 />
-            </form>
-        </Box>
+            </DialogContent>
+            <DialogActions>
+                <Button sx={{ py: 0 }} onClick={handleDialogClose}>
+                    Закрыть
+                </Button>
+                <Button
+                    sx={{ py: 0 }}
+                    type="submit"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    Сохранить
+                </Button>
+            </DialogActions>
+        </form>
     );
 };
 
