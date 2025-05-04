@@ -1,10 +1,9 @@
 import { Delete } from '@mui/icons-material';
 import Card from '@mui/material/Card/Card';
-import CardActions from '@mui/material/CardActions/CardActions';
 import CardContent from '@mui/material/CardContent/CardContent';
 import IconButton from '@mui/material/IconButton/IconButton';
 import Typography from '@mui/material/Typography/Typography';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import TodolistDialogDeleting from './TodolistDialogDeleting/TodolistDialogDeleting';
@@ -14,9 +13,32 @@ import TodosCardItemList from './TodosCardItemList/TodosCardItemList';
 import TodoListStateContext from '../../TodosStateContext/TodoListStateContext';
 import useTodoListStoreOfId from './useTodoListStoreOfId';
 import useTodosTheme from '../../../Hooks/useTodoTheme';
+import EditToDoListTitle from '../../EditToDoListTitle/EditToDoListTitle';
+import { Dialog, Fade, Tooltip } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     const pageTodoListStore = useTodoListStoreOfId(id);
+    const [showEditButton, setShowEditButton] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const handleMouseEnter = () => {
+        setShowEditButton(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowEditButton(false);
+    };
+
+    const handleEditClick = (event: React.MouseEvent<HTMLElement>) => {
+        setIsDialogOpen(true);
+        setShowEditButton(false);
+    };
+
+    const handleDialogClose = () => {
+        setIsDialogOpen(false);
+    };
+
     const { open, openModal, clouseModal } = useModalState(false);
     const todoTheme = useTodosTheme();
     const url = `/list/${id}`;
@@ -39,42 +61,83 @@ const TodosCardItem: FC<{ id: number; title: string }> = ({ id, title }) => {
     return (
         <TodoListStateContext.Provider value={pageTodoListStore}>
             <>
-                <Link to={url} style={{ textDecoration: 'none' }}>
-                    <Card
-                        sx={{
-                            maxWidth: 250,
-                            alignContent: 'center',
-                            backgroundColor:
-                                todoTheme.palette.grey[
-                                    todoTheme.palette.mode === 'dark'
-                                        ? 800
-                                        : 300
-                                ],
-                        }}
-                    >
-                        <CardContent>
+                <Card
+                    sx={{
+                        maxWidth: 250,
+                        alignContent: 'center',
+                        backgroundColor:
+                            todoTheme.palette.grey[
+                                todoTheme.palette.mode === 'dark' ? 800 : 300
+                            ],
+                    }}
+                >
+                    <CardContent>
+                        <div
+                            style={{
+                                position: 'relative',
+                                display: 'flex',
+                                alignItems: 'center',
+                                width: '100%',
+                            }}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
                             <Typography
+                                sx={{
+                                    flex: 1,
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    pr: 4,
+                                }}
                                 color="text.secondary"
                                 variant="h5"
-                                gutterBottom
                             >
                                 {title}
                             </Typography>
+
+                            <Fade in={showEditButton}>
+                                <Tooltip title="Редактировать" arrow>
+                                    <IconButton
+                                        onClick={handleEditClick}
+                                        size="small"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: 0,
+                                            backgroundColor:
+                                                todoTheme.palette.info.light,
+                                            boxShadow: 1,
+                                        }}
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Fade>
+                            <Dialog
+                                open={isDialogOpen}
+                                onClose={handleDialogClose}
+                            >
+                                <EditToDoListTitle
+                                    toggleEditMode={setIsDialogOpen}
+                                    title={title}
+                                />
+                            </Dialog>
+                        </div>
+                        <Link to={url} style={{ textDecoration: 'none' }}>
                             <div onClick={stopPropagation}>
                                 <TodosCardItemList />
+                                <IconButton
+                                    aria-label="delete"
+                                    size="small"
+                                    sx={{ pl: 0 }}
+                                    onClick={handleOpenModal}
+                                >
+                                    <Delete />
+                                </IconButton>
                             </div>
-                        </CardContent>
-                        <CardActions>
-                            <IconButton
-                                aria-label="delete"
-                                size="small"
-                                onClick={handleOpenModal}
-                            >
-                                <Delete />
-                            </IconButton>
-                        </CardActions>
-                    </Card>
-                </Link>
+                        </Link>
+                    </CardContent>
+                </Card>
 
                 <TodolistDialogDeleting
                     open={open}

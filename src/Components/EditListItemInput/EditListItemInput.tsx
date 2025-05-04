@@ -79,6 +79,7 @@ const EditListItemInput: FC<{
 
             <Button
                 size="large"
+                type="submit"
                 variant="outlined"
                 onClick={handleSubmit(onSubmit)}
             >

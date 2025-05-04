@@ -1,17 +1,43 @@
-import { FC, useState } from 'react';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { FC, useEffect, useRef, useState } from 'react';
+import {
+    Box,
+    Dialog,
+    Fade,
+    IconButton,
+    Tooltip,
+    Typography,
+} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import useTodoListStore from '../../Hooks/useTodoListStore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { MAIN_PATH } from '../../constants';
 import { Link } from 'react-router-dom';
 import EditToDoListTitle from '../EditToDoListTitle/EditToDoListTitle';
+import useTodosTheme from '../../Hooks/useTodoTheme';
 
 const TodoHeader: FC = () => {
-    const [isEditTitle, setEditTitle] = useState(false);
-    const onClickTitle = (): void => {
-        setEditTitle(true);
-    };
     const todoListStore = useTodoListStore();
+    const [showEditButton, setShowEditButton] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const todoTheme = useTodosTheme();
+
+    const handleMouseEnter = () => {
+        setShowEditButton(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowEditButton(false);
+    };
+
+    const handleEditClick = () => {
+        setIsDialogOpen(true);
+        setShowEditButton(false);
+    };
+
+    const handleDialogClose = () => {
+        setIsDialogOpen(false);
+    };
+
     return (
         <header>
             <Box
@@ -50,25 +76,67 @@ const TodoHeader: FC = () => {
                 <Box
                     sx={{
                         flex: 1,
+                        minWidth: 0,
                         textAlign: 'center',
+                        position: 'relative',
+                        display: 'flex',
+                        justifyContent: 'center',
                     }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                 >
-                    {isEditTitle ? (
-                        <EditToDoListTitle
-                            toggleEditMode={setEditTitle}
-                            title={todoListStore.title}
-                        />
-                    ) : (
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            display: 'inline-flex',
+                            maxWidth: '60%',
+                        }}
+                    >
                         <Typography
                             variant="h3"
                             sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
                                 display: 'inline-block',
+                                maxWidth: '100%',
                             }}
-                            onClick={onClickTitle}
                         >
                             {todoListStore.title}
                         </Typography>
-                    )}
+                        <Fade in={showEditButton}>
+                            <Box
+                                sx={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: '-10px',
+                                }}
+                            >
+                                <Tooltip title="Редактировать" arrow>
+                                    <IconButton
+                                        onClick={handleEditClick}
+                                        size="small"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '-36px',
+                                            top: 0,
+                                            backgroundColor:
+                                                todoTheme.palette.info.light,
+                                            boxShadow: 1,
+                                        }}
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Box>
+                        </Fade>
+                    </Box>
+                    <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+                        <EditToDoListTitle
+                            toggleEditMode={setIsDialogOpen}
+                            title={todoListStore.title}
+                        />
+                    </Dialog>
                 </Box>
             </Box>
         </header>

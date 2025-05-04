@@ -1,8 +1,14 @@
 import { FC, useRef } from 'react';
-import { FormControl, TextField } from '@mui/material';
+import {
+    Button,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    TextField,
+} from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import useTodoListStore from '../../Hooks/useTodoListStore';
-import useClickOutside from '../../Hooks/useClickOutside';
 
 interface EditToDoListTitleProps {
     toggleEditMode: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,32 +31,46 @@ const EditToDoListTitle: FC<EditToDoListTitleProps> = ({
         toggleEditMode(false);
     };
 
-    const formRef = useRef<HTMLFormElement>(null);
-    const clickActionOutsideComponent = (): void => {
+    const handleDialogClose = () => {
         toggleEditMode(false);
     };
 
-    useClickOutside(clickActionOutsideComponent, formRef);
-
     return (
         <form
-            ref={formRef}
-            style={{ width: '30%' }}
+            style={{
+                width: '100%',
+                fontSize: 20,
+            }}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <Controller
-                name="editTitle"
-                control={control}
-                render={({ field }) => (
-                    <FormControl fullWidth>
-                        <TextField
-                            {...field}
-                            variant="outlined"
-                            label="Текущий список"
-                        />
-                    </FormControl>
-                )}
-            />
+            <DialogTitle>Новый заголовок</DialogTitle>
+            <DialogContent>
+                <Controller
+                    name="editTitle"
+                    control={control}
+                    render={({ field }) => (
+                        <FormControl fullWidth>
+                            <TextField
+                                {...field}
+                                sx={{ py: 0 }}
+                                variant="outlined"
+                            />
+                        </FormControl>
+                    )}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button sx={{ py: 0 }} onClick={handleDialogClose}>
+                    Закрыть
+                </Button>
+                <Button
+                    sx={{ py: 0 }}
+                    type="submit"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    Сохранить
+                </Button>
+            </DialogActions>
         </form>
     );
 };
